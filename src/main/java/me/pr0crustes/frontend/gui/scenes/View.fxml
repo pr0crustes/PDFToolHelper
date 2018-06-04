@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.pr0crustes.frontend.gui.scenes.MenuController">
+   <children>
+      <Pane layoutX="94.0" layoutY="62.0">
+         <children>
+            <Button layoutX="32.0" mnemonicParsing="false" onAction="#onClickSplit" text="Split" />
+            <Button layoutX="26.0" layoutY="50.0" mnemonicParsing="false" onAction="#onClickMerge" text="Merge" />
+            <Button layoutX="22.0" layoutY="100.0" mnemonicParsing="false" onAction="#onClickConvert" text="Convert" />
+            <Button layoutY="150.0" mnemonicParsing="false" onAction="#onClickQuality" text="Change Quality" />
+         </children>
+      </Pane>
+      <Label layoutX="219.0" layoutY="273.0" text="By pr0crustes">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
