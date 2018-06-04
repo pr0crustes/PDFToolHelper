@@ -6,21 +6,22 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
-class PDFManager {
+public class PDFManager {
 
-    static void saveAs(PDDocument document, File saveAs) throws PermissionException {
+    public static void saveAs(PDDocument document, File saveAs) throws PermissionException {
         try {
-            document.save(saveAs);
+            document.save(Objects.requireNonNull(saveAs));
             document.close();
         } catch (IOException e) {
             throw new PermissionException();
         }
     }
 
-    static PDDocument getFileDocument(File file) throws NoFileException {
+    public static PDDocument getFileDocument(File file) throws NoFileException {
         try {
-            return PDDocument.load(file);
+            return PDDocument.load(Objects.requireNonNull(file));
         } catch (IOException e) {
             throw new NoFileException();
         }

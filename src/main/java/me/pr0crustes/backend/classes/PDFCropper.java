@@ -6,16 +6,19 @@ import me.pr0crustes.backend.exeptions.PermissionException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
+import java.util.Objects;
 
 public class PDFCropper {
 
     private File file;
 
     public PDFCropper(File file) {
-        this.file = file;
+        this.file = Objects.requireNonNull(file);
     }
 
     public void cropDocument(int fromPage, int toPage, File saveAs) throws NoFileException, PermissionException, ArgumentException {
+
+        saveAs = Objects.requireNonNull(saveAs);
 
         PDDocument document = PDFManager.getFileDocument(file);
 
