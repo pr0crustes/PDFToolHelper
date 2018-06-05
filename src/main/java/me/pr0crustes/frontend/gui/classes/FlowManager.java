@@ -29,11 +29,9 @@ public abstract class FlowManager implements Initializable {
         }
 
         public String getViewPath() {
-            return FlowManager.scenesPath + this.value + "View.fxml";
+            return "/scenes/" + this.value + "View.fxml";
         }
     }
-
-    private static String scenesPath = "/me/pr0crustes/frontend/gui/scenes/";
 
     protected void loadNewFXML(ActionEvent event, Scenes scene) {
         this.loadView(event, scene.getViewPath(), Starter.programTitle);

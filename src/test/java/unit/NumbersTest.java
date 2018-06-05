@@ -7,7 +7,7 @@ import org.junit.Test;
 public class NumbersTest {
 
     @Test
-    void isBetweenTest() {
+    public void isBetweenTest() {
         Assert.assertTrue(Numbers.isBetween(10, 0, 20));
         Assert.assertTrue(Numbers.isBetween(-8, -10, -5));
         Assert.assertFalse(Numbers.isBetween(10, 19, 20));

@@ -13,6 +13,7 @@ public class PDFCropper {
     private File file;
 
     public PDFCropper(File file) {
+        System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
         this.file = Objects.requireNonNull(file);
     }
 

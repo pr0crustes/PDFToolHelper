@@ -7,7 +7,7 @@ import org.junit.Test;
 public class FileExtensionsTest {
 
     @Test
-    void checkEveryFileExtension() {
+    public void checkEveryFileExtension() {
         for (FileExtensions fileExtension : FileExtensions.values()) {
             Assert.assertTrue(fileExtension.getExtension().contains("*."));
         }
