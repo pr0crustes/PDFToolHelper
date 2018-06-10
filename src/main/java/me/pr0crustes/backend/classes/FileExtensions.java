@@ -5,6 +5,7 @@ public enum FileExtensions {
     PDF("pdf"),
     PNG("png"),
     JPG("jpg"),
+    JPEG("jpeg"),
     DOC("doc"),
     DOCX("docx");
 

@@ -31,7 +31,7 @@ public class MenuController extends SimpleController {
 
     @FXML
     void onClickConvert(ActionEvent event) {
-
+        this.loadNewFXML(event, Scenes.Convert);
     }
 
 }

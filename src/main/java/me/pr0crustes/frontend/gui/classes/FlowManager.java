@@ -17,6 +17,7 @@ public abstract class FlowManager implements Initializable {
 
         MainMenu(""),
 
+        Convert("convert/"),
         Merge("merge/"),
         Quality("quality/"),
         Split("split/");

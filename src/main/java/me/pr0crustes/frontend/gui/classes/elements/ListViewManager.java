@@ -63,5 +63,4 @@ public class ListViewManager <T> {
         return this.items.subList(0, this.items.size());
     }
 
-
 }

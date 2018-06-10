@@ -7,13 +7,14 @@ import org.apache.pdfbox.multipdf.PDFMergerUtility;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class PDFMerger {
 
     private File[] fileList;
 
     public PDFMerger(File[] fileList) {
-        this.fileList = fileList;
+        this.fileList = Objects.requireNonNull(fileList);
     }
 
     public void mergeFiles(File saveAs) throws NoFileException, PermissionException {

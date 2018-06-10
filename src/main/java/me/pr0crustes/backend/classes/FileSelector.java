@@ -26,12 +26,9 @@ public class FileSelector {
         return FileSelector.createFileWindow("Save as", filters).showSaveDialog(Starter.mainStage);
     }
 
-    public static File askForSelect(FileExtensions fileExtension) {
+    public static File askForSelect(FileExtensions... fileExtensions) {
 
-        FileChooser.ExtensionFilter[] filters = {
-                ExtensionFilterFactory.newFilter(fileExtension),
-                new FileChooser.ExtensionFilter("All Files", "*.*")
-        };
+        FileChooser.ExtensionFilter[] filters = ExtensionFilterFactory.combineFilters(fileExtensions);
 
         try {
             return FileSelector.runFileQuery(() -> FileSelector.showFileSelectWindow(filters));
