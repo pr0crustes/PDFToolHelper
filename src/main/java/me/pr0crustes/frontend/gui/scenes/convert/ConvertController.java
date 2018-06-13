@@ -12,6 +12,7 @@ import me.pr0crustes.frontend.gui.classes.elements.ListViewManager;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -31,7 +32,9 @@ public class ConvertController extends ActionController {
     @FXML
     void onClickPlus() {
         File inputFile = FileSelector.askForSelect();
-        this.listViewManager.addObject(inputFile);
+        if (inputFile != null) {
+            this.listViewManager.addObject(inputFile);
+        }
     }
 
     @FXML
@@ -56,6 +59,7 @@ public class ConvertController extends ActionController {
         if (fileList.size() == 0) {
             throw new ArgumentException();
         }
+
 
         File[] files = new File[fileList.size()];
         files = fileList.toArray(files);

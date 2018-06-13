@@ -19,7 +19,7 @@ public class ListViewManager <T> {
     }
 
     public void addObject(T object) {
-        this.items.add(object);
+        this.items.add(Objects.requireNonNull(object));
     }
 
     public void removeSelected() {

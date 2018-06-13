@@ -32,7 +32,9 @@ public class MergeController extends ActionController {
     @FXML
     void onClickPlus() {
         File inputFile = FileSelector.askForSelect(FileExtensions.PDF);
-        this.listViewManager.addObject(inputFile);
+        if (inputFile != null) {
+            this.listViewManager.addObject(inputFile);
+        }
     }
 
     @FXML
