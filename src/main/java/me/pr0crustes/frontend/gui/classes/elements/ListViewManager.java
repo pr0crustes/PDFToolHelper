@@ -19,12 +19,14 @@ public class ListViewManager <T> {
     }
 
     public void addObject(T object) {
-        this.items.add(Objects.requireNonNull(object));
+        if (object != null) {
+            this.items.add(object);
+        }
     }
 
     public void removeSelected() {
         int selectedIndex = this.listView.getSelectionModel().getSelectedIndex();
-        if (selectedIndex != - 1) {
+        if (selectedIndex > - 1) {
             this.items.remove(selectedIndex);
             this.listView.getSelectionModel().clearSelection();
         }
@@ -33,7 +35,7 @@ public class ListViewManager <T> {
     public void moveSelectedUp() {
         int selectedIndex = this.listView.getSelectionModel().getSelectedIndex();
 
-        if (selectedIndex != 0) {
+        if (selectedIndex > 0) {
             this.moveListEntry(selectedIndex, selectedIndex - 1);
         }
     }

@@ -1,55 +1,37 @@
-package me.pr0crustes.frontend.gui.scenes.convert;
+package me.pr0crustes.frontend.gui.scene.convert;
 
-import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import me.pr0crustes.backend.classes.FileSelector;
 import me.pr0crustes.backend.classes.PDFConverter;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.PermissionException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
+import me.pr0crustes.frontend.gui.classes.ListController;
+import me.pr0crustes.frontend.gui.classes.elements.FileListViewManagerFactory;
 import me.pr0crustes.frontend.gui.classes.elements.ListViewManager;
+import me.pr0crustes.frontend.gui.classes.layout.NodesHelper;
 
 import java.io.File;
-import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class ConvertController extends ActionController {
-
-    @FXML
-    private ListView<File> listViewFiles;
+public class ConvertController extends ListController {
 
     private ListViewManager<File> listViewManager;
 
+    public ConvertController(Pane pane) {
+        super(pane);
+    }
+
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        this.listViewManager = new ListViewManager<>(this.listViewFiles);
-        super.initialize(location, resources);
-    }
-
-    @FXML
-    void onClickPlus() {
-        File inputFile = FileSelector.askForSelect();
-        if (inputFile != null) {
-            this.listViewManager.addObject(inputFile);
-        }
-    }
-
-    @FXML
-    void onClickMinus() {
-        this.listViewManager.removeSelected();
-    }
-
-    @FXML
-    void onClickUp() {
-        this.listViewManager.moveSelectedUp();
-    }
-
-    @FXML
-    void onClickDown() {
-        this.listViewManager.moveSelectedDown();
+    public File addNewFileToList() {
+        return FileSelector.askForSelect();
     }
 
     public void execute() throws NoFileException, PermissionException, ArgumentException {
@@ -60,7 +42,6 @@ public class ConvertController extends ActionController {
             throw new ArgumentException();
         }
 
-
         File[] files = new File[fileList.size()];
         files = fileList.toArray(files);
 
@@ -69,5 +50,11 @@ public class ConvertController extends ActionController {
         PDFConverter converter = new PDFConverter(files);
 
         converter.convertToPDF(saveDestiny);
+    }
+
+    @Override
+    public void setupGUI(Pane pane) {
+
+        this.listViewManager = new FileListViewManagerFactory(this).setupListView(pane);
     }
 }
