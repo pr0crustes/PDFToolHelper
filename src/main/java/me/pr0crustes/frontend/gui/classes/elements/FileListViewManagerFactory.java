@@ -44,6 +44,7 @@ public class FileListViewManagerFactory {
         }
 
         Button buttonSave = NodeFactory.buttonWithHandle("Save", this.controller.eventDo());
+        buttonSave.setDefaultButton(true);
 
         VBox vBox = new VBox();
         vBox.getChildren().addAll(listViewFiles, gridPaneButton, buttonSave);
