@@ -8,8 +8,8 @@ import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.PermissionException;
 import me.pr0crustes.frontend.gui.classes.ListController;
-import me.pr0crustes.frontend.gui.classes.elements.ListViewManager;
 import me.pr0crustes.frontend.gui.classes.elements.FileListViewManagerFactory;
+import me.pr0crustes.frontend.gui.classes.elements.ListViewManager;
 
 import java.io.File;
 import java.util.List;

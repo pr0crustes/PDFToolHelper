@@ -10,10 +10,10 @@ public class Starter extends Application {
 
     public static Stage mainStage; // Singleton
 
-    private static String programTitle = "PDF-Toolkit";
+    private static final String programTitle = "PDF-Toolkit";
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         Starter.mainStage = primaryStage;
 

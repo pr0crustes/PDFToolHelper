@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class PDFQualityModifier {
 
-    private File file;
+    private final File file;
 
     public PDFQualityModifier(File file) {
         this.file = file;

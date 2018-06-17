@@ -15,7 +15,7 @@ import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.PermissionException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
-import me.pr0crustes.frontend.gui.classes.layout.NodesHelper;
+import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 
 import java.io.File;
 
@@ -77,19 +77,15 @@ public class CropController extends ActionController {
         this.textFieldToPage.setPrefWidth(50);
         this.textFieldToPage.setAlignment(Pos.CENTER);
 
-        GridPane gridPaneFile = new GridPane();
+        GridPane gridPaneFile = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 
         gridPaneFile.add(new Label("File:"), 0, 0);
         gridPaneFile.add(this.textFieldFile, 1, 0);
 
-        Button buttonSelectFile = NodesHelper.buttonWithHandle("Select File", (event -> this.onClickSearch()));
+        Button buttonSelectFile = NodeFactory.buttonWithHandle("Select File", (event -> this.onClickSearch()));
         gridPaneFile.add(buttonSelectFile, 2, 0);
 
-        gridPaneFile.setAlignment(Pos.CENTER);
-        gridPaneFile.setHgap(10);
-        gridPaneFile.setVgap(20);
-
-        GridPane gridPaneCrop = new GridPane();
+        GridPane gridPaneCrop = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 
         gridPaneCrop.add(new Label("Start:"), 0, 0);
         gridPaneCrop.add(this.textFieldFromPage, 1, 0);
@@ -97,11 +93,7 @@ public class CropController extends ActionController {
         gridPaneCrop.add(new Label("End:"), 0, 1);
         gridPaneCrop.add(this.textFieldToPage, 1, 1);
 
-        gridPaneCrop.setAlignment(Pos.CENTER);
-        gridPaneCrop.setHgap(10);
-        gridPaneCrop.setVgap(20);
-
-        Button buttonExecute = NodesHelper.buttonWithHandle("Save", super.eventDo());
+        Button buttonExecute = NodeFactory.buttonWithHandle("Save", super.eventDo());
         buttonExecute.setDefaultButton(true);
 
         VBox vBox = new VBox(

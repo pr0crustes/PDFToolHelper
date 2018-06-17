@@ -8,14 +8,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import me.pr0crustes.frontend.gui.classes.ListController;
-import me.pr0crustes.frontend.gui.classes.layout.NodesHelper;
+import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 
 import java.io.File;
 
 
 public class FileListViewManagerFactory {
 
-    private ListController controller;
+    private final ListController controller;
 
     public FileListViewManagerFactory(ListController controller) {
         this.controller = controller;
@@ -31,10 +31,10 @@ public class FileListViewManagerFactory {
         ListViewManager<File> listViewManager = new ListViewManager<>(listViewFiles);
 
         Button[] buttons = {
-                NodesHelper.buttonWithHandle("+", (event -> listViewManager.addObject(this.controller.addNewFileToList()))),
-                NodesHelper.buttonWithHandle("-", (event -> listViewManager.removeSelected())),
-                NodesHelper.buttonWithHandle("↑", (event -> listViewManager.moveSelectedUp())),
-                NodesHelper.buttonWithHandle("↓", (event -> listViewManager.moveSelectedDown()))
+                NodeFactory.buttonWithHandle("+", (event -> listViewManager.addObject(this.controller.addNewFileToList()))),
+                NodeFactory.buttonWithHandle("-", (event -> listViewManager.removeSelected())),
+                NodeFactory.buttonWithHandle("↑", (event -> listViewManager.moveSelectedUp())),
+                NodeFactory.buttonWithHandle("↓", (event -> listViewManager.moveSelectedDown()))
         };
 
         GridPane gridPaneButton = new GridPane();
@@ -43,7 +43,7 @@ public class FileListViewManagerFactory {
             gridPaneButton.add(buttons[i], i, 0);
         }
 
-        Button buttonSave = NodesHelper.buttonWithHandle("Save", this.controller.eventDo());
+        Button buttonSave = NodeFactory.buttonWithHandle("Save", this.controller.eventDo());
 
         VBox vBox = new VBox();
         vBox.getChildren().addAll(listViewFiles, gridPaneButton, buttonSave);
@@ -52,7 +52,7 @@ public class FileListViewManagerFactory {
         vBox.setAlignment(Pos.CENTER);
         vBox.setPadding(new Insets(50, 100, 50, 100));
 
-        NodesHelper.bindToParent(vBox, pane);
+        NodeFactory.bindToParent(vBox, pane);
 
         pane.getChildren().add(vBox);
 

@@ -11,7 +11,7 @@ import me.pr0crustes.backend.exeptions.StrangeException;
 
 public abstract class ActionController extends PassiveController implements Runnable {
 
-    public ActionController(Pane pane) {
+    protected ActionController(Pane pane) {
         super(pane);
     }
 
@@ -44,9 +44,10 @@ public abstract class ActionController extends PassiveController implements Runn
 
         } catch (Exception e) {
             e.printStackTrace();
-            AlertFactory.DefinedAlert.unknowError.sendAlert();
+            AlertFactory.DefinedAlert.unknownError.sendAlert();
         }
     }
 
+    @SuppressWarnings("RedundantThrows")
     protected abstract void execute() throws ArgumentException, NoFileException, PermissionException, StrangeException;
 }

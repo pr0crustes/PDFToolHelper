@@ -7,7 +7,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import me.pr0crustes.frontend.gui.classes.PassiveController;
-import me.pr0crustes.frontend.gui.classes.layout.NodesHelper;
+import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 import me.pr0crustes.frontend.gui.scene.convert.ConvertController;
 import me.pr0crustes.frontend.gui.scene.crop.CropController;
 import me.pr0crustes.frontend.gui.scene.merge.MergeController;
@@ -23,7 +23,7 @@ public class MenuController extends PassiveController {
     public void setupGUI(Pane pane) {
         SplitPane splitPane = this.createSplitPane();
 
-        NodesHelper.bindToParent(splitPane, pane);
+        NodeFactory.bindToParent(splitPane, pane);
 
         pane.getChildren().add(splitPane);
     }
@@ -44,16 +44,16 @@ public class MenuController extends PassiveController {
     private StackPane createLeftStackPane(StackPane stackPaneRight) {
 
         Button[] buttons = {
-                NodesHelper.buttonWithHandle("Crop", (event -> new CropController(stackPaneRight))),
-                NodesHelper.buttonWithHandle("Merge", (event -> new MergeController(stackPaneRight))),
-                NodesHelper.buttonWithHandle("Convert", (event -> new ConvertController(stackPaneRight))),
-                NodesHelper.buttonWithHandle("Quality", (event -> new QualityController(stackPaneRight)))
+                NodeFactory.buttonWithHandle("Crop", (event -> new CropController(stackPaneRight))),
+                NodeFactory.buttonWithHandle("Merge", (event -> new MergeController(stackPaneRight))),
+                NodeFactory.buttonWithHandle("Convert", (event -> new ConvertController(stackPaneRight))),
+                NodeFactory.buttonWithHandle("Quality", (event -> new QualityController(stackPaneRight)))
         };
 
         GridPane gridPane = new GridPane();
 
         for (int i = 0 ; i < buttons.length ; i++) {
-            NodesHelper.maxButtonSize(buttons[i]);
+            NodeFactory.maxButtonSize(buttons[i]);
             gridPane.add(buttons[i], 0, i);
         }
 

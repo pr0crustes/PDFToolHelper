@@ -6,7 +6,7 @@ import java.io.File;
 
 public abstract class ListController extends ActionController {
 
-    public ListController(Pane pane) {
+    protected ListController(Pane pane) {
         super(pane);
     }
 

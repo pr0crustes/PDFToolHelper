@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public abstract class PassiveController implements Setup {
 
-    public PassiveController(Pane pane) {
+    protected PassiveController(Pane pane) {
         Objects.requireNonNull(pane).getChildren().clear();
         this.setupGUI(pane);
     }

@@ -7,8 +7,8 @@ import java.io.File;
 
 public class PDFCropperTest {
 
-    private File nonExistentFile = new File("non_existent_file");
-    private PDFCropper cropper = new PDFCropper(nonExistentFile);
+    private final File nonExistentFile = new File("non_existent_file");
+    private final PDFCropper cropper = new PDFCropper(nonExistentFile);
 
     @Test(expected = NullPointerException.class)
     public void testConstructor() {

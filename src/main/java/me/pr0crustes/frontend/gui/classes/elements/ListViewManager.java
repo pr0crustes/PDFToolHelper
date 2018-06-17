@@ -9,22 +9,22 @@ import java.util.Objects;
 
 public class ListViewManager <T> {
 
-    private ListView<T> listView;
+    private final ListView<T> listView;
 
-    private ObservableList<T> items = FXCollections.observableArrayList();
+    private final ObservableList<T> items = FXCollections.observableArrayList();
 
-    public ListViewManager(ListView<T> list) {
+    ListViewManager(ListView<T> list) {
         this.listView = Objects.requireNonNull(list);
         this.listView.setItems(this.items);
     }
 
-    public void addObject(T object) {
+    void addObject(T object) {
         if (object != null) {
             this.items.add(object);
         }
     }
 
-    public void removeSelected() {
+    void removeSelected() {
         int selectedIndex = this.listView.getSelectionModel().getSelectedIndex();
         if (selectedIndex > - 1) {
             this.items.remove(selectedIndex);
@@ -32,7 +32,7 @@ public class ListViewManager <T> {
         }
     }
 
-    public void moveSelectedUp() {
+    void moveSelectedUp() {
         int selectedIndex = this.listView.getSelectionModel().getSelectedIndex();
 
         if (selectedIndex > 0) {
@@ -40,7 +40,7 @@ public class ListViewManager <T> {
         }
     }
 
-    public void moveSelectedDown() {
+    void moveSelectedDown() {
         int selectedIndex = this.listView.getSelectionModel().getSelectedIndex();
 
         if (selectedIndex != this.items.size() - 1) {

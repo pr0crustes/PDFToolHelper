@@ -1,22 +1,14 @@
 package me.pr0crustes.frontend.gui.scene.convert;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import me.pr0crustes.backend.classes.FileSelector;
 import me.pr0crustes.backend.classes.PDFConverter;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.PermissionException;
-import me.pr0crustes.frontend.gui.classes.ActionController;
 import me.pr0crustes.frontend.gui.classes.ListController;
 import me.pr0crustes.frontend.gui.classes.elements.FileListViewManagerFactory;
 import me.pr0crustes.frontend.gui.classes.elements.ListViewManager;
-import me.pr0crustes.frontend.gui.classes.layout.NodesHelper;
 
 import java.io.File;
 import java.util.List;

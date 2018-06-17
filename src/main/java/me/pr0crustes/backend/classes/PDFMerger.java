@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class PDFMerger {
 
-    private File[] fileList;
+    private final File[] fileList;
 
     public PDFMerger(File[] fileList) {
         this.fileList = Objects.requireNonNull(fileList);
