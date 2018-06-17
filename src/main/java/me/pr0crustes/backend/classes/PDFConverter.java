@@ -18,7 +18,7 @@ import java.util.Objects;
 
 public class PDFConverter {
 
-    private File[] fileArray;
+    private final File[] fileArray;
 
     public PDFConverter(File[] fileArray) {
         System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");

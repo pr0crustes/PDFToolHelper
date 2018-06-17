@@ -3,7 +3,7 @@ package me.pr0crustes.frontend.gui.classes;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
-public class AlertFactory {
+class AlertFactory {
 
     public enum DefinedAlert {
 
@@ -25,7 +25,7 @@ public class AlertFactory {
                 "Invalid Arguments",
                 "At least one argument passed is not valid."),
 
-        unknowError(
+        unknownError(
                 Alert.AlertType.ERROR,
                 "Unknown Error",
                 "An Unknown Error Occurred",
@@ -33,10 +33,10 @@ public class AlertFactory {
 
 
 
-        private Alert.AlertType type;
-        private String title;
-        private String header;
-        private String text;
+        private final Alert.AlertType type;
+        private final String title;
+        private final String header;
+        private final String text;
 
         DefinedAlert(Alert.AlertType type, String title, String header, String text) {
             this.type = type;
@@ -50,10 +50,10 @@ public class AlertFactory {
         }
     }
 
-    public static void sendNewAlert(Alert.AlertType type,
-                                    String title,
-                                    String header,
-                                    String text) {
+    private static void sendNewAlert(Alert.AlertType type,
+                                     String title,
+                                     String header,
+                                     String text) {
 
         Platform.runLater(() -> AlertFactory.createAlert(type, title, header, text).showAndWait());
     }

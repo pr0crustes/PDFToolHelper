@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class PDFCropper {
 
-    private File file;
+    private final File file;
 
     public PDFCropper(File file) {
         System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");

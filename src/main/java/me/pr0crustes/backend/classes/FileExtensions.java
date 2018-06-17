@@ -9,7 +9,7 @@ public enum FileExtensions {
     DOC("doc"),
     DOCX("docx");
 
-    private String value;
+    private final String value;
 
     FileExtensions(String value) {
         this.value = value;

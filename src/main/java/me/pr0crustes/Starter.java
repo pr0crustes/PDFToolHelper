@@ -1,35 +1,32 @@
 package me.pr0crustes;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import me.pr0crustes.frontend.gui.classes.FlowManager;
-
-import java.net.URL;
-import java.util.Objects;
+import me.pr0crustes.frontend.gui.scene.menu.MenuController;
 
 public class Starter extends Application {
 
     public static Stage mainStage; // Singleton
 
-    public static String programTitle = "PDF-Toolkit";
+    private static final String programTitle = "PDF-Toolkit";
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         Starter.mainStage = primaryStage;
 
-        String viewPath = FlowManager.Scenes.MainMenu.getViewPath();
+        AnchorPane root = new AnchorPane();
 
-        URL resource = getClass().getResource(viewPath);
-        resource = Objects.requireNonNull(resource); // Stop here if its null
+        Scene scene = new Scene(root, 600, 400);
 
-        Parent root = FXMLLoader.load(resource);
+        primaryStage.setScene(scene);
         primaryStage.setTitle(Starter.programTitle);
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
         primaryStage.show();
+
+        new MenuController(root);
     }
 
     public static void main(String[] args) {

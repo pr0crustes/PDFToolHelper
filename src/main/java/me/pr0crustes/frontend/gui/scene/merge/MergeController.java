@@ -1,53 +1,30 @@
-package me.pr0crustes.frontend.gui.scenes.merge;
+package me.pr0crustes.frontend.gui.scene.merge;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
+import javafx.scene.layout.Pane;
 import me.pr0crustes.backend.classes.FileExtensions;
 import me.pr0crustes.backend.classes.FileSelector;
 import me.pr0crustes.backend.classes.PDFMerger;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.PermissionException;
-import me.pr0crustes.frontend.gui.classes.ActionController;
+import me.pr0crustes.frontend.gui.classes.ListController;
+import me.pr0crustes.frontend.gui.classes.elements.FileListViewManagerFactory;
 import me.pr0crustes.frontend.gui.classes.elements.ListViewManager;
 
 import java.io.File;
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class MergeController extends ActionController {
-
-    @FXML
-    private ListView<File> listViewFiles;
+public class MergeController extends ListController {
 
     private ListViewManager<File> listViewManager;
 
+    public MergeController(Pane pane) {
+        super(pane);
+    }
+
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        this.listViewManager = new ListViewManager<>(this.listViewFiles);
-        super.initialize(location, resources);
-    }
-
-    @FXML
-    void onClickPlus() {
-        File inputFile = FileSelector.askForSelect(FileExtensions.PDF);
-        this.listViewManager.addObject(inputFile);
-    }
-
-    @FXML
-    void onClickMinus() {
-        this.listViewManager.removeSelected();
-    }
-
-    @FXML
-    void onClickUp() {
-        this.listViewManager.moveSelectedUp();
-    }
-
-    @FXML
-    void onClickDown() {
-        this.listViewManager.moveSelectedDown();
+    public File addNewFileToList() {
+        return FileSelector.askForSelect(FileExtensions.PDF);
     }
 
     @Override
@@ -69,4 +46,8 @@ public class MergeController extends ActionController {
         merger.mergeFiles(saveDestiny);
     }
 
+    @Override
+    public void setupGUI(Pane pane) {
+       this.listViewManager = new FileListViewManagerFactory(this).setupListView(pane);
+    }
 }
