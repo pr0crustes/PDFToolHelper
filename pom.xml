@@ -6,8 +6,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>pr0crustes</groupId>
-    <artifactId>PDFToolkit</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>PDFToolHelper</artifactId>
+    <version>1.0.0</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
