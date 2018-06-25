@@ -4,16 +4,13 @@ import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.PermissionException;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class PDFConverter {
@@ -37,40 +34,26 @@ public class PDFConverter {
 
     private PDDocument getDocumentFromImage() throws NoFileException, ArgumentException {
 
+        PDDocument document = new PDDocument();
+
+        List<BufferedImage> bufferedImages = new ArrayList<>();
+
         try {
 
-            PDDocument document = new PDDocument();
-
             for (File file : this.fileArray) {
-
-                BufferedImage bufferedImage = ImageIO.read(file);
-
-                PDPage page = new PDPage(new PDRectangle(bufferedImage.getWidth(), bufferedImage.getHeight()));
-
-                document.addPage(page);
-
-                PDImageXObject pdImageXObject = LosslessFactory.createFromImage(document, bufferedImage);
-
-                PDPageContentStream contentStream = new PDPageContentStream(
-                        document,
-                        page,
-                        PDPageContentStream.AppendMode.APPEND,
-                        true,
-                        true);
-
-                contentStream.drawImage(pdImageXObject, 0, 0);
-                contentStream.close();
-
+                BufferedImage fileAsImage = ImageIO.read(file);
+                bufferedImages.add(fileAsImage);
             }
-
-            return document;
 
         } catch (IOException e) {
             throw new NoFileException();
         } catch (NullPointerException e) {
             throw new ArgumentException();
         }
+
+        PDFCreator pdfCreator = new PDFCreator();
+        pdfCreator.addMultipleImageAsPages(bufferedImages);
+
+        return pdfCreator.getDocument();
     }
-
-
 }
