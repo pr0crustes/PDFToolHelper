@@ -10,6 +10,7 @@ import me.pr0crustes.frontend.gui.classes.PassiveController;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 import me.pr0crustes.frontend.gui.scene.convert.ConvertController;
 import me.pr0crustes.frontend.gui.scene.crop.CropController;
+import me.pr0crustes.frontend.gui.scene.insert.InsertController;
 import me.pr0crustes.frontend.gui.scene.merge.MergeController;
 import me.pr0crustes.frontend.gui.scene.quality.QualityController;
 
@@ -46,6 +47,7 @@ public class MenuController extends PassiveController {
         Button[] buttons = {
                 NodeFactory.buttonWithHandle("Crop", (event -> new CropController(stackPaneRight))),
                 NodeFactory.buttonWithHandle("Merge", (event -> new MergeController(stackPaneRight))),
+                NodeFactory.buttonWithHandle("Insert", (event -> new InsertController(stackPaneRight))),
                 NodeFactory.buttonWithHandle("Convert", (event -> new ConvertController(stackPaneRight))),
                 NodeFactory.buttonWithHandle("Quality", (event -> new QualityController(stackPaneRight)))
         };

@@ -17,19 +17,23 @@ public class PDFCropper {
         this.file = Objects.requireNonNull(file);
     }
 
+    public PDDocument subDocument(int fromPage, int toPage) throws NoFileException, ArgumentException {
+        PDDocument document = PDFManager.getFileDocument(this.file);
+
+        if ((fromPage >= 1 && toPage <= document.getNumberOfPages()) && (fromPage <= toPage)) {
+            return this.splitDocument(document, fromPage, toPage);
+        }
+        // Invalid parameters
+        throw new ArgumentException();
+    }
+
     public void cropDocument(int fromPage, int toPage, File saveAs) throws NoFileException, PermissionException, ArgumentException {
 
         saveAs = Objects.requireNonNull(saveAs);
 
-        PDDocument document = PDFManager.getFileDocument(file);
+        PDDocument subDoc = this.subDocument(fromPage, toPage);
 
-        if ((fromPage >= 1 && toPage <= document.getNumberOfPages()) && (fromPage <= toPage)) {
-            PDDocument partial = this.splitDocument(document, fromPage, toPage);
-            PDFManager.saveAs(partial, saveAs);
-        } else {
-            // Invalid parameters
-            throw new ArgumentException();
-        }
+        PDFManager.saveAs(subDoc, saveAs);
 
     }
 
