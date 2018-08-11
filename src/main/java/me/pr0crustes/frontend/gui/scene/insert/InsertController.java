@@ -47,8 +47,8 @@ public class InsertController  extends ActionController {
         boolean allFile = this.checkBoxAllFile.isSelected();
 
         if (!allFile) {
-            fromPage = Numbers.valueFromTextField(this.textFieldInsertFromPage, fromPage);
-            toPage = Numbers.valueFromTextField(this.textFieldInsertToPage, toPage);
+            fromPage = Numbers.valueFromTextField(this.textFieldInsertFromPage);
+            toPage = Numbers.valueFromTextField(this.textFieldInsertToPage);
         }
 
         int afterPage;
