@@ -20,7 +20,7 @@ public class PDFInsert {
     }
 
     // if entireFile is TRUE, `fromPage` and `toPage` will not be used, so values can be anything
-    public PDDocument insertDocument(boolean entireFile, int fromPage, int toPage, int insertAfterPage) throws NoFileException, PermissionException, ArgumentException {
+    public PDDocument insertDocument(boolean entireFile, int fromPage, int toPage, int insertAfterPage) throws NoFileException, ArgumentException {
 
         PDDocument documentInsert;
 
@@ -35,11 +35,18 @@ public class PDFInsert {
         PDDocument documentNew = new PDDocument();
 
         for (int i = 0; i < documentInto.getNumberOfPages(); i++) {
-            documentNew.addPage(documentInto.getPage(i));
-            if (i == insertAfterPage - 1) { // -1 because 0 is the first page
-                for (int ii = 0; ii < documentInsert.getNumberOfPages(); ii++) {
-                    documentNew.addPage(documentInsert.getPage(ii));
+            if (i == insertAfterPage) {
+                for (int j = 0; j < documentInsert.getNumberOfPages(); j++) {
+                    documentNew.addPage(documentInsert.getPage(j));
                 }
+            }
+            documentNew.addPage(documentInto.getPage(i));
+        }
+
+        // Check if should be added at the end
+        if (insertAfterPage == documentInto.getNumberOfPages()) {
+            for (int j = 0; j < documentInsert.getNumberOfPages(); j++) {
+                documentNew.addPage(documentInsert.getPage(j));
             }
         }
 

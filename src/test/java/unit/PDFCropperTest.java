@@ -14,14 +14,4 @@ public class PDFCropperTest {
     public void testConstructor() {
         new PDFCropper(null);
     }
-
-    @Test(expected = Exception.class)
-    public void testNegativeArguments() throws Exception {
-        cropper.cropDocument(-10, -6, nonExistentFile);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testNullFile() throws Exception {
-        cropper.cropDocument(1, 2, null);
-    }
 }
