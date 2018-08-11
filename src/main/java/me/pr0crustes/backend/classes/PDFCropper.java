@@ -27,16 +27,6 @@ public class PDFCropper {
         throw new ArgumentException();
     }
 
-    public void cropDocument(int fromPage, int toPage, File saveAs) throws NoFileException, PermissionException, ArgumentException {
-
-        saveAs = Objects.requireNonNull(saveAs);
-
-        PDDocument subDoc = this.subDocument(fromPage, toPage);
-
-        PDFManager.saveAs(subDoc, saveAs);
-
-    }
-
     private PDDocument splitDocument(PDDocument document, int fromPage, int toPage) {
         for (int i = document.getNumberOfPages() - 1 ; i >= 0 ; i--) {
             if (Numbers.isBetween(i, fromPage - 1, toPage - 1)) { // -1 because page count starts from 0 but user input from 1

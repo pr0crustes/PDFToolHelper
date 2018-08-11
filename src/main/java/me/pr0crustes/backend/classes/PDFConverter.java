@@ -22,17 +22,7 @@ public class PDFConverter {
         this.fileArray = Objects.requireNonNull(fileArray);
     }
 
-    public void convertToPDF(File saveAs) throws NoFileException, PermissionException, ArgumentException {
-
-        saveAs = Objects.requireNonNull(saveAs);
-
-        PDDocument document = this.getDocumentFromImage();
-
-        PDFManager.saveAs(document, saveAs);
-
-    }
-
-    private PDDocument getDocumentFromImage() throws NoFileException, ArgumentException {
+    public PDDocument getDocumentFromImages() throws NoFileException, ArgumentException {
 
         PDDocument document = new PDDocument();
 
@@ -56,4 +46,5 @@ public class PDFConverter {
 
         return pdfCreator.getDocument();
     }
+
 }

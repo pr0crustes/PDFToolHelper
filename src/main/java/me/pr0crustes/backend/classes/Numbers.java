@@ -1,6 +1,7 @@
 package me.pr0crustes.backend.classes;
 
 import javafx.scene.control.TextField;
+import me.pr0crustes.backend.exeptions.ArgumentException;
 
 public class Numbers {
 
@@ -8,14 +9,18 @@ public class Numbers {
         return (number >= fromNumber && number <= toNumber);
     }
 
-    public static int valueFromTextField(TextField textField) throws NumberFormatException {
-        return Integer.valueOf(textField.getText());
+    public static int valueFromTextField(TextField textField) throws ArgumentException {
+        try {
+            return Integer.valueOf(textField.getText());
+        } catch (NumberFormatException e) {
+            throw new ArgumentException();
+        }
     }
 
     public static int valueFromTextField(TextField textField, int errorCase) {
         try {
             return Numbers.valueFromTextField(textField);
-        } catch (NumberFormatException e) {
+        } catch (ArgumentException e) {
             return errorCase;
         }
     }

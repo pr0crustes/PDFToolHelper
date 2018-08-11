@@ -3,6 +3,7 @@ package me.pr0crustes.frontend.gui.scene.merge;
 import javafx.scene.layout.Pane;
 import me.pr0crustes.backend.classes.FileExtensions;
 import me.pr0crustes.backend.classes.FileSelector;
+import me.pr0crustes.backend.classes.PDFManager;
 import me.pr0crustes.backend.classes.PDFMerger;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
@@ -10,6 +11,7 @@ import me.pr0crustes.backend.exeptions.PermissionException;
 import me.pr0crustes.frontend.gui.classes.ListController;
 import me.pr0crustes.frontend.gui.classes.elements.FileListViewManagerFactory;
 import me.pr0crustes.frontend.gui.classes.elements.ListViewManager;
+import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
 import java.util.List;
@@ -39,11 +41,13 @@ public class MergeController extends ListController {
         File[] filesToMerge = new File[fileList.size()];
         filesToMerge = fileList.toArray(filesToMerge);
 
+        File saveAs = FileSelector.showSavePdfFile();
+
         PDFMerger merger = new PDFMerger(filesToMerge);
 
-        File saveDestiny = FileSelector.showSavePdfFile();
+        PDDocument document = merger.mergeFiles();
 
-        merger.mergeFiles(saveDestiny);
+        PDFManager.saveAs(document, saveAs);
     }
 
     @Override

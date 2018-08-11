@@ -20,29 +20,18 @@ public class PDFQualityModifier {
         this.file = file;
     }
 
-    public void saveWithDPI(int dpi, File saveAs) throws NoFileException, PermissionException, ArgumentException {
+    public PDDocument getDocumentWithDPI(int dpi) throws NoFileException, ArgumentException {
 
-        PDDocument document = this.getDocumentWithDPI(dpi);
+        PDDocument originalDocument = PDFManager.getFileDocument(this.file);
+        PDFRenderer renderer = new PDFRenderer(originalDocument);
 
-        PDFManager.saveAs(document, saveAs);
-    }
-
-    private PDDocument getDocumentWithDPI(int dpi) throws NoFileException, ArgumentException {
-
-
-            PDDocument originalDocument = PDFManager.getFileDocument(this.file);
-
-            PDFRenderer renderer = new PDFRenderer(originalDocument);
-
-            List<BufferedImage> bufferedImages = new ArrayList<>();
+        List<BufferedImage> bufferedImages = new ArrayList<>();
 
         try {
-
             for (int i = 0; i < originalDocument.getNumberOfPages(); i++) {
                     BufferedImage pageAsImage = renderer.renderImageWithDPI(i, dpi);
                     bufferedImages.add(pageAsImage);
             }
-
         } catch (IOException e) {
             throw new NoFileException();
         }

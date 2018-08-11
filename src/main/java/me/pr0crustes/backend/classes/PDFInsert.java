@@ -20,7 +20,7 @@ public class PDFInsert {
     }
 
     // if entireFile is TRUE, `fromPage` and `toPage` will not be used, so values can be anything
-    private PDDocument insertDocument(boolean entireFile, int fromPage, int toPage, int insertAfterPage) throws NoFileException, PermissionException, ArgumentException {
+    public PDDocument insertDocument(boolean entireFile, int fromPage, int toPage, int insertAfterPage) throws NoFileException, PermissionException, ArgumentException {
 
         PDDocument documentInsert;
 
@@ -45,12 +45,5 @@ public class PDFInsert {
 
         return documentNew;
     }
-
-    public void insertDocument(boolean entireFile, int fromPage, int toPage, int insertAfterPage, File saveAs) throws NoFileException, PermissionException, ArgumentException {
-        saveAs = Objects.requireNonNull(saveAs);
-        PDDocument document = this.insertDocument(entireFile, fromPage, toPage, insertAfterPage);
-        PDFManager.saveAs(document, saveAs);
-    }
-
 
 }

@@ -8,15 +8,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import me.pr0crustes.backend.classes.FileExtensions;
-import me.pr0crustes.backend.classes.FileSelector;
-import me.pr0crustes.backend.classes.Numbers;
-import me.pr0crustes.backend.classes.PDFCropper;
+import me.pr0crustes.backend.classes.*;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.PermissionException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
+import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
 
@@ -48,11 +46,13 @@ public class CropController extends ActionController {
             throw new ArgumentException();
         }
 
-        File destinyFile = FileSelector.showSavePdfFile();
+        File saveAs = FileSelector.showSavePdfFile();
 
         PDFCropper cropper = new PDFCropper(this.selectedFile);
 
-        cropper.cropDocument(Numbers.valueFromTextField(this.textFieldFromPage), Numbers.valueFromTextField(this.textFieldToPage), destinyFile);
+        PDDocument subDocument = cropper.subDocument(Numbers.valueFromTextField(this.textFieldFromPage), Numbers.valueFromTextField(this.textFieldToPage));
+
+        PDFManager.saveAs(subDocument, saveAs);
     }
 
     @Override
