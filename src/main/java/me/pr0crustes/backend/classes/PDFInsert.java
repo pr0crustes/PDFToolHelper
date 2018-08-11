@@ -7,20 +7,35 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import java.io.File;
 import java.util.Objects;
 
+/**
+ * Class that handles inserting a pdf (or a subpart of one) into other pdf.
+ */
 public class PDFInsert {
 
     private final File insertFile;
     private final File intoFile;
 
+    /**
+     * Constructor that fills important stuff.
+     * @param insertFile the file that should be inserted.
+     * @param intoFile the file to be inserted into.
+     */
     public PDFInsert(File insertFile, File intoFile) {
-        System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
         this.insertFile = Objects.requireNonNull(insertFile);
         this.intoFile = Objects.requireNonNull(intoFile);
     }
 
-    // if entireFile is TRUE, `fromPage` and `toPage` will not be used, so values can be anything
+    /**
+     * Method that inserts the insertFile into intoFile, respecting the args.
+     * @param entireFile if all file should be included. If TRUE, `fromPage` and `toPage` will not be used, so values can be anything.
+     * @param fromPage the first page of insertFile that should be inserted.
+     * @param toPage the last page of insertFile that should be inserted.
+     * @param insertAfterPage after which page the file should be included.
+     * @return a PDDocument with the insert done.
+     * @throws NoFileException in case of file error.
+     * @throws ArgumentException in case of invalid argument.
+     */
     public PDDocument insertDocument(boolean entireFile, int fromPage, int toPage, int insertAfterPage) throws NoFileException, ArgumentException {
-
         PDDocument documentInsert;
 
         if (entireFile) {

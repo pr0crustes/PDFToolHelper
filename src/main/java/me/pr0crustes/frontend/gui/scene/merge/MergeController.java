@@ -1,7 +1,7 @@
 package me.pr0crustes.frontend.gui.scene.merge;
 
 import javafx.scene.layout.Pane;
-import me.pr0crustes.backend.classes.FileExtensions;
+import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.classes.FileSelector;
 import me.pr0crustes.backend.classes.PDFManager;
 import me.pr0crustes.backend.classes.PDFMerger;

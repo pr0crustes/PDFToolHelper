@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import me.pr0crustes.backend.classes.*;
+import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.PermissionException;

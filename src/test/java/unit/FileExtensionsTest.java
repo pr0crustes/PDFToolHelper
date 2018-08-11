@@ -1,6 +1,6 @@
 package unit;
 
-import me.pr0crustes.backend.classes.FileExtensions;
+import me.pr0crustes.backend.enums.FileExtensions;
 import org.junit.Assert;
 import org.junit.Test;
 

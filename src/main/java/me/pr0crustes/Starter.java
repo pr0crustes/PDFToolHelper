@@ -14,7 +14,6 @@ public class Starter extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
         Starter.mainStage = primaryStage;
 
         AnchorPane root = new AnchorPane();
@@ -30,6 +29,7 @@ public class Starter extends Application {
     }
 
     public static void main(String[] args) {
+        System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
         launch(args);
     }
 }
