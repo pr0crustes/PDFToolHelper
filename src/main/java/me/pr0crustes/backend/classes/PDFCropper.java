@@ -2,7 +2,6 @@ package me.pr0crustes.backend.classes;
 
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
-import me.pr0crustes.backend.exeptions.PermissionException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
