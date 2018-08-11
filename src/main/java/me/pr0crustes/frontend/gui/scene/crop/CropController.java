@@ -7,15 +7,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import me.pr0crustes.backend.classes.FileExtensions;
-import me.pr0crustes.backend.classes.FileSelector;
-import me.pr0crustes.backend.classes.PDFCropper;
+import me.pr0crustes.backend.classes.*;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.PermissionException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
+import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
 
@@ -42,40 +40,28 @@ public class CropController extends ActionController {
         this.textFieldFile.setText(filePath);
     }
 
-    private int getStartPage() throws NumberFormatException {
-        return Integer.valueOf(this.textFieldFromPage.getText());
-    }
-
-    private int getEndPage() throws NumberFormatException {
-        return Integer.valueOf(this.textFieldToPage.getText());
-    }
-
     public void execute() throws ArgumentException, NoFileException, PermissionException {
         if (this.selectedFile == null) {
             throw new ArgumentException();
         }
 
-        File destinyFile = FileSelector.showSavePdfFile();
+        File saveAs = FileSelector.showSavePdfFile();
 
         PDFCropper cropper = new PDFCropper(this.selectedFile);
 
-        cropper.cropDocument(this.getStartPage(), this.getEndPage(), destinyFile);
+        PDDocument subDocument = cropper.subDocument(Numbers.valueFromTextField(this.textFieldFromPage), Numbers.valueFromTextField(this.textFieldToPage));
+
+        PDFManager.saveAs(subDocument, saveAs);
     }
 
     @Override
     public void setupGUI(Pane pane) {
 
-        this.textFieldFile = new TextField();
-        this.textFieldFile.setPrefWidth(300);
-        this.textFieldFile.setFont(Font.font(10));
+        this.textFieldFile = NodeFactory.textFieldWithWidthAndAlignment(300, Pos.CENTER);
 
-        this.textFieldFromPage = new TextField();
-        this.textFieldFromPage.setPrefWidth(50);
-        this.textFieldFromPage.setAlignment(Pos.CENTER);
+        this.textFieldFromPage = NodeFactory.textFieldWithWidthAndAlignment(50, Pos.CENTER);
 
-        this.textFieldToPage = new TextField();
-        this.textFieldToPage.setPrefWidth(50);
-        this.textFieldToPage.setAlignment(Pos.CENTER);
+        this.textFieldToPage = NodeFactory.textFieldWithWidthAndAlignment(50, Pos.CENTER);
 
         GridPane gridPaneFile = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 

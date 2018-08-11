@@ -3,10 +3,7 @@ package me.pr0crustes.frontend.gui.classes;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
-import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.NoFileException;
-import me.pr0crustes.backend.exeptions.PermissionException;
-import me.pr0crustes.backend.exeptions.StrangeException;
+import me.pr0crustes.backend.exeptions.*;
 
 
 public abstract class ActionController extends PassiveController implements Runnable {
@@ -33,8 +30,11 @@ public abstract class ActionController extends PassiveController implements Runn
             this.execute();
 
         } catch (ArgumentException e) {
-            e.printStackTrace();
             AlertFactory.DefinedAlert.invalidArgument.sendAlert();
+
+        } catch (NoTargetFileException e) {
+            // Ignore, user didn't selected a file
+            //TODO: Handle this in some way (?)
 
         } catch (NoFileException e) {
             AlertFactory.DefinedAlert.noFile.sendAlert();
@@ -49,5 +49,10 @@ public abstract class ActionController extends PassiveController implements Runn
     }
 
     @SuppressWarnings("RedundantThrows")
-    protected abstract void execute() throws ArgumentException, NoFileException, PermissionException, StrangeException;
+    protected abstract void execute() throws
+                                            ArgumentException,
+                                            NoFileException,
+                                            PermissionException,
+                                            NoTargetFileException,
+                                            StrangeException;
 }

@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.stage.FileChooser;
 import me.pr0crustes.Starter;
 import me.pr0crustes.backend.exeptions.NoFileException;
+import me.pr0crustes.backend.exeptions.NoTargetFileException;
 
 import java.io.File;
 import java.util.concurrent.Callable;
@@ -37,13 +38,18 @@ public class FileSelector {
         }
     }
 
-    public static File showSavePdfFile() throws NoFileException {
+    public static File showSavePdfFile() throws NoFileException, NoTargetFileException {
 
         FileChooser.ExtensionFilter[] filters = {
                 ExtensionFilterFactory.newFilter(FileExtensions.PDF)
         };
 
-        return FileSelector.runFileQuery(() -> FileSelector.showFileSaveWindow(filters));
+        File file = FileSelector.runFileQuery(() -> FileSelector.showFileSaveWindow(filters));
+
+        if (file == null) {
+            throw new NoTargetFileException();
+        }
+        return file;
     }
 
     private static File runFileQuery(Callable<File> callable) throws NoFileException {
