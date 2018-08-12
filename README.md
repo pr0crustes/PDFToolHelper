@@ -14,9 +14,9 @@ A few TextFields around the program expects a valid RangeEx as input, but what i
 RangeEx, short of Range Expression, is a simple expression system, by me designed, 
 that represents a finite amount of numbers.  
   
-####RangeEx has 3 basics operations that can be concatenated:  
+###RangeEx has 3 basics operations that can be concatenated:  
 
-#####UNDERSCORE ('_')  
+###UNDERSCORE ('_')  
 An underscore represents an interval of numbers, going from the number on the left to the number on the right of the underscore.  
 Generalizing, an input "X_Y", with X and Y being positive integers and X < Y, will result in all the numbers from X to Y, including Y.  
 Should always be used between two numbers.  
@@ -26,7 +26,7 @@ Examples:
 "10_15" will result in [10, 11, 12, 13, 14, 15].  
 "_6" or "3_" will result in an exception.  
   
-#####PLUS ('+')  
+###PLUS ('+')  
 A plus represents an addition of the number that follows it.  
 Generalizing, an input "+X", with X being a positive integer, will result in an interval with only the value X.  
 Every plus signal should be followed by a valid number.  
@@ -36,7 +36,7 @@ Examples:
 "+7" will result in [7].  
 "+" or "++0" will result in an exception.  
   
-#####MINUS ('-')  
+###MINUS ('-')  
 A minus represents a subtraction of the number that follows it from a interval.  
 Generalizing, an input "-X", with X being a positive integer, will result in the current input interval but without X.  
 Every minus signal should be followed by a valid number.
@@ -45,7 +45,7 @@ Example:
 "1_4-3" will result in [1, 2, 4].  
 "5_7-6" will result in [5, 7].  
 
-#####More on Concatenation 
+###More on Concatenation 
 One or more spaces (" ") are a valid input to separate things.  
 This way, "1_3 6_8" will result in [1, 2, 3, 6, 7, 8].  
 The same result can also be achieved with "1_3+6_8".  
