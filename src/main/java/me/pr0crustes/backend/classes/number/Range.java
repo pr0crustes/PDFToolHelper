@@ -1,22 +1,22 @@
-package me.pr0crustes.backend.classes;
+package me.pr0crustes.backend.classes.number;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RangeParser {
+public class Range {
 
     private final String rangeString;
 
-    public RangeParser(String rangeString) {
+    public Range(String rangeString) {
         this.rangeString = rangeString;
     }
 
     public Set<Integer> getValues() {
         Set<Integer> parsedValues = new HashSet<>();
 
-        Set<String> rangesParts = RangeParser.getMatches(rangeString, "\\d+_\\d+");
+        Set<String> rangesParts = Range.getMatches(rangeString, "\\d+_\\d+");
         for (String str : rangesParts) {
             String[] parts = str.split("_");
             for (int i = Integer.valueOf(parts[0]); i <= Integer.valueOf(parts[1]); i++) {
@@ -24,14 +24,14 @@ public class RangeParser {
             }
         }
 
-        Set<String> addParts = RangeParser.getMatches(rangeString, "[+]\\d+");
+        Set<String> addParts = Range.getMatches(rangeString, "[+]\\d+");
         for (String str : addParts) {
-            parsedValues.add(RangeParser.stringAsUnsigned(str));
+            parsedValues.add(Range.stringAsUnsigned(str));
         }
 
-        Set<String> subParts = RangeParser.getMatches(rangeString, "[-]\\d+");
+        Set<String> subParts = Range.getMatches(rangeString, "[-]\\d+");
         for (String str : subParts) {
-            parsedValues.remove(RangeParser.stringAsUnsigned(str));
+            parsedValues.remove(Range.stringAsUnsigned(str));
         }
 
         return parsedValues;

@@ -1,4 +1,4 @@
-package me.pr0crustes.backend.classes;
+package me.pr0crustes.backend.classes.file;
 
 import javafx.application.Platform;
 import javafx.stage.FileChooser;

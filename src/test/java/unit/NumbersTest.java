@@ -1,6 +1,6 @@
 package unit;
 
-import me.pr0crustes.backend.classes.Numbers;
+import me.pr0crustes.backend.classes.number.Numbers;
 import org.junit.Assert;
 import org.junit.Test;
 

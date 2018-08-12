@@ -1,4 +1,4 @@
-package me.pr0crustes.backend.classes;
+package me.pr0crustes.backend.classes.pdf;
 
 import me.pr0crustes.backend.exeptions.NoFileException;
 import org.apache.pdfbox.pdmodel.PDDocument;

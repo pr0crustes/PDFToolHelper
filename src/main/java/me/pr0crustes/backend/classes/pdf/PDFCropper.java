@@ -1,5 +1,6 @@
-package me.pr0crustes.backend.classes;
+package me.pr0crustes.backend.classes.pdf;
 
+import me.pr0crustes.backend.classes.number.Numbers;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import org.apache.pdfbox.pdmodel.PDDocument;

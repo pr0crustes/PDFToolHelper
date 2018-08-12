@@ -1,9 +1,9 @@
 package me.pr0crustes.frontend.gui.scene;
 
 import javafx.scene.layout.Pane;
-import me.pr0crustes.backend.classes.FileSelector;
-import me.pr0crustes.backend.classes.PDFConverter;
-import me.pr0crustes.backend.classes.PDFManager;
+import me.pr0crustes.backend.classes.file.FileSelector;
+import me.pr0crustes.backend.classes.pdf.PDFConverter;
+import me.pr0crustes.backend.classes.pdf.PDFManager;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.PermissionException;

@@ -1,7 +1,7 @@
 package me.pr0crustes.frontend.gui.classes;
 
 import javafx.scene.layout.Pane;
-import me.pr0crustes.backend.classes.FileSelector;
+import me.pr0crustes.backend.classes.file.FileSelector;
 
 import java.io.File;
 import java.util.List;

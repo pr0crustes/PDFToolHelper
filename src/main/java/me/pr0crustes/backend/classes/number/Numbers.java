@@ -1,4 +1,4 @@
-package me.pr0crustes.backend.classes;
+package me.pr0crustes.backend.classes.number;
 
 import javafx.scene.control.TextField;
 import me.pr0crustes.backend.exeptions.ArgumentException;

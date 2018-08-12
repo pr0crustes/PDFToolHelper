@@ -1,4 +1,4 @@
-package me.pr0crustes.backend.classes;
+package me.pr0crustes.backend.classes.file;
 
 import javafx.stage.FileChooser;
 import me.pr0crustes.backend.enums.FileExtensions;
