@@ -1,8 +1,10 @@
 package me.pr0crustes.frontend.gui.classes;
 
 import javafx.scene.layout.Pane;
+import me.pr0crustes.backend.classes.FileSelector;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * ListController is an abstract class that extends ActionController
@@ -20,8 +22,11 @@ public abstract class ListController extends ActionController {
     }
 
     /**
-     * Abstract method, should return a File when called.
-     * @return a File that should be added to a list.
+     * Method, should return an Array of Files when called.
+     * Implemented by default but can be override.
+     * @return a List of File that should be added to a list.
      */
-    public abstract File addNewFileToList();
+    public List<File> addNewFilesToList() {
+        return FileSelector.askForMultipleFile();
+    }
 }

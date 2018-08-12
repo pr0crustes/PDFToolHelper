@@ -1,7 +1,6 @@
 package me.pr0crustes.frontend.gui.scene;
 
 import javafx.scene.layout.Pane;
-import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.classes.FileSelector;
 import me.pr0crustes.backend.classes.PDFManager;
 import me.pr0crustes.backend.classes.PDFMerger;
@@ -34,16 +33,6 @@ public class MergeController extends ListController {
      */
     MergeController(Pane pane) {
         super(pane);
-    }
-
-    /**
-     * Implementation of addNewFileToList, ask the user for a file.
-     * @return a File selected by the user. Can be null.
-     * @see ListController
-     */
-    @Override
-    public File addNewFileToList() {
-        return FileSelector.askForSelect(FileExtensions.PDF);
     }
 
     /**

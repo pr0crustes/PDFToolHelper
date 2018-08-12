@@ -36,16 +36,6 @@ public class ConvertController extends ListController {
     }
 
     /**
-     * Implementation of addNewFileToList, ask the user for a file.
-     * @return a File selected by the user. Can be null.
-     * @see ListController
-     */
-    @Override
-    public File addNewFileToList() {
-        return FileSelector.askForSelect();
-    }
-
-    /**
      * Implementation of execute, converts the files and saves.
      * @throws NoFileException in case no file is selected.
      * @throws PermissionException in case of permission errors.
@@ -80,4 +70,5 @@ public class ConvertController extends ListController {
     public void setupGUI(Pane pane) {
         this.listViewManager = new FileListViewManagerFactory(this).setupListView(pane);
     }
+
 }

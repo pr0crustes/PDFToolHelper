@@ -9,7 +9,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import me.pr0crustes.backend.classes.*;
+import me.pr0crustes.backend.classes.FileSelector;
+import me.pr0crustes.backend.classes.Numbers;
+import me.pr0crustes.backend.classes.PDFInsert;
+import me.pr0crustes.backend.classes.PDFManager;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
@@ -85,7 +88,7 @@ public class InsertController extends ActionController {
      * Method that keep track of the insert file selected.
      */
     private void onClickInsertFileSearch() {
-        this.insertFile = FileSelector.askForSelect(FileExtensions.PDF);
+        this.insertFile = FileSelector.askForSingleFile(FileExtensions.PDF);
         this.textFieldInsertFile.setText(FileSelector.getFilePath(this.insertFile));
     }
 
@@ -93,7 +96,7 @@ public class InsertController extends ActionController {
      * Method that keep track of the into file selected.
      */
     private void onClickIntoFileSearch() {
-        this.intoFile = FileSelector.askForSelect(FileExtensions.PDF);
+        this.intoFile = FileSelector.askForSingleFile(FileExtensions.PDF);
         this.textFieldIntoFile.setText(FileSelector.getFilePath(this.intoFile));
     }
 

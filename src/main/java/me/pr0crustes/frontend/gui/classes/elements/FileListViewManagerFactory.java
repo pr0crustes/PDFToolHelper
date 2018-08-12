@@ -43,7 +43,7 @@ public class FileListViewManagerFactory {
         ListViewManager<File> listViewManager = new ListViewManager<>(listViewFiles);
 
         Button[] buttons = {
-                NodeFactory.buttonWithHandle("+", (event -> listViewManager.addObject(this.controller.addNewFileToList()))),
+                NodeFactory.buttonWithHandle("+", (event -> listViewManager.addObjects(this.controller.addNewFilesToList()))),
                 NodeFactory.buttonWithHandle("-", (event -> listViewManager.removeSelected())),
                 NodeFactory.buttonWithHandle("↑", (event -> listViewManager.moveSelectedUp())),
                 NodeFactory.buttonWithHandle("↓", (event -> listViewManager.moveSelectedDown()))

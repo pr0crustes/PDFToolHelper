@@ -7,7 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import me.pr0crustes.backend.classes.*;
+import me.pr0crustes.backend.classes.FileSelector;
+import me.pr0crustes.backend.classes.Numbers;
+import me.pr0crustes.backend.classes.PDFCropper;
+import me.pr0crustes.backend.classes.PDFManager;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
@@ -44,7 +47,7 @@ public class CropController extends ActionController {
      * Method that setups selectedFile and textFieldFile with user input.
      */
     private void onClickSearch() {
-        this.selectedFile = FileSelector.askForSelect(FileExtensions.PDF);
+        this.selectedFile = FileSelector.askForSingleFile(FileExtensions.PDF);
         this.textFieldFile.setText(FileSelector.getFilePath(this.selectedFile));
     }
 
