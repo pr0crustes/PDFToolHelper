@@ -78,7 +78,7 @@ public class CropController extends ActionController {
     @Override
     public void setupGUI(Pane pane) {
 
-        this.textFieldFile = NodeFactory.textFieldWithWidthAndAlignment(300, Pos.CENTER);
+        this.textFieldFile = NodeFactory.textFieldWithWidthAndAlignment(300, Pos.CENTER_LEFT);
         this.textFieldFromPage = NodeFactory.textFieldWithWidthAndAlignment(50, Pos.CENTER);
         this.textFieldToPage = NodeFactory.textFieldWithWidthAndAlignment(50, Pos.CENTER);
 

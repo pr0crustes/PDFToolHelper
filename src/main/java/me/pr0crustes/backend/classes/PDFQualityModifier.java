@@ -44,6 +44,7 @@ public class PDFQualityModifier {
                     BufferedImage pageAsImage = renderer.renderImageWithDPI(i, dpi);
                     bufferedImages.add(pageAsImage);
             }
+            originalDocument.close();
         } catch (IOException e) {
             throw new NoFileException();
         }
