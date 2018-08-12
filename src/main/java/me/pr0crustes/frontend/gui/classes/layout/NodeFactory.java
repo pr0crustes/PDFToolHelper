@@ -10,23 +10,51 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 
 
+/**
+ * NodeFactory is a class made of static methods to aggregate JavaFX node creation when repetitive.
+ * Without it, code would be repeated all over the place when creating GUIs.
+ */
 public class NodeFactory {
 
+    /**
+     * Static method that sets a child width and height to its parent.
+     * @param child the child.
+     * @param parent the parent.
+     */
     public static void bindToParent(Region child, Region parent) {
         child.prefWidthProperty().bind(parent.widthProperty());
         child.prefHeightProperty().bind(parent.heightProperty());
     }
 
+    /**
+     * Static method that creates a button and sets it handler in one line.
+     * @param text the button text.
+     * @param handler the button handler.
+     * @return the Button as desired.
+     */
     public static Button buttonWithHandle(String text, EventHandler<ActionEvent> handler) {
         Button button = new Button(text);
         button.setOnAction(handler);
         return button;
     }
 
+    /**
+     * Static method that receiving a button, setts it maxSize to the Double.MAX_VALUE,
+     * making it as bigger as possible.
+     * @param button the button.
+     */
     public static void maxButtonSize(Button button) {
         button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     }
 
+    /**
+     * Static method that creates a GridPane with the desired alignment, hgag and vgap.
+     * This allow one line creation.
+     * @param alignment the desired alignment.
+     * @param hgap the desired grid hgap.
+     * @param vgap the desired grid vgap.
+     * @return a GripPane as desired.
+     */
     public static GridPane gridPaneWithProperties(Pos alignment, double hgap, double vgap) {
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(alignment);
@@ -35,10 +63,16 @@ public class NodeFactory {
         return gridPane;
     }
 
-    public static TextField textFieldWithWidthAndAlignment(double width, Pos pos) {
+    /**
+     * Static method that creates a textField with a desired width and alignment.
+     * @param width the desired width.
+     * @param alignment the desired alignment.
+     * @return a TextField as desired.
+     */
+    public static TextField textFieldWithWidthAndAlignment(double width, Pos alignment) {
         TextField textField = new TextField();
         textField.setPrefWidth(width);
-        textField.setAlignment(pos);
+        textField.setAlignment(alignment);
         return textField;
     }
 

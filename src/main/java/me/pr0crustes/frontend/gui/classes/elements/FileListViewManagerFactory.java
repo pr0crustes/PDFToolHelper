@@ -12,15 +12,27 @@ import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 
 import java.io.File;
 
-
+/**
+ * FileListViewManagerFactory is a class that facilitates the creation and use of ListViewManager,
+ * automatically creating the main tableView GUI.
+ */
 public class FileListViewManagerFactory {
 
     private final ListController controller;
 
+    /**
+     * Constructor that receives a ListController.
+     * @param controller thw ListController the FileListViewManagerFactory will help.
+     */
     public FileListViewManagerFactory(ListController controller) {
         this.controller = controller;
     }
 
+    /**
+     * Method that creates the GUI and returns a ListViewManager.
+     * @param pane the Pane that the GUI will be drawn on.
+     * @return a ListViewManager with type File
+     */
     public ListViewManager<File> setupListView(Pane pane) {
 
         ListView<File> listViewFiles = new ListView<>();

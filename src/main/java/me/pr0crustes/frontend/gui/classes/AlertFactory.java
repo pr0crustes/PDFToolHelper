@@ -3,8 +3,15 @@ package me.pr0crustes.frontend.gui.classes;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
+/**
+ * AlertFactory is a class that aggregates Alert related stuff.
+ */
 class AlertFactory {
 
+    /**
+     * Enum with pre-made alerts.
+     * Each element is self explanatory.
+     */
     public enum DefinedAlert {
 
         noFile(
@@ -38,6 +45,13 @@ class AlertFactory {
         private final String header;
         private final String text;
 
+        /**
+         * Alert constructor.
+         * @param type the alert type.
+         * @param title the alert title.
+         * @param header the alert header.
+         * @param text the alert text.
+         */
         DefinedAlert(Alert.AlertType type, String title, String header, String text) {
             this.type = type;
             this.title = title;
@@ -45,24 +59,35 @@ class AlertFactory {
             this.text = text;
         }
 
+        /**
+         * Method that sends the alert.
+         */
         public void sendAlert() {
             AlertFactory.sendNewAlert(this.type, this.title, this.header, this.text);
         }
     }
 
-    private static void sendNewAlert(Alert.AlertType type,
-                                     String title,
-                                     String header,
-                                     String text) {
-
+    /**
+     * Static method that shows an alert in the JavaFX thread.
+     * @param type the alert type.
+     * @param title the alert title.
+     * @param header the alert header.
+     * @param text the alert text.
+     */
+    private static void sendNewAlert(Alert.AlertType type, String title, String header, String text) {
         Platform.runLater(() -> AlertFactory.createAlert(type, title, header, text).showAndWait());
     }
 
-    private static Alert createAlert(Alert.AlertType type,
-                                    String title,
-                                    String header,
-                                    String text) {
-
+    /**
+     * Static method that creates an alert and returns it.
+     * Just a wrapper to do things in one line.
+     * @param type the alert type.
+     * @param title the alert title.
+     * @param header the alert header.
+     * @param text the alert text.
+     * @return an Alert as desired.
+     */
+    private static Alert createAlert(Alert.AlertType type, String title, String header, String text) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(header);
