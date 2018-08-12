@@ -1,4 +1,4 @@
-package me.pr0crustes.frontend.gui.scene.quality;
+package me.pr0crustes.frontend.gui.scene;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

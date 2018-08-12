@@ -1,9 +1,10 @@
-package me.pr0crustes.frontend.gui.scene.convert;
+package me.pr0crustes.frontend.gui.scene;
 
 import javafx.scene.layout.Pane;
+import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.classes.FileSelector;
-import me.pr0crustes.backend.classes.PDFConverter;
 import me.pr0crustes.backend.classes.PDFManager;
+import me.pr0crustes.backend.classes.PDFMerger;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.PermissionException;
@@ -15,19 +16,20 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import java.io.File;
 import java.util.List;
 
-public class ConvertController extends ListController {
+public class MergeController extends ListController {
 
     private ListViewManager<File> listViewManager;
 
-    public ConvertController(Pane pane) {
+    public MergeController(Pane pane) {
         super(pane);
     }
 
     @Override
     public File addNewFileToList() {
-        return FileSelector.askForSelect();
+        return FileSelector.askForSelect(FileExtensions.PDF);
     }
 
+    @Override
     public void execute() throws NoFileException, PermissionException, ArgumentException {
 
         List<File> fileList = this.listViewManager.getList();
@@ -36,20 +38,20 @@ public class ConvertController extends ListController {
             throw new ArgumentException();
         }
 
-        File[] files = new File[fileList.size()];
-        files = fileList.toArray(files);
+        File[] filesToMerge = new File[fileList.size()];
+        filesToMerge = fileList.toArray(filesToMerge);
 
         File saveAs = FileSelector.showSavePdfFile();
 
-        PDFConverter converter = new PDFConverter(files);
+        PDFMerger merger = new PDFMerger(filesToMerge);
 
-        PDDocument document = converter.getDocumentFromImages();
+        PDDocument document = merger.mergeFiles();
 
         PDFManager.saveAs(document, saveAs);
     }
 
     @Override
     public void setupGUI(Pane pane) {
-        this.listViewManager = new FileListViewManagerFactory(this).setupListView(pane);
+       this.listViewManager = new FileListViewManagerFactory(this).setupListView(pane);
     }
 }
