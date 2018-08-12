@@ -1,4 +1,4 @@
-package me.pr0crustes.frontend.gui.scene.insert;
+package me.pr0crustes.frontend.gui.scene;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import me.pr0crustes.backend.classes.*;
+import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.PermissionException;
@@ -19,7 +20,13 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
 
-public class InsertController  extends ActionController {
+/**
+ * InsertController is the controller of Insert tab.
+ * Handles inserting a pdf into other.
+ * Extends ActionController.
+ * @see ActionController
+ */
+public class InsertController extends ActionController {
 
     private File insertFile;
     private File intoFile;
@@ -32,10 +39,22 @@ public class InsertController  extends ActionController {
     private TextField textFieldIntoFile;
     private TextField textFieldIntoAfterPage;
 
-    public InsertController(Pane pane) {
+    /**
+     * Just a constructor that calls super.
+     * @param pane the Pane the GUI should be drawn on.
+     */
+    InsertController(Pane pane) {
         super(pane);
     }
 
+    /**
+     * Method that creates a PDFInsert, inserts a pdf into other and saves.
+     * @throws ArgumentException in case of argument error.
+     * @throws NoFileException in case of so file selected.
+     * @throws PermissionException in case of permission error.
+     * @see ActionController
+     * @see PDFInsert
+     */
     public void execute() throws ArgumentException, NoFileException, PermissionException {
         if (this.insertFile == null || this.intoFile == null) {
             throw new ArgumentException();
@@ -51,13 +70,7 @@ public class InsertController  extends ActionController {
             toPage = Numbers.valueFromTextField(this.textFieldInsertToPage);
         }
 
-        int afterPage;
-
-        try {
-            afterPage = Numbers.valueFromTextField(this.textFieldIntoAfterPage);
-        } catch (NumberFormatException e) {
-            throw new ArgumentException();
-        }
+        int afterPage = Numbers.valueFromTextField(this.textFieldIntoAfterPage);
 
         File saveAs = FileSelector.showSavePdfFile();
 
@@ -68,16 +81,27 @@ public class InsertController  extends ActionController {
         PDFManager.saveAs(document, saveAs);
     }
 
+    /**
+     * Method that keep track of the insert file selected.
+     */
     private void onClickInsertFileSearch() {
         this.insertFile = FileSelector.askForSelect(FileExtensions.PDF);
         this.textFieldInsertFile.setText(FileSelector.getFilePath(this.insertFile));
     }
 
+    /**
+     * Method that keep track of the into file selected.
+     */
     private void onClickIntoFileSearch() {
         this.intoFile = FileSelector.askForSelect(FileExtensions.PDF);
         this.textFieldIntoFile.setText(FileSelector.getFilePath(this.intoFile));
     }
 
+    /**
+     * Implements setupGUI, creating the Insert Tab.
+     * @param pane the pane the GUI should be made on.
+     * @see me.pr0crustes.frontend.gui.classes.Setup
+     */
     @Override
     public void setupGUI(Pane pane) {
 
@@ -152,4 +176,5 @@ public class InsertController  extends ActionController {
 
         pane.getChildren().add(vBox);
     }
+
 }

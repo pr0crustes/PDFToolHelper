@@ -1,4 +1,4 @@
-package me.pr0crustes.frontend.gui.scene.convert;
+package me.pr0crustes.frontend.gui.scene;
 
 import javafx.scene.layout.Pane;
 import me.pr0crustes.backend.classes.FileSelector;
@@ -15,21 +15,44 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import java.io.File;
 import java.util.List;
 
+/**
+ * ConvertController is the controller of Convert tab.
+ * Creates and handles the GUI that converts images into PDF.
+ * Extends ListController.
+ * @see ListController
+ * @see ListViewManager
+ */
 public class ConvertController extends ListController {
 
     private ListViewManager<File> listViewManager;
 
-    public ConvertController(Pane pane) {
+    /**
+     * Just a constructor that calls super.
+     * @param pane the Pane where the GUI will be drawn on.
+     * @see ListController
+     */
+    ConvertController(Pane pane) {
         super(pane);
     }
 
+    /**
+     * Implementation of addNewFileToList, ask the user for a file.
+     * @return a File selected by the user. Can be null.
+     * @see ListController
+     */
     @Override
     public File addNewFileToList() {
         return FileSelector.askForSelect();
     }
 
+    /**
+     * Implementation of execute, converts the files and saves.
+     * @throws NoFileException in case no file is selected.
+     * @throws PermissionException in case of permission errors.
+     * @throws ArgumentException in case of invalid arguments.
+     * @see me.pr0crustes.frontend.gui.classes.ActionController
+     */
     public void execute() throws NoFileException, PermissionException, ArgumentException {
-
         List<File> fileList = this.listViewManager.getList();
 
         if (fileList.size() == 0) {
@@ -48,6 +71,11 @@ public class ConvertController extends ListController {
         PDFManager.saveAs(document, saveAs);
     }
 
+    /**
+     * Implements setupGUI, creating the Convert Tab.
+     * @param pane the pane the GUI should be made on.
+     * @see me.pr0crustes.frontend.gui.classes.Setup
+     */
     @Override
     public void setupGUI(Pane pane) {
         this.listViewManager = new FileListViewManagerFactory(this).setupListView(pane);

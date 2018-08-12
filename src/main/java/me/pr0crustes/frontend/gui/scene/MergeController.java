@@ -1,7 +1,7 @@
-package me.pr0crustes.frontend.gui.scene.merge;
+package me.pr0crustes.frontend.gui.scene;
 
 import javafx.scene.layout.Pane;
-import me.pr0crustes.backend.classes.FileExtensions;
+import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.classes.FileSelector;
 import me.pr0crustes.backend.classes.PDFManager;
 import me.pr0crustes.backend.classes.PDFMerger;
@@ -16,19 +16,43 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import java.io.File;
 import java.util.List;
 
+/**
+ * MergeController is the controller of Merge tab.
+ * Creates and handles the GUI that merges PDFs.
+ * Extends ListController.
+ * @see ListController
+ * @see ListViewManager
+ */
 public class MergeController extends ListController {
 
     private ListViewManager<File> listViewManager;
 
-    public MergeController(Pane pane) {
+    /**
+     * Just a constructor that calls super.
+     * @param pane the Pane where the GUI will be drawn on.
+     * @see ListController
+     */
+    MergeController(Pane pane) {
         super(pane);
     }
 
+    /**
+     * Implementation of addNewFileToList, ask the user for a file.
+     * @return a File selected by the user. Can be null.
+     * @see ListController
+     */
     @Override
     public File addNewFileToList() {
         return FileSelector.askForSelect(FileExtensions.PDF);
     }
 
+    /**
+     * Implementation of execute, merges the files and saves.
+     * @throws NoFileException in case no file is selected.
+     * @throws PermissionException in case of permission errors.
+     * @throws ArgumentException in case of invalid arguments.
+     * @see me.pr0crustes.frontend.gui.classes.ActionController
+     */
     @Override
     public void execute() throws NoFileException, PermissionException, ArgumentException {
 
@@ -50,6 +74,11 @@ public class MergeController extends ListController {
         PDFManager.saveAs(document, saveAs);
     }
 
+    /**
+     * Implements setupGUI, creating the Merge Tab.
+     * @param pane the pane the GUI should be made on.
+     * @see me.pr0crustes.frontend.gui.classes.Setup
+     */
     @Override
     public void setupGUI(Pane pane) {
        this.listViewManager = new FileListViewManagerFactory(this).setupListView(pane);

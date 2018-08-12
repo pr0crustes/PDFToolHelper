@@ -1,4 +1,4 @@
-package me.pr0crustes.frontend.gui.scene.crop;
+package me.pr0crustes.frontend.gui.scene;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import me.pr0crustes.backend.classes.*;
+import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.PermissionException;
@@ -17,29 +18,44 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
 
+/**
+ * CropController is the controller of Crop tab.
+ * Handles cropping a pdf.
+ * Extends ActionController.
+ * @see ActionController
+ */
 public class CropController extends ActionController {
 
     private File selectedFile;
-
     private TextField textFieldFile;
-
     private TextField textFieldFromPage;
-
     private TextField textFieldToPage;
 
-    public CropController(Pane pane) {
+    /**
+     * Just a constructor that calls super.
+     * @param pane the Pane that the GUI should be drawn on.
+     * @see ActionController
+     */
+    CropController(Pane pane) {
         super(pane);
     }
 
+    /**
+     * Method that setups selectedFile and textFieldFile with user input.
+     */
     private void onClickSearch() {
-
         this.selectedFile = FileSelector.askForSelect(FileExtensions.PDF);
-
-        String filePath = FileSelector.getFilePath(this.selectedFile);
-
-        this.textFieldFile.setText(filePath);
+        this.textFieldFile.setText(FileSelector.getFilePath(this.selectedFile));
     }
 
+    /**
+     * Method that creates a PDFCropper, crops the pdf and saves.
+     * @throws ArgumentException in case of invalid args.
+     * @throws NoFileException in case no file is selected.
+     * @throws PermissionException in case of permission error.
+     * @see ActionController
+     * @see PDFCropper
+     */
     public void execute() throws ArgumentException, NoFileException, PermissionException {
         if (this.selectedFile == null) {
             throw new ArgumentException();
@@ -54,13 +70,16 @@ public class CropController extends ActionController {
         PDFManager.saveAs(subDocument, saveAs);
     }
 
+    /**
+     * Implements setupGUI, creating the Crop Tab.
+     * @param pane the pane the GUI should be made on.
+     * @see me.pr0crustes.frontend.gui.classes.Setup
+     */
     @Override
     public void setupGUI(Pane pane) {
 
-        this.textFieldFile = NodeFactory.textFieldWithWidthAndAlignment(300, Pos.CENTER);
-
+        this.textFieldFile = NodeFactory.textFieldWithWidthAndAlignment(300, Pos.CENTER_LEFT);
         this.textFieldFromPage = NodeFactory.textFieldWithWidthAndAlignment(50, Pos.CENTER);
-
         this.textFieldToPage = NodeFactory.textFieldWithWidthAndAlignment(50, Pos.CENTER);
 
         GridPane gridPaneFile = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
@@ -94,4 +113,5 @@ public class CropController extends ActionController {
 
         pane.getChildren().add(vBox);
     }
+
 }
