@@ -1,5 +1,7 @@
 package me.pr0crustes.backend.classes.number;
 
+import me.pr0crustes.backend.exeptions.ArgumentException;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -13,7 +15,7 @@ public class Range {
         this.rangeString = rangeString;
     }
 
-    public Set<Integer> getValues() {
+    public Set<Integer> getValues() throws ArgumentException{
         Set<Integer> parsedValues = new HashSet<>();
 
         Set<String> rangesParts = Range.getMatches(rangeString, "\\d+_\\d+");
@@ -37,8 +39,12 @@ public class Range {
         return parsedValues;
     }
 
-    private static int stringAsUnsigned(String str) {
-        return Integer.valueOf(str.replace("-", "").replace("+", ""));
+    private static int stringAsUnsigned(String str) throws ArgumentException {
+        try {
+            return Integer.valueOf(str.replace("-", "").replace("+", ""));
+        } catch (NumberFormatException e) {
+            throw new ArgumentException();
+        }
     }
 
     private static Set<String> getMatches(String str, String regex) {
