@@ -57,7 +57,7 @@ Then every subtraction (minus) is removed from the interval.
   
 Because of this order, are valid unintuitive RangeEx:  
 "+13 +10", the same as "+13+10", resulting in [10, 13].  
-"-2 1_3", the same as "=2+1_3", resulting in [1, 3].  
+"-2 1_3", the same as "-2+1_3", resulting in [1, 3].  
 "-5 +5 +5 +3", the same as "-5+5+5+3", resulting in [3], since subtraction is the last thing that happens.  
 "3_7 -4 +20 25_28 +50", the same as "3_7-4+20+25_28+50", resulting in [3, 5, 6, 7, 20, 25, 26, 27, 28, 50].  
   
