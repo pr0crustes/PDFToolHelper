@@ -1,4 +1,4 @@
-package me.pr0crustes.backend.classes;
+package me.pr0crustes.backend.classes.file;
 
 import javafx.application.Platform;
 import javafx.stage.FileChooser;
@@ -8,6 +8,7 @@ import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.NoTargetFileException;
 
 import java.io.File;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
@@ -30,32 +31,32 @@ public class FileSelector {
     }
 
     /**
-     * Method that shows a file select window.
-     * @param filters the filter to be used.
-     * @return the File selected. Can be null if the user cancels.
-     */
-    private static File showFileSelectWindow(FileChooser.ExtensionFilter[] filters) {
-        return FileSelector.createFileWindow("Select a file", filters).showOpenDialog(Starter.mainStage);
-    }
-
-    /**
-     * Method that shows a file save window.
-     * @param filters the filter to be used.
-     * @return the File to be save as. Can be null if the user cancels.
-     */
-    private static File showFileSaveWindow(FileChooser.ExtensionFilter[] filters) {
-        return FileSelector.createFileWindow("Save as", filters).showSaveDialog(Starter.mainStage);
-    }
-
-    /**
      * Method that receives N FileExtensions, asking for a file to be selected.
      * @param fileExtensions N FIleExtensions to be used.
      * @return the selected File.
      */
-    public static File askForSelect(FileExtensions... fileExtensions) {
+    public static File askForSingleFile(FileExtensions... fileExtensions) {
         FileChooser.ExtensionFilter[] filters = ExtensionFilterFactory.combineFilters(fileExtensions);
         try {
-            return FileSelector.runFileQuery(() -> FileSelector.showFileSelectWindow(filters));
+            return FileSelector.runFileQuery(() ->
+                    FileSelector.createFileWindow("Select a file", filters).showOpenDialog(Starter.mainStage)
+            );
+        } catch (NoFileException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Method that receives N FileExtensions, asking for one or more files to be selected.
+     * @param fileExtensions N FIleExtensions to be used.
+     * @return list with the selected Files.
+     */
+    public static List<File> askForMultipleFile(FileExtensions... fileExtensions) {
+        FileChooser.ExtensionFilter[] filters = ExtensionFilterFactory.combineFilters(fileExtensions);
+        try {
+            return FileSelector.runFileQuery(() ->
+                    FileSelector.createFileWindow("Select one or more files", filters).showOpenMultipleDialog(Starter.mainStage)
+            );
         } catch (NoFileException e) {
             return null;
         }
@@ -72,7 +73,9 @@ public class FileSelector {
                 FileExtensions.PDF.asFilter()
         };
 
-        File file = FileSelector.runFileQuery(() -> FileSelector.showFileSaveWindow(filters));
+        File file = FileSelector.runFileQuery(() ->
+                FileSelector.createFileWindow("Save as", filters).showSaveDialog(Starter.mainStage)
+        );
 
         if (file == null) {
             throw new NoTargetFileException();
@@ -83,15 +86,15 @@ public class FileSelector {
     /**
      * Method that is a wrapper, calling in the FXThread.
      * @param callable a callable to be call.
-     * @return the selected File.
+     * @return the callable result.
      * @throws NoFileException in case there is a problem reading the file the user selected.
      */
-    private static File runFileQuery(Callable<File> callable) throws NoFileException {
+    private static <T> T runFileQuery(Callable<T> callable) throws NoFileException {
         try {
             if (Platform.isFxApplicationThread()) {
                 return callable.call();
             } else {
-                final FutureTask<File> query = new FutureTask<>(callable);
+                final FutureTask<T> query = new FutureTask<>(callable);
                 Platform.runLater(query);
                 return query.get();
             }

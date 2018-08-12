@@ -7,7 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import me.pr0crustes.backend.classes.*;
+import me.pr0crustes.backend.classes.file.FileSelector;
+import me.pr0crustes.backend.classes.number.RangeEx;
+import me.pr0crustes.backend.classes.pdf.PDFCropper;
+import me.pr0crustes.backend.classes.pdf.PDFManager;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
@@ -28,8 +31,7 @@ public class CropController extends ActionController {
 
     private File selectedFile;
     private TextField textFieldFile;
-    private TextField textFieldFromPage;
-    private TextField textFieldToPage;
+    private TextField textFieldRange;
 
     /**
      * Just a constructor that calls super.
@@ -44,7 +46,7 @@ public class CropController extends ActionController {
      * Method that setups selectedFile and textFieldFile with user input.
      */
     private void onClickSearch() {
-        this.selectedFile = FileSelector.askForSelect(FileExtensions.PDF);
+        this.selectedFile = FileSelector.askForSingleFile(FileExtensions.PDF);
         this.textFieldFile.setText(FileSelector.getFilePath(this.selectedFile));
     }
 
@@ -65,7 +67,7 @@ public class CropController extends ActionController {
 
         PDFCropper cropper = new PDFCropper(this.selectedFile);
 
-        PDDocument subDocument = cropper.subDocument(Numbers.valueFromTextField(this.textFieldFromPage), Numbers.valueFromTextField(this.textFieldToPage));
+        PDDocument subDocument = cropper.subDocument(new RangeEx(this.textFieldRange));
 
         PDFManager.saveAs(subDocument, saveAs);
     }
@@ -79,8 +81,7 @@ public class CropController extends ActionController {
     public void setupGUI(Pane pane) {
 
         this.textFieldFile = NodeFactory.textFieldWithWidthAndAlignment(300, Pos.CENTER_LEFT);
-        this.textFieldFromPage = NodeFactory.textFieldWithWidthAndAlignment(50, Pos.CENTER);
-        this.textFieldToPage = NodeFactory.textFieldWithWidthAndAlignment(50, Pos.CENTER);
+        this.textFieldRange = NodeFactory.textFieldWithWidthAndAlignment(100, Pos.CENTER);
 
         GridPane gridPaneFile = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 
@@ -92,11 +93,8 @@ public class CropController extends ActionController {
 
         GridPane gridPaneCrop = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 
-        gridPaneCrop.add(new Label("Start:"), 0, 0);
-        gridPaneCrop.add(this.textFieldFromPage, 1, 0);
-
-        gridPaneCrop.add(new Label("End:"), 0, 1);
-        gridPaneCrop.add(this.textFieldToPage, 1, 1);
+        gridPaneCrop.add(new Label("RangeEx:"), 0, 0);
+        gridPaneCrop.add(this.textFieldRange, 1, 0);
 
         Button buttonExecute = NodeFactory.buttonWithHandle("Save", super.eventDo());
         buttonExecute.setDefaultButton(true);

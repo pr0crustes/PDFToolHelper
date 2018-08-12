@@ -1,9 +1,9 @@
 package me.pr0crustes.frontend.gui.scene;
 
 import javafx.scene.layout.Pane;
-import me.pr0crustes.backend.classes.FileSelector;
-import me.pr0crustes.backend.classes.PDFConverter;
-import me.pr0crustes.backend.classes.PDFManager;
+import me.pr0crustes.backend.classes.file.FileSelector;
+import me.pr0crustes.backend.classes.pdf.PDFConverter;
+import me.pr0crustes.backend.classes.pdf.PDFManager;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import me.pr0crustes.backend.exeptions.PermissionException;
@@ -33,16 +33,6 @@ public class ConvertController extends ListController {
      */
     ConvertController(Pane pane) {
         super(pane);
-    }
-
-    /**
-     * Implementation of addNewFileToList, ask the user for a file.
-     * @return a File selected by the user. Can be null.
-     * @see ListController
-     */
-    @Override
-    public File addNewFileToList() {
-        return FileSelector.askForSelect();
     }
 
     /**
@@ -80,4 +70,5 @@ public class ConvertController extends ListController {
     public void setupGUI(Pane pane) {
         this.listViewManager = new FileListViewManagerFactory(this).setupListView(pane);
     }
+
 }

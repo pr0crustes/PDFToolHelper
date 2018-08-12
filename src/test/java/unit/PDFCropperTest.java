@@ -1,6 +1,6 @@
 package unit;
 
-import me.pr0crustes.backend.classes.PDFCropper;
+import me.pr0crustes.backend.classes.pdf.PDFCropper;
 import org.junit.Test;
 
 import java.io.File;

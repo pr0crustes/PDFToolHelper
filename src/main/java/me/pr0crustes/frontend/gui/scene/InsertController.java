@@ -9,7 +9,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import me.pr0crustes.backend.classes.*;
+import me.pr0crustes.backend.classes.file.FileSelector;
+import me.pr0crustes.backend.classes.number.Numbers;
+import me.pr0crustes.backend.classes.number.RangeEx;
+import me.pr0crustes.backend.classes.pdf.PDFInsert;
+import me.pr0crustes.backend.classes.pdf.PDFManager;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
@@ -33,8 +37,7 @@ public class InsertController extends ActionController {
 
     private TextField textFieldInsertFile;
     private CheckBox checkBoxAllFile;
-    private TextField textFieldInsertFromPage;
-    private TextField textFieldInsertToPage;
+    private TextField textFieldInsertRange;
 
     private TextField textFieldIntoFile;
     private TextField textFieldIntoAfterPage;
@@ -60,15 +63,9 @@ public class InsertController extends ActionController {
             throw new ArgumentException();
         }
 
-        int fromPage = 0;
-        int toPage = 0;
-
         boolean allFile = this.checkBoxAllFile.isSelected();
 
-        if (!allFile) {
-            fromPage = Numbers.valueFromTextField(this.textFieldInsertFromPage);
-            toPage = Numbers.valueFromTextField(this.textFieldInsertToPage);
-        }
+        RangeEx rangeEx = new RangeEx(this.textFieldInsertRange);
 
         int afterPage = Numbers.valueFromTextField(this.textFieldIntoAfterPage);
 
@@ -76,7 +73,7 @@ public class InsertController extends ActionController {
 
         PDFInsert pdfInsert = new PDFInsert(this.insertFile, this.intoFile);
 
-        PDDocument document = pdfInsert.insertDocument(allFile, fromPage, toPage, afterPage);
+        PDDocument document = pdfInsert.insertDocument(allFile, rangeEx, afterPage);
 
         PDFManager.saveAs(document, saveAs);
     }
@@ -85,7 +82,7 @@ public class InsertController extends ActionController {
      * Method that keep track of the insert file selected.
      */
     private void onClickInsertFileSearch() {
-        this.insertFile = FileSelector.askForSelect(FileExtensions.PDF);
+        this.insertFile = FileSelector.askForSingleFile(FileExtensions.PDF);
         this.textFieldInsertFile.setText(FileSelector.getFilePath(this.insertFile));
     }
 
@@ -93,7 +90,7 @@ public class InsertController extends ActionController {
      * Method that keep track of the into file selected.
      */
     private void onClickIntoFileSearch() {
-        this.intoFile = FileSelector.askForSelect(FileExtensions.PDF);
+        this.intoFile = FileSelector.askForSingleFile(FileExtensions.PDF);
         this.textFieldIntoFile.setText(FileSelector.getFilePath(this.intoFile));
     }
 
@@ -108,14 +105,12 @@ public class InsertController extends ActionController {
         this.textFieldInsertFile = NodeFactory.textFieldWithWidthAndAlignment(200, Pos.CENTER_LEFT);
         this.textFieldInsertFile.setFont(Font.font(10));
 
-        this.textFieldInsertFromPage = NodeFactory.textFieldWithWidthAndAlignment(50, Pos.CENTER);
-        this.textFieldInsertToPage = NodeFactory.textFieldWithWidthAndAlignment(50, Pos.CENTER);
+        this.textFieldInsertRange = NodeFactory.textFieldWithWidthAndAlignment(100, Pos.CENTER);
 
         this.checkBoxAllFile = new CheckBox();
-        this.checkBoxAllFile.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            this.textFieldInsertFromPage.setDisable(newValue);
-            this.textFieldInsertToPage.setDisable(newValue);
-        });
+        this.checkBoxAllFile.selectedProperty().addListener(
+                (observable, oldValue, newValue) -> this.textFieldInsertRange.setDisable(newValue)
+        );
 
         this.textFieldIntoFile = NodeFactory.textFieldWithWidthAndAlignment(200, Pos.CENTER_LEFT);
         this.textFieldIntoFile.setFont(Font.font(10));
@@ -136,11 +131,8 @@ public class InsertController extends ActionController {
         gridPaneInsertConfig.add(new Label("Entire File:"), 0, 0);
         gridPaneInsertConfig.add(this.checkBoxAllFile, 1, 0);
 
-        gridPaneInsertConfig.add(new Label("From:"), 0, 1);
-        gridPaneInsertConfig.add(this.textFieldInsertFromPage, 1, 1);
-
-        gridPaneInsertConfig.add(new Label("To:"), 0, 2);
-        gridPaneInsertConfig.add(this.textFieldInsertToPage, 1, 2);
+        gridPaneInsertConfig.add(new Label("RangeEx:"), 0, 1);
+        gridPaneInsertConfig.add(this.textFieldInsertRange, 1, 1);
 
 
         GridPane gridPaneIntoFile = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);

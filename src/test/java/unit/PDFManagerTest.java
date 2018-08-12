@@ -1,6 +1,6 @@
 package unit;
 
-import me.pr0crustes.backend.classes.PDFManager;
+import me.pr0crustes.backend.classes.pdf.PDFManager;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.Test;
 

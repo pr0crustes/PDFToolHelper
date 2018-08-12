@@ -28,11 +28,13 @@ public class ListViewManager <T> {
 
     /**
      * Method that adds an object to the ObservableList.
-     * @param object anything with type T.
+     * @param objects an List with anything of type T.
      */
-    void addObject(T object) {
-        if (object != null) {  // Keep this null check! If an object is null it should not be added!
-            this.items.add(object);
+    void addObjects(List<T> objects) {
+        for (T object : objects) {
+            if (object != null) {  // Keep this null check! If an object is null it should not be added!
+                this.items.add(object);
+            }
         }
     }
 

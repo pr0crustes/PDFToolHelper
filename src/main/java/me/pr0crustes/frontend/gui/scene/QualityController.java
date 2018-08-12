@@ -8,7 +8,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import me.pr0crustes.backend.classes.*;
+import me.pr0crustes.backend.classes.file.FileSelector;
+import me.pr0crustes.backend.classes.number.Numbers;
+import me.pr0crustes.backend.classes.pdf.PDFManager;
+import me.pr0crustes.backend.classes.pdf.PDFQualityModifier;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
@@ -45,7 +48,7 @@ public class QualityController extends ActionController {
      * Method that setups selectedFile and textFieldFile with user input.
      */
     private void onClickSearch() {
-        this.selectedFile = FileSelector.askForSelect(FileExtensions.PDF);
+        this.selectedFile = FileSelector.askForSingleFile(FileExtensions.PDF);
         this.textFieldFile.setText(FileSelector.getFilePath(this.selectedFile));
     }
 
