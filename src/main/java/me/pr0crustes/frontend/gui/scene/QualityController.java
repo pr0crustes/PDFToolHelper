@@ -19,26 +19,44 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
 
+/**
+ * QualityController is the controller of Quality tab.
+ * Handles changing the dpi of a pdf.
+ * Extends ActionController.
+ * @see ActionController
+ */
 public class QualityController extends ActionController {
-
-    private TextField textFieldFile;
-
-    private TextField textFieldDpi;
 
     private File selectedFile;
 
-    public QualityController(Pane pane) {
+    private TextField textFieldFile;
+    private TextField textFieldDpi;
+
+    /**
+     * Just a constructor that calls super.
+     * @param pane the Pane that the GUI should be drawn on.
+     * @see ActionController
+     */
+    QualityController(Pane pane) {
         super(pane);
     }
 
+    /**
+     * Method that setups selectedFile and textFieldFile with user input.
+     */
     private void onClickSearch() {
         this.selectedFile = FileSelector.askForSelect(FileExtensions.PDF);
-
-        String filePath = FileSelector.getFilePath(this.selectedFile);
-
-        this.textFieldFile.setText(filePath);
+        this.textFieldFile.setText(FileSelector.getFilePath(this.selectedFile));
     }
 
+    /**
+     * Method that creates a PDFQualityModifier, changes the pdf dpi and saves.
+     * @throws ArgumentException in case of invalid args.
+     * @throws NoFileException in case no file is selected.
+     * @throws PermissionException in case of permission error.
+     * @see ActionController
+     * @see PDFQualityModifier
+     */
     @Override
     public void execute() throws ArgumentException, NoFileException, PermissionException {
         if (this.selectedFile == null) {
@@ -54,6 +72,11 @@ public class QualityController extends ActionController {
         PDFManager.saveAs(document, saveAs);
     }
 
+    /**
+     * Implements setupGUI, creating the Quality Tab.
+     * @param pane the pane the GUI should be made on.
+     * @see me.pr0crustes.frontend.gui.classes.Setup
+     */
     @Override
     public void setupGUI(Pane pane) {
         
@@ -93,4 +116,5 @@ public class QualityController extends ActionController {
 
         pane.getChildren().add(vBox);
     }
+
 }
