@@ -1,6 +1,6 @@
 package me.pr0crustes.backend.classes.pdf;
 
-import me.pr0crustes.backend.classes.number.Numbers;
+import me.pr0crustes.backend.classes.number.RangeEx;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NoFileException;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -26,34 +26,21 @@ public class PDFCropper {
     /**
      * The most important class method.
      * Creates a subdocument based on the args.
-     * @param fromPage the page where the subdocument should start.
-     * @param toPage the page where the subdocument should end (inclusive).
+     * @param range range that will be used to create the subdocument.
      * @return a PDDocument with the desired pages.
      * @throws NoFileException in case there is a problem with the file.
      * @throws ArgumentException in case there is a problem with the args.
+     * @see RangeEx
      */
-    public PDDocument subDocument(int fromPage, int toPage) throws NoFileException, ArgumentException {
+    public PDDocument subDocument(RangeEx range) throws NoFileException, ArgumentException {
         PDDocument document = PDFManager.getFileDocument(this.file);
 
-        if ((fromPage >= 1 && toPage <= document.getNumberOfPages()) && (fromPage <= toPage)) {
-            return this.splitDocument(document, fromPage, toPage);
-        }
-        throw new ArgumentException();
-    }
-
-    /**
-     * Method that removes pages from a document.
-     * @param document the document.
-     * @param fromPage first page to not be removed.
-     * @param toPage last page to not be removed.
-     * @return a PDDocument withou that pages.
-     */
-    private PDDocument splitDocument(PDDocument document, int fromPage, int toPage) {
-        for (int i = document.getNumberOfPages() - 1 ; i >= 0 ; i--) {
-            if (!Numbers.isBetween(i, fromPage - 1, toPage - 1)) { // -1 because page count starts from 0 but user input from 1
-                document.removePage(i);
+        for (int i = document.getNumberOfPages(); i > 0; i--) {
+            if (!range.getValues().contains(i)) {
+                document.removePage(i - 1); // -1 because user input starts from 1, not 0
             }
         }
+
         return document;
     }
 

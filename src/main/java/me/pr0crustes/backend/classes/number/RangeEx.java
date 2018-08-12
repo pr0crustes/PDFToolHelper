@@ -1,5 +1,6 @@
 package me.pr0crustes.backend.classes.number;
 
+import javafx.scene.control.TextField;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 
 import java.util.HashSet;
@@ -7,18 +8,22 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Range {
+public class RangeEx {
 
     private final String rangeString;
 
-    public Range(String rangeString) {
+    public RangeEx(String rangeString) {
         this.rangeString = rangeString;
     }
 
-    public Set<Integer> getValues() throws ArgumentException{
+    public RangeEx(TextField textField) {
+        this(textField.getText());
+    }
+
+    public Set<Integer> getValues() throws ArgumentException {
         Set<Integer> parsedValues = new HashSet<>();
 
-        Set<String> rangesParts = Range.getMatches(rangeString, "\\d+_\\d+");
+        Set<String> rangesParts = RangeEx.getMatches(rangeString, "\\d+_\\d+");
         for (String str : rangesParts) {
             String[] parts = str.split("_");
             for (int i = Integer.valueOf(parts[0]); i <= Integer.valueOf(parts[1]); i++) {
@@ -26,14 +31,14 @@ public class Range {
             }
         }
 
-        Set<String> addParts = Range.getMatches(rangeString, "[+]\\d+");
+        Set<String> addParts = RangeEx.getMatches(rangeString, "[+]\\d+");
         for (String str : addParts) {
-            parsedValues.add(Range.stringAsUnsigned(str));
+            parsedValues.add(RangeEx.stringAsUnsigned(str));
         }
 
-        Set<String> subParts = Range.getMatches(rangeString, "[-]\\d+");
+        Set<String> subParts = RangeEx.getMatches(rangeString, "[-]\\d+");
         for (String str : subParts) {
-            parsedValues.remove(Range.stringAsUnsigned(str));
+            parsedValues.remove(RangeEx.stringAsUnsigned(str));
         }
 
         return parsedValues;
