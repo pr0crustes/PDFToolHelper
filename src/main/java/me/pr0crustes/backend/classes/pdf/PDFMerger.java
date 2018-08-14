@@ -30,9 +30,11 @@ public class PDFMerger {
         PDDocument finalDocument = new PDDocument();
 
         for (File currentFile : this.fileArray) {
-            PDDocument currentDocument = PDFManager.getFileDocument(currentFile);
-            for (int i = 0; i < currentDocument.getNumberOfPages(); i++) {
-                finalDocument.addPage(currentDocument.getPage(i));
+            if (currentFile != null) {
+                PDDocument currentDocument = PDFManager.getFileDocument(currentFile);
+                for (int i = 0; i < currentDocument.getNumberOfPages(); i++) {
+                    finalDocument.addPage(currentDocument.getPage(i));
+                }
             }
         }
         return finalDocument;
