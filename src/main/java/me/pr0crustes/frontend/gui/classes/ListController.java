@@ -29,4 +29,5 @@ public abstract class ListController extends ActionController {
     public List<File> addNewFilesToList() {
         return FileSelector.askForMultipleFile();
     }
+
 }

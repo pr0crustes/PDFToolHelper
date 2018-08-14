@@ -5,8 +5,7 @@ import me.pr0crustes.backend.classes.file.FileSelector;
 import me.pr0crustes.backend.classes.pdf.PDFManager;
 import me.pr0crustes.backend.classes.pdf.PDFMerger;
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.NoFileException;
-import me.pr0crustes.backend.exeptions.PermissionException;
+import me.pr0crustes.backend.exeptions.FileException;
 import me.pr0crustes.frontend.gui.classes.ListController;
 import me.pr0crustes.frontend.gui.classes.elements.FileListViewManagerFactory;
 import me.pr0crustes.frontend.gui.classes.elements.ListViewManager;
@@ -37,13 +36,12 @@ public class MergeController extends ListController {
 
     /**
      * Implementation of execute, merges the files and saves.
-     * @throws NoFileException in case no file is selected.
-     * @throws PermissionException in case of permission errors.
+     * @throws FileException in case of file related error.
      * @throws ArgumentException in case of invalid arguments.
      * @see me.pr0crustes.frontend.gui.classes.ActionController
      */
     @Override
-    public void execute() throws NoFileException, PermissionException, ArgumentException {
+    public void execute() throws FileException, ArgumentException {
 
         List<File> fileList = this.listViewManager.getList();
 

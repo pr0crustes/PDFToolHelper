@@ -16,8 +16,7 @@ import me.pr0crustes.backend.classes.pdf.PDFInsert;
 import me.pr0crustes.backend.classes.pdf.PDFManager;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.NoFileException;
-import me.pr0crustes.backend.exeptions.PermissionException;
+import me.pr0crustes.backend.exeptions.FileException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -53,12 +52,11 @@ public class InsertController extends ActionController {
     /**
      * Method that creates a PDFInsert, inserts a pdf into other and saves.
      * @throws ArgumentException in case of argument error.
-     * @throws NoFileException in case of so file selected.
-     * @throws PermissionException in case of permission error.
+     * @throws FileException in case of file error.
      * @see ActionController
      * @see PDFInsert
      */
-    public void execute() throws ArgumentException, NoFileException, PermissionException {
+    public void execute() throws ArgumentException, FileException {
         if (this.insertFile == null || this.intoFile == null) {
             throw new ArgumentException();
         }

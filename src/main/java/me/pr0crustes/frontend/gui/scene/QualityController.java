@@ -14,8 +14,7 @@ import me.pr0crustes.backend.classes.pdf.PDFManager;
 import me.pr0crustes.backend.classes.pdf.PDFQualityModifier;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.NoFileException;
-import me.pr0crustes.backend.exeptions.PermissionException;
+import me.pr0crustes.backend.exeptions.FileException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -55,13 +54,12 @@ public class QualityController extends ActionController {
     /**
      * Method that creates a PDFQualityModifier, changes the pdf dpi and saves.
      * @throws ArgumentException in case of invalid args.
-     * @throws NoFileException in case no file is selected.
-     * @throws PermissionException in case of permission error.
+     * @throws FileException in case of file related error.
      * @see ActionController
      * @see PDFQualityModifier
      */
     @Override
-    public void execute() throws ArgumentException, NoFileException, PermissionException {
+    public void execute() throws ArgumentException, FileException {
         if (this.selectedFile == null) {
             throw new ArgumentException();
         }

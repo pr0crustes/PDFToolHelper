@@ -4,7 +4,7 @@ import javafx.application.Platform;
 import javafx.stage.FileChooser;
 import me.pr0crustes.Starter;
 import me.pr0crustes.backend.enums.FileExtensions;
-import me.pr0crustes.backend.exeptions.NoFileException;
+import me.pr0crustes.backend.exeptions.FileException;
 import me.pr0crustes.backend.exeptions.NoTargetFileException;
 
 import java.io.File;
@@ -41,7 +41,7 @@ public class FileSelector {
             return FileSelector.runFileQuery(() ->
                     FileSelector.createFileWindow("Select a file", filters).showOpenDialog(Starter.mainStage)
             );
-        } catch (NoFileException e) {
+        } catch (FileException e) {
             return null;
         }
     }
@@ -57,7 +57,7 @@ public class FileSelector {
             return FileSelector.runFileQuery(() ->
                     FileSelector.createFileWindow("Select one or more files", filters).showOpenMultipleDialog(Starter.mainStage)
             );
-        } catch (NoFileException e) {
+        } catch (FileException e) {
             return null;
         }
     }
@@ -65,10 +65,10 @@ public class FileSelector {
     /**
      * Method that shows the savePdf window.
      * @return the saveAs File the user selected.
-     * @throws NoFileException in case there is a problem reading the file the user selected.
+     * @throws FileException in case there is a problem reading the file the user selected.
      * @throws NoTargetFileException in case the user cancels the action.
      */
-    public static File showSavePdfFile() throws NoFileException, NoTargetFileException {
+    public static File showSavePdfFile() throws FileException, NoTargetFileException {
         FileChooser.ExtensionFilter[] filters = {
                 FileExtensions.PDF.asFilter()
         };
@@ -87,9 +87,9 @@ public class FileSelector {
      * Method that is a wrapper, calling in the FXThread.
      * @param callable a callable to be call.
      * @return the callable result.
-     * @throws NoFileException in case there is a problem reading the file the user selected.
+     * @throws FileException in case there is a problem reading the file the user selected.
      */
-    private static <T> T runFileQuery(Callable<T> callable) throws NoFileException {
+    private static <T> T runFileQuery(Callable<T> callable) throws FileException {
         try {
             if (Platform.isFxApplicationThread()) {
                 return callable.call();
@@ -99,7 +99,7 @@ public class FileSelector {
                 return query.get();
             }
         } catch (Exception e) {
-            throw new NoFileException();
+            throw new FileException();
         }
     }
 

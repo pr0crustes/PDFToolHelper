@@ -3,7 +3,10 @@ package me.pr0crustes.frontend.gui.classes;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
-import me.pr0crustes.backend.exeptions.*;
+import me.pr0crustes.backend.exeptions.ArgumentException;
+import me.pr0crustes.backend.exeptions.FileException;
+import me.pr0crustes.backend.exeptions.NoTargetFileException;
+import me.pr0crustes.backend.exeptions.StrangeException;
 
 /**
  * ActionController is an abstract class that extends PassiveController (see it) and also
@@ -56,14 +59,15 @@ public abstract class ActionController extends PassiveController implements Runn
         try {
             this.execute();
         } catch (ArgumentException e) {
+            e.printStackTrace();
             AlertFactory.DefinedAlert.invalidArgument.sendAlert();
         } catch (NoTargetFileException e) {
+            e.printStackTrace();
             // Ignore, user didn't selected a file
             //TODO: Handle this in some way (?)
-        } catch (NoFileException e) {
-            AlertFactory.DefinedAlert.noFile.sendAlert();
-        } catch (PermissionException e) {
-            AlertFactory.DefinedAlert.errorAtSave.sendAlert();
+        } catch (FileException e) {
+            e.printStackTrace();
+            AlertFactory.DefinedAlert.fileError.sendAlert();
         } catch (Exception e) {
             e.printStackTrace();
             AlertFactory.DefinedAlert.unknownError.sendAlert();
@@ -74,15 +78,13 @@ public abstract class ActionController extends PassiveController implements Runn
      * Execute is an abstract method that subclasses need to implement.
      * This method can throw exceptions and because of this is mainly called from runExecute.
      * @throws ArgumentException in case of invalid arguments.
-     * @throws NoFileException in case a file is not selected.
-     * @throws PermissionException in case of permission problems.
-     * @throws NoTargetFileException in case the file is invalid.
+     * @throws FileException in case a file related error.
+     * @throws NoTargetFileException in case the file is null.
      * @throws StrangeException in case of a strange error.
      */
     @SuppressWarnings("RedundantThrows")
     protected abstract void execute() throws ArgumentException,
-                                             NoFileException,
-                                             PermissionException,
+                                             FileException,
                                              NoTargetFileException,
                                              StrangeException;
 

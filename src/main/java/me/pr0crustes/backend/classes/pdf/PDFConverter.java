@@ -1,7 +1,7 @@
 package me.pr0crustes.backend.classes.pdf;
 
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.NoFileException;
+import me.pr0crustes.backend.exeptions.FileException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import javax.imageio.ImageIO;
@@ -30,10 +30,10 @@ public class PDFConverter {
     /**
      * Method that converts every file in fileArray and returns a single pdf with everyone.
      * @return a single PDDocument made of all images.
-     * @throws NoFileException in case of file related errors.
+     * @throws FileException in case of file related errors.
      * @throws ArgumentException in case of invalid arguments.
      */
-    public PDDocument getDocumentFromImages() throws NoFileException, ArgumentException {
+    public PDDocument getDocumentFromImages() throws FileException, ArgumentException {
         List<BufferedImage> bufferedImages = new ArrayList<>();
 
         try {
@@ -42,7 +42,7 @@ public class PDFConverter {
                 bufferedImages.add(fileAsImage);
             }
         } catch (IOException e) {
-            throw new NoFileException();
+            throw new FileException();
         } catch (NullPointerException e) {
             throw new ArgumentException();
         }
