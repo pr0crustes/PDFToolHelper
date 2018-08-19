@@ -9,10 +9,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import me.pr0crustes.backend.classes.file.FileSelector;
+import me.pr0crustes.backend.classes.file.SaveFileSelector;
+import me.pr0crustes.backend.classes.file.SingleFileSelector;
 import me.pr0crustes.backend.classes.number.Numbers;
 import me.pr0crustes.backend.classes.number.RangeEx;
 import me.pr0crustes.backend.classes.pdf.PDFInsert;
-import me.pr0crustes.backend.classes.pdf.PDFManager;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
@@ -63,20 +64,23 @@ public class InsertController extends ActionController {
 
         int afterPage = Numbers.valueFromTextField(this.textFieldIntoAfterPage);
 
-        File saveAs = FileSelector.showSavePdfFile();
+        File saveAs = new SaveFileSelector().getSelection();
+
+        if (saveAs == null) {
+            return;
+        }
 
         PDFInsert pdfInsert = new PDFInsert(this.insertFile, this.intoFile);
 
         PDDocument document = pdfInsert.insertDocument(rangeEx, afterPage);
-
-        PDFManager.saveAs(document, saveAs);
+        document.save(saveAs);
     }
 
     /**
      * Method that keep track of the insert file selected.
      */
     private void onClickInsertFileSearch() {
-        this.insertFile = FileSelector.askForSingleFile(FileExtensions.PDF);
+        this.insertFile = new SingleFileSelector().getSelection(FileExtensions.PDF);
         this.textFieldInsertFile.setText(FileSelector.getFilePath(this.insertFile));
     }
 
@@ -84,7 +88,7 @@ public class InsertController extends ActionController {
      * Method that keep track of the into file selected.
      */
     private void onClickIntoFileSearch() {
-        this.intoFile = FileSelector.askForSingleFile(FileExtensions.PDF);
+        this.intoFile = new SingleFileSelector().getSelection(FileExtensions.PDF);
         this.textFieldIntoFile.setText(FileSelector.getFilePath(this.intoFile));
     }
 

@@ -1,9 +1,8 @@
 package me.pr0crustes.frontend.gui.scene;
 
 import javafx.scene.layout.Pane;
-import me.pr0crustes.backend.classes.file.FileSelector;
+import me.pr0crustes.backend.classes.file.SaveFileSelector;
 import me.pr0crustes.backend.classes.pdf.PDFConverter;
-import me.pr0crustes.backend.classes.pdf.PDFManager;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.frontend.gui.classes.ListController;
 import me.pr0crustes.frontend.gui.classes.elements.FileListViewManagerFactory;
@@ -50,13 +49,16 @@ public class ConvertController extends ListController {
         File[] files = new File[fileList.size()];
         files = fileList.toArray(files);
 
-        File saveAs = FileSelector.showSavePdfFile();
+        File saveAs = new SaveFileSelector().getSelection();
+
+        if (saveAs == null) {
+            return;
+        }
 
         PDFConverter converter = new PDFConverter(files);
 
         PDDocument document = converter.getDocumentFromImages();
-
-        PDFManager.saveAs(document, saveAs);
+        document.save(saveAs);
     }
 
     /**

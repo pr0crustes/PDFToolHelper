@@ -4,6 +4,7 @@ import me.pr0crustes.backend.exeptions.ArgumentException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
@@ -52,12 +53,27 @@ class PDFCreator {
      * @throws ArgumentException in case of an invalid image.
      */
     private void addImageAsPage(BufferedImage image) throws IOException, ArgumentException {
-        PDPage page = PDFManager.pageWithImageSize(image);
+        PDPage page = PDFCreator.pageWithImageSize(image);
         this.document.addPage(page);
         PDImageXObject pdImageXObject = LosslessFactory.createFromImage(this.document, image);
         PDPageContentStream contentStream = new PDPageContentStream(this.document, page, PDPageContentStream.AppendMode.APPEND, true, true);
         contentStream.drawImage(pdImageXObject, 0, 0);
         contentStream.close();
+    }
+
+    /**
+     * pageWithImageSize is a method that creates a PDPage with size equals to a BufferedImage.
+     * @param image a BufferedImage.
+     * @return a PDPage with the same size as the image. The image is in no way affected.
+     * @throws ArgumentException in case of any problems with the image.
+     */
+    private static PDPage pageWithImageSize(BufferedImage image) throws ArgumentException {
+        try {
+            return new PDPage(new PDRectangle(image.getWidth(), image.getHeight()));
+        } catch (NullPointerException e) {
+            // Image not valid
+            throw new ArgumentException();
+        }
     }
     
 }

@@ -1,7 +1,7 @@
 package me.pr0crustes.frontend.gui.scene;
 
 import javafx.scene.layout.Pane;
-import me.pr0crustes.backend.classes.file.FileSelector;
+import me.pr0crustes.backend.classes.file.SaveFileSelector;
 import me.pr0crustes.backend.classes.pdf.PDFMerger;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.frontend.gui.classes.ListController;
@@ -51,7 +51,11 @@ public class MergeController extends ListController {
         File[] filesToMerge = new File[fileList.size()];
         filesToMerge = fileList.toArray(filesToMerge);
 
-        File saveAs = FileSelector.showSavePdfFile();
+        File saveAs = new SaveFileSelector().getSelection();
+
+        if (saveAs == null) {
+            return;
+        }
 
         PDFMerger merger = new PDFMerger(filesToMerge);
 

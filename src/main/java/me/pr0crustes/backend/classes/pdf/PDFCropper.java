@@ -31,7 +31,7 @@ public class PDFCropper {
      * @see RangeEx
      */
     public PDDocument subDocument(RangeEx range) throws IOException {
-        PDDocument document = PDFManager.getFileDocument(this.file);
+        PDDocument document = PDDocument.load(this.file);
 
         for (int i = document.getNumberOfPages(); i > 0; i--) {
             if (!range.contains(i)) {

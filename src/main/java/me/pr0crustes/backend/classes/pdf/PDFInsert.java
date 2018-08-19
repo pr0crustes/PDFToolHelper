@@ -27,7 +27,6 @@ public class PDFInsert {
 
     /**
      * Method that inserts the insertFile into intoFile, respecting the args.
-     * @param entireFile if all file should be included. If TRUE, `fromPage` and `toPage` will not be used, so values can be anything.
      * @param range the range representing the pages that should be inserted.
      * @param insertAfterPage after which page the file should be included.
      * @return a PDDocument with the insert done.
@@ -37,7 +36,7 @@ public class PDFInsert {
 
         PDFCropper cropper = new PDFCropper(this.insertFile);
         PDDocument documentInsert = cropper.subDocument(range);
-        PDDocument documentInto = PDFManager.getFileDocument(this.intoFile);
+        PDDocument documentInto = PDDocument.load(this.intoFile);
 
         PDDocument documentNew = new PDDocument();
 
