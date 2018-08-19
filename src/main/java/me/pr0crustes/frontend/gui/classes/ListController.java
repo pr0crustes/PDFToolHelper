@@ -1,7 +1,7 @@
 package me.pr0crustes.frontend.gui.classes;
 
 import javafx.scene.layout.Pane;
-import me.pr0crustes.backend.classes.file.FileSelector;
+import me.pr0crustes.backend.classes.file.MultipleFileSelector;
 
 import java.io.File;
 import java.util.List;
@@ -27,6 +27,7 @@ public abstract class ListController extends ActionController {
      * @return a List of File that should be added to a list.
      */
     public List<File> addNewFilesToList() {
-        return FileSelector.askForMultipleFile();
+        return new MultipleFileSelector().getSelection();
     }
+
 }

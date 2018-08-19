@@ -1,18 +1,16 @@
 package me.pr0crustes.frontend.gui.scene;
 
 import javafx.scene.layout.Pane;
-import me.pr0crustes.backend.classes.file.FileSelector;
-import me.pr0crustes.backend.classes.pdf.PDFManager;
+import me.pr0crustes.backend.classes.file.SaveFileSelector;
 import me.pr0crustes.backend.classes.pdf.PDFMerger;
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.NoFileException;
-import me.pr0crustes.backend.exeptions.PermissionException;
 import me.pr0crustes.frontend.gui.classes.ListController;
 import me.pr0crustes.frontend.gui.classes.elements.FileListViewManagerFactory;
 import me.pr0crustes.frontend.gui.classes.elements.ListViewManager;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -37,13 +35,12 @@ public class MergeController extends ListController {
 
     /**
      * Implementation of execute, merges the files and saves.
-     * @throws NoFileException in case no file is selected.
-     * @throws PermissionException in case of permission errors.
+     * @throws IOException in case of file related error.
      * @throws ArgumentException in case of invalid arguments.
      * @see me.pr0crustes.frontend.gui.classes.ActionController
      */
     @Override
-    public void execute() throws NoFileException, PermissionException, ArgumentException {
+    public void execute() throws IOException, ArgumentException {
 
         List<File> fileList = this.listViewManager.getList();
 
@@ -54,13 +51,14 @@ public class MergeController extends ListController {
         File[] filesToMerge = new File[fileList.size()];
         filesToMerge = fileList.toArray(filesToMerge);
 
-        File saveAs = FileSelector.showSavePdfFile();
+        File saveAs = new SaveFileSelector().getSelection();
 
         PDFMerger merger = new PDFMerger(filesToMerge);
 
         PDDocument document = merger.mergeFiles();
 
-        PDFManager.saveAs(document, saveAs);
+        document.save(saveAs);
+
     }
 
     /**

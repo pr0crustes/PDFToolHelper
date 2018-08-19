@@ -1,18 +1,16 @@
 package me.pr0crustes.frontend.gui.scene;
 
 import javafx.scene.layout.Pane;
-import me.pr0crustes.backend.classes.file.FileSelector;
+import me.pr0crustes.backend.classes.file.SaveFileSelector;
 import me.pr0crustes.backend.classes.pdf.PDFConverter;
-import me.pr0crustes.backend.classes.pdf.PDFManager;
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.NoFileException;
-import me.pr0crustes.backend.exeptions.PermissionException;
 import me.pr0crustes.frontend.gui.classes.ListController;
 import me.pr0crustes.frontend.gui.classes.elements.FileListViewManagerFactory;
 import me.pr0crustes.frontend.gui.classes.elements.ListViewManager;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -37,12 +35,11 @@ public class ConvertController extends ListController {
 
     /**
      * Implementation of execute, converts the files and saves.
-     * @throws NoFileException in case no file is selected.
-     * @throws PermissionException in case of permission errors.
+     * @throws IOException in case of file error.
      * @throws ArgumentException in case of invalid arguments.
      * @see me.pr0crustes.frontend.gui.classes.ActionController
      */
-    public void execute() throws NoFileException, PermissionException, ArgumentException {
+    public void execute() throws IOException, ArgumentException {
         List<File> fileList = this.listViewManager.getList();
 
         if (fileList.size() == 0) {
@@ -52,13 +49,12 @@ public class ConvertController extends ListController {
         File[] files = new File[fileList.size()];
         files = fileList.toArray(files);
 
-        File saveAs = FileSelector.showSavePdfFile();
+        File saveAs = new SaveFileSelector().getSelection();
 
         PDFConverter converter = new PDFConverter(files);
 
         PDDocument document = converter.getDocumentFromImages();
-
-        PDFManager.saveAs(document, saveAs);
+        document.save(saveAs);
     }
 
     /**

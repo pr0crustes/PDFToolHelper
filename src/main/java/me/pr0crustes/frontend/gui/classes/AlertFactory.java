@@ -14,19 +14,13 @@ class AlertFactory {
      */
     public enum DefinedAlert {
 
-        noFile(
+        fileError(
                 Alert.AlertType.WARNING,
                 "File Error",
-                "No Select File",
-                "In order to the performed action work, a file must be selected."),
+                "An error occurred with the file.",
+                "Check your input / target file and try again."),
 
         invalidArgument(
-                Alert.AlertType.WARNING,
-                "Argument Error",
-                "Invalid Arguments",
-                "At least one argument passed is not valid."),
-
-        errorAtSave(
                 Alert.AlertType.WARNING,
                 "Argument Error",
                 "Invalid Arguments",
@@ -65,6 +59,7 @@ class AlertFactory {
         public void sendAlert() {
             AlertFactory.sendNewAlert(this.type, this.title, this.header, this.text);
         }
+
     }
 
     /**

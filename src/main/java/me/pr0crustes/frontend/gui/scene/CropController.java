@@ -8,18 +8,18 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import me.pr0crustes.backend.classes.file.FileSelector;
+import me.pr0crustes.backend.classes.file.SaveFileSelector;
+import me.pr0crustes.backend.classes.file.SingleFileSelector;
 import me.pr0crustes.backend.classes.number.RangeEx;
 import me.pr0crustes.backend.classes.pdf.PDFCropper;
-import me.pr0crustes.backend.classes.pdf.PDFManager;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.NoFileException;
-import me.pr0crustes.backend.exeptions.PermissionException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * CropController is the controller of Crop tab.
@@ -46,30 +46,28 @@ public class CropController extends ActionController {
      * Method that setups selectedFile and textFieldFile with user input.
      */
     private void onClickSearch() {
-        this.selectedFile = FileSelector.askForSingleFile(FileExtensions.PDF);
+        this.selectedFile = new SingleFileSelector().getSelection(FileExtensions.PDF);
         this.textFieldFile.setText(FileSelector.getFilePath(this.selectedFile));
     }
 
     /**
      * Method that creates a PDFCropper, crops the pdf and saves.
      * @throws ArgumentException in case of invalid args.
-     * @throws NoFileException in case no file is selected.
-     * @throws PermissionException in case of permission error.
+     * @throws IOException in case of file error.
      * @see ActionController
      * @see PDFCropper
      */
-    public void execute() throws ArgumentException, NoFileException, PermissionException {
+    public void execute() throws ArgumentException, IOException {
         if (this.selectedFile == null) {
             throw new ArgumentException();
         }
 
-        File saveAs = FileSelector.showSavePdfFile();
+        File saveAs = new SaveFileSelector().getSelection();
 
         PDFCropper cropper = new PDFCropper(this.selectedFile);
 
-        PDDocument subDocument = cropper.subDocument(new RangeEx(this.textFieldRange));
-
-        PDFManager.saveAs(subDocument, saveAs);
+        PDDocument document = cropper.subDocument(new RangeEx(this.textFieldRange.getText()));
+        document.save(saveAs);
     }
 
     /**

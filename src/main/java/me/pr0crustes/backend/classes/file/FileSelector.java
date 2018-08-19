@@ -2,10 +2,9 @@ package me.pr0crustes.backend.classes.file;
 
 import javafx.application.Platform;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import me.pr0crustes.Starter;
 import me.pr0crustes.backend.enums.FileExtensions;
-import me.pr0crustes.backend.exeptions.NoFileException;
-import me.pr0crustes.backend.exeptions.NoTargetFileException;
 
 import java.io.File;
 import java.util.List;
@@ -13,9 +12,24 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
 /**
- * Class made of static methods that handles a lot of file selecting stuff.
+ * Base class for all FileSelectors.
  */
-public class FileSelector {
+public abstract class FileSelector <T> {
+
+    /**
+     * Method that subclasses must implement.
+     * @return a callable with return T, to get the selection.
+     */
+    protected abstract Callable<T> getCallable(Stage stage, List<FileChooser.ExtensionFilter> filters);
+
+    /**
+     * Method that returns the selection.
+     * @return the selection with type T.
+     */
+    public T getSelection(FileExtensions... fileExtensions) {
+        List<FileChooser.ExtensionFilter> filters = ExtensionFilterFactory.combineFilters(fileExtensions);
+        return this.runFileQuery(this.getCallable(Starter.mainStage, filters));
+    }
 
     /**
      * Method that easily creates a FileChooser.
@@ -23,7 +37,7 @@ public class FileSelector {
      * @param filters the FileChooser extension filter.
      * @return a FileChooser as desired.
      */
-    private static FileChooser createFileWindow(String title, FileChooser.ExtensionFilter[] filters) {
+    FileChooser createFileWindow(String title, List<FileChooser.ExtensionFilter> filters) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
         fileChooser.getExtensionFilters().addAll(filters);
@@ -31,65 +45,12 @@ public class FileSelector {
     }
 
     /**
-     * Method that receives N FileExtensions, asking for a file to be selected.
-     * @param fileExtensions N FIleExtensions to be used.
-     * @return the selected File.
-     */
-    public static File askForSingleFile(FileExtensions... fileExtensions) {
-        FileChooser.ExtensionFilter[] filters = ExtensionFilterFactory.combineFilters(fileExtensions);
-        try {
-            return FileSelector.runFileQuery(() ->
-                    FileSelector.createFileWindow("Select a file", filters).showOpenDialog(Starter.mainStage)
-            );
-        } catch (NoFileException e) {
-            return null;
-        }
-    }
-
-    /**
-     * Method that receives N FileExtensions, asking for one or more files to be selected.
-     * @param fileExtensions N FIleExtensions to be used.
-     * @return list with the selected Files.
-     */
-    public static List<File> askForMultipleFile(FileExtensions... fileExtensions) {
-        FileChooser.ExtensionFilter[] filters = ExtensionFilterFactory.combineFilters(fileExtensions);
-        try {
-            return FileSelector.runFileQuery(() ->
-                    FileSelector.createFileWindow("Select one or more files", filters).showOpenMultipleDialog(Starter.mainStage)
-            );
-        } catch (NoFileException e) {
-            return null;
-        }
-    }
-
-    /**
-     * Method that shows the savePdf window.
-     * @return the saveAs File the user selected.
-     * @throws NoFileException in case there is a problem reading the file the user selected.
-     * @throws NoTargetFileException in case the user cancels the action.
-     */
-    public static File showSavePdfFile() throws NoFileException, NoTargetFileException {
-        FileChooser.ExtensionFilter[] filters = {
-                FileExtensions.PDF.asFilter()
-        };
-
-        File file = FileSelector.runFileQuery(() ->
-                FileSelector.createFileWindow("Save as", filters).showSaveDialog(Starter.mainStage)
-        );
-
-        if (file == null) {
-            throw new NoTargetFileException();
-        }
-        return file;
-    }
-
-    /**
      * Method that is a wrapper, calling in the FXThread.
      * @param callable a callable to be call.
      * @return the callable result.
-     * @throws NoFileException in case there is a problem reading the file the user selected.
      */
-    private static <T> T runFileQuery(Callable<T> callable) throws NoFileException {
+    private T runFileQuery(Callable<T> callable) {
+
         try {
             if (Platform.isFxApplicationThread()) {
                 return callable.call();
@@ -98,8 +59,8 @@ public class FileSelector {
                 Platform.runLater(query);
                 return query.get();
             }
-        } catch (Exception e) {
-            throw new NoFileException();
+        } catch (Exception e) {  // User canceled the action or there was a problem with the future task.
+            return null;
         }
     }
 
@@ -111,4 +72,6 @@ public class FileSelector {
     public static String getFilePath(File file) {
         return file == null ? "" : file.getPath();
     }
+
+
 }

@@ -1,6 +1,5 @@
 package me.pr0crustes.backend.classes.number;
 
-import javafx.scene.control.TextField;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 
 import java.util.HashSet;
@@ -62,28 +61,30 @@ import java.util.regex.Pattern;
  * "+13 +10", the same as "+13+10", resulting in [10, 13].  
  * "-2 1_3", the same as "-2+1_3", resulting in [1, 3].  
  * "-5 +5 +5 +3", the same as "-5+5+5+3", resulting in [3], since subtraction is the last thing that happens.  
- * "3_7 -4 +20 25_28 +50", the same as "3_7-4+20+25_28+50", resulting in [3, 5, 6, 7, 20, 25, 26, 27, 28, 50].  
+ * "3_7 -4 +20 25_28 +50", the same as "3_7-4+20+25_28+50", resulting in [3, 5, 6, 7, 20, 25, 26, 27, 28, 50].
+ *
+ * '*' can be used to match every number. In this case, all other operations will be ignored.
  *
  * Because of this, RangeEx allows the user to specifically select pages of a file, even not continuous ones.
  */
 public class RangeEx {
 
-    private final String rangeString;
+    private final Set<Integer> values;
+    private boolean isUniversal = false;
 
     /**
      * Constructor that setups RangeEx with a string.
      * @param rangeString a valid RangeEx string.
      */
-    public RangeEx(String rangeString) {
-        this.rangeString = rangeString;
+    public RangeEx(String rangeString) throws ArgumentException {
+        this.values = this.getValues(rangeString);
     }
 
-    /**
-     * Constructor that setups RangeEx with a TextField, automatically calling getText.
-     * @param textField a non null TextField.
-     */
-    public RangeEx(TextField textField) {
-        this(textField.getText());
+    public boolean contains(int value) {
+        if (this.isUniversal) {
+            return true;
+        }
+        return this.values.contains(value);
     }
 
     /**
@@ -96,7 +97,13 @@ public class RangeEx {
      * @return a Set of Integer, with all numbers that conforms to the RangeEx.
      * @throws ArgumentException in case the RangeEx is invalid.
      */
-    public Set<Integer> getValues() throws ArgumentException {
+    public Set<Integer> getValues(String rangeString) throws ArgumentException {
+
+        if (rangeString.contains("*")) {
+            this.isUniversal = true;
+            return new HashSet<>();  // Empty set
+        }
+
         Set<Integer> parsedValues = new HashSet<>();
 
         Set<String> rangesParts = RangeEx.getMatches(rangeString, "\\d+_\\d+");

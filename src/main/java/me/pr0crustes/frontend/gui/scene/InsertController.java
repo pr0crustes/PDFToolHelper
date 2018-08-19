@@ -2,7 +2,6 @@ package me.pr0crustes.frontend.gui.scene;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -10,19 +9,19 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import me.pr0crustes.backend.classes.file.FileSelector;
+import me.pr0crustes.backend.classes.file.SaveFileSelector;
+import me.pr0crustes.backend.classes.file.SingleFileSelector;
 import me.pr0crustes.backend.classes.number.Numbers;
 import me.pr0crustes.backend.classes.number.RangeEx;
 import me.pr0crustes.backend.classes.pdf.PDFInsert;
-import me.pr0crustes.backend.classes.pdf.PDFManager;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.NoFileException;
-import me.pr0crustes.backend.exeptions.PermissionException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * InsertController is the controller of Insert tab.
@@ -36,7 +35,6 @@ public class InsertController extends ActionController {
     private File intoFile;
 
     private TextField textFieldInsertFile;
-    private CheckBox checkBoxAllFile;
     private TextField textFieldInsertRange;
 
     private TextField textFieldIntoFile;
@@ -53,36 +51,32 @@ public class InsertController extends ActionController {
     /**
      * Method that creates a PDFInsert, inserts a pdf into other and saves.
      * @throws ArgumentException in case of argument error.
-     * @throws NoFileException in case of so file selected.
-     * @throws PermissionException in case of permission error.
+     * @throws IOException in case of file error.
      * @see ActionController
      * @see PDFInsert
      */
-    public void execute() throws ArgumentException, NoFileException, PermissionException {
+    public void execute() throws ArgumentException, IOException {
         if (this.insertFile == null || this.intoFile == null) {
             throw new ArgumentException();
         }
 
-        boolean allFile = this.checkBoxAllFile.isSelected();
-
-        RangeEx rangeEx = new RangeEx(this.textFieldInsertRange);
+        RangeEx rangeEx = new RangeEx(this.textFieldInsertRange.getText());
 
         int afterPage = Numbers.valueFromTextField(this.textFieldIntoAfterPage);
 
-        File saveAs = FileSelector.showSavePdfFile();
+        File saveAs = new SaveFileSelector().getSelection();
 
         PDFInsert pdfInsert = new PDFInsert(this.insertFile, this.intoFile);
 
-        PDDocument document = pdfInsert.insertDocument(allFile, rangeEx, afterPage);
-
-        PDFManager.saveAs(document, saveAs);
+        PDDocument document = pdfInsert.insertDocument(rangeEx, afterPage);
+        document.save(saveAs);
     }
 
     /**
      * Method that keep track of the insert file selected.
      */
     private void onClickInsertFileSearch() {
-        this.insertFile = FileSelector.askForSingleFile(FileExtensions.PDF);
+        this.insertFile = new SingleFileSelector().getSelection(FileExtensions.PDF);
         this.textFieldInsertFile.setText(FileSelector.getFilePath(this.insertFile));
     }
 
@@ -90,7 +84,7 @@ public class InsertController extends ActionController {
      * Method that keep track of the into file selected.
      */
     private void onClickIntoFileSearch() {
-        this.intoFile = FileSelector.askForSingleFile(FileExtensions.PDF);
+        this.intoFile = new SingleFileSelector().getSelection(FileExtensions.PDF);
         this.textFieldIntoFile.setText(FileSelector.getFilePath(this.intoFile));
     }
 
@@ -106,11 +100,6 @@ public class InsertController extends ActionController {
         this.textFieldInsertFile.setFont(Font.font(10));
 
         this.textFieldInsertRange = NodeFactory.textFieldWithWidthAndAlignment(100, Pos.CENTER);
-
-        this.checkBoxAllFile = new CheckBox();
-        this.checkBoxAllFile.selectedProperty().addListener(
-                (observable, oldValue, newValue) -> this.textFieldInsertRange.setDisable(newValue)
-        );
 
         this.textFieldIntoFile = NodeFactory.textFieldWithWidthAndAlignment(200, Pos.CENTER_LEFT);
         this.textFieldIntoFile.setFont(Font.font(10));
@@ -128,11 +117,8 @@ public class InsertController extends ActionController {
 
         GridPane gridPaneInsertConfig = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 
-        gridPaneInsertConfig.add(new Label("Entire File:"), 0, 0);
-        gridPaneInsertConfig.add(this.checkBoxAllFile, 1, 0);
-
-        gridPaneInsertConfig.add(new Label("RangeEx:"), 0, 1);
-        gridPaneInsertConfig.add(this.textFieldInsertRange, 1, 1);
+        gridPaneInsertConfig.add(new Label("RangeEx:"), 0, 0);
+        gridPaneInsertConfig.add(this.textFieldInsertRange, 1, 0);
 
 
         GridPane gridPaneIntoFile = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
