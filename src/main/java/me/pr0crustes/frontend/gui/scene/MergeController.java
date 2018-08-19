@@ -53,10 +53,6 @@ public class MergeController extends ListController {
 
         File saveAs = new SaveFileSelector().getSelection();
 
-        if (saveAs == null) {
-            return;
-        }
-
         PDFMerger merger = new PDFMerger(filesToMerge);
 
         PDDocument document = merger.mergeFiles();

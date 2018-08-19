@@ -51,10 +51,6 @@ public class ConvertController extends ListController {
 
         File saveAs = new SaveFileSelector().getSelection();
 
-        if (saveAs == null) {
-            return;
-        }
-
         PDFConverter converter = new PDFConverter(files);
 
         PDDocument document = converter.getDocumentFromImages();

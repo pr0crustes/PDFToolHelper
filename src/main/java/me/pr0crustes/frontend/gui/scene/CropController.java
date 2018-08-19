@@ -64,10 +64,6 @@ public class CropController extends ActionController {
 
         File saveAs = new SaveFileSelector().getSelection();
 
-        if (saveAs == null) {
-            return;
-        }
-
         PDFCropper cropper = new PDFCropper(this.selectedFile);
 
         PDDocument document = cropper.subDocument(new RangeEx(this.textFieldRange.getText()));

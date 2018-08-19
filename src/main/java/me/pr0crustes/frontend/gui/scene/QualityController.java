@@ -66,10 +66,6 @@ public class QualityController extends ActionController {
 
         File saveAs = new SaveFileSelector().getSelection();
 
-        if (saveAs == null) {
-            return;
-        }
-
         PDFQualityModifier qualityModifier = new PDFQualityModifier(this.selectedFile);
 
         PDDocument document = qualityModifier.getDocumentWithDPI(Numbers.valueFromTextField(this.textFieldDpi));

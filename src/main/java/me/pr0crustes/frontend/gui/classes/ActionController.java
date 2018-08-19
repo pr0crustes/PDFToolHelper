@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.NullFileException;
 import me.pr0crustes.backend.exeptions.StrangeException;
 
 import java.io.IOException;
@@ -55,6 +54,10 @@ public abstract class ActionController extends PassiveController implements Runn
     /**
      * One of the most important methods, runExecute runs execute in a try catch,
      * checking exceptions and handling them.
+     *
+     * The printStackTraces is only for debug reasons.
+     * Printing it does not mean that the program encountered a bug,
+     * since exceptions are expected.
      */
     private void runExecute() {
         try {
@@ -62,7 +65,7 @@ public abstract class ActionController extends PassiveController implements Runn
         } catch (ArgumentException e) {
             e.printStackTrace();
             AlertFactory.DefinedAlert.invalidArgument.sendAlert();
-        } catch (NullFileException e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
             // Ignore, user didn't selected a file
             //TODO: Handle this in some way (?)
@@ -80,10 +83,10 @@ public abstract class ActionController extends PassiveController implements Runn
      * This method can throw exceptions and because of this is mainly called from runExecute.
      * @throws ArgumentException in case of invalid arguments.
      * @throws IOException in case a file related error.
-     * @throws NullFileException in case the file is null.
+     * @throws NullPointerException in case the user did not selected a file.
      * @throws StrangeException in case of a strange error.
      */
     @SuppressWarnings("RedundantThrows")
-    protected abstract void execute() throws ArgumentException, IOException, NullFileException, StrangeException;
+    protected abstract void execute() throws ArgumentException, IOException, NullPointerException, StrangeException;
 
 }
