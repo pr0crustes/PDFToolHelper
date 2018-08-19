@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.StrangeException;
 
 import java.io.IOException;
 
@@ -84,9 +83,9 @@ public abstract class ActionController extends PassiveController implements Runn
      * @throws ArgumentException in case of invalid arguments.
      * @throws IOException in case a file related error.
      * @throws NullPointerException in case the user did not selected a file.
-     * @throws StrangeException in case of a strange error.
+     * @throws Exception in case of any other error.
      */
     @SuppressWarnings("RedundantThrows")
-    protected abstract void execute() throws ArgumentException, IOException, NullPointerException, StrangeException;
+    protected abstract void execute() throws ArgumentException, IOException, NullPointerException, Exception;
 
 }
