@@ -4,6 +4,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -11,13 +12,13 @@ import java.util.Objects;
  */
 public class PDFMerger {
 
-    private final File[] fileArray;
+    private final List<File> fileArray;
 
     /**
      * Constructor, receives a fileArray of files that should be merged.
-     * @param fileList the File array of files to be merged.
+     * @param fileList the File list of files to be merged.
      */
-    public PDFMerger(File[] fileList) {
+    public PDFMerger(List<File> fileList) {
         this.fileArray = Objects.requireNonNull(fileList);
     }
 
