@@ -24,7 +24,7 @@ Should always be used between two numbers.
 Examples:  
 "1_4" will result in [1, 2, 3, 4].  
 "10_15" will result in [10, 11, 12, 13, 14, 15].  
-"_6" or "3_" will result in an exception.  
+"_6" or "3_" will result in an undefined behavior.  
   
 ##### PLUS ('+')  
 A plus represents an addition of the number that follows it.  
@@ -34,7 +34,7 @@ Every plus signal should be followed by a valid number.
 Examples:  
 "+1" will result in [1].  
 "+7" will result in [7].  
-"+" or "++0" will result in an exception.  
+"+" or "++0" will result in an undefined behavior.  
   
 ##### MINUS ('-')  
 A minus represents a subtraction of the number that follows it from a interval.  
@@ -62,3 +62,5 @@ Because of this order, are valid unintuitive RangeEx:
 "3_7 -4 +20 25_28 +50", the same as "3_7-4+20+25_28+50", resulting in [3, 5, 6, 7, 20, 25, 26, 27, 28, 50].  
   
 Because of this, RangeEx allows the user to specifically select pages of a file, even not continuous ones.
+
+'*' can be used as a wild card, matching every possibility. Keep in mind that other operations will be ignored.
