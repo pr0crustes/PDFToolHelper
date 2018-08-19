@@ -4,9 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.FileException;
-import me.pr0crustes.backend.exeptions.NoTargetFileException;
+import me.pr0crustes.backend.exeptions.NullFileException;
 import me.pr0crustes.backend.exeptions.StrangeException;
+
+import java.io.IOException;
 
 /**
  * ActionController is an abstract class that extends PassiveController (see it) and also
@@ -61,11 +62,11 @@ public abstract class ActionController extends PassiveController implements Runn
         } catch (ArgumentException e) {
             e.printStackTrace();
             AlertFactory.DefinedAlert.invalidArgument.sendAlert();
-        } catch (NoTargetFileException e) {
+        } catch (NullFileException e) {
             e.printStackTrace();
             // Ignore, user didn't selected a file
             //TODO: Handle this in some way (?)
-        } catch (FileException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             AlertFactory.DefinedAlert.fileError.sendAlert();
         } catch (Exception e) {
@@ -78,14 +79,11 @@ public abstract class ActionController extends PassiveController implements Runn
      * Execute is an abstract method that subclasses need to implement.
      * This method can throw exceptions and because of this is mainly called from runExecute.
      * @throws ArgumentException in case of invalid arguments.
-     * @throws FileException in case a file related error.
-     * @throws NoTargetFileException in case the file is null.
+     * @throws IOException in case a file related error.
+     * @throws NullFileException in case the file is null.
      * @throws StrangeException in case of a strange error.
      */
     @SuppressWarnings("RedundantThrows")
-    protected abstract void execute() throws ArgumentException,
-                                             FileException,
-                                             NoTargetFileException,
-                                             StrangeException;
+    protected abstract void execute() throws ArgumentException, IOException, NullFileException, StrangeException;
 
 }

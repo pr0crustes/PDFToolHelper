@@ -1,7 +1,6 @@
 package me.pr0crustes.backend.classes.pdf;
 
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.FileException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -37,10 +36,10 @@ class PDFCreator {
     /**
      * Method that adds all images from a BufferedImage List to the document.
      * @param images the BufferedImage list.
-     * @throws FileException in case of file related problems.
+     * @throws IOException in case of file related problems.
      * @throws ArgumentException in case of a invalid argument.
      */
-    void addMultipleImageAsPages(List<BufferedImage> images) throws FileException, ArgumentException {
+    void addMultipleImageAsPages(List<BufferedImage> images) throws IOException, ArgumentException {
         for (BufferedImage currentImage: images) {
             this.addImageAsPage(currentImage);
         }
@@ -49,20 +48,16 @@ class PDFCreator {
     /**
      * Method that adds a single page to the class document.
      * @param image the BufferedImage that should be added.
-     * @throws FileException in case of file related problems.
+     * @throws IOException in case of file related problems.
      * @throws ArgumentException in case of an invalid image.
      */
-    private void addImageAsPage(BufferedImage image) throws FileException, ArgumentException {
+    private void addImageAsPage(BufferedImage image) throws IOException, ArgumentException {
         PDPage page = PDFManager.pageWithImageSize(image);
         this.document.addPage(page);
-        try {
-            PDImageXObject pdImageXObject = LosslessFactory.createFromImage(this.document, image);
-            PDPageContentStream contentStream = new PDPageContentStream(this.document, page, PDPageContentStream.AppendMode.APPEND, true, true);
-            contentStream.drawImage(pdImageXObject, 0, 0);
-            contentStream.close();
-        } catch (IOException e) {
-            throw new FileException();
-        }
+        PDImageXObject pdImageXObject = LosslessFactory.createFromImage(this.document, image);
+        PDPageContentStream contentStream = new PDPageContentStream(this.document, page, PDPageContentStream.AppendMode.APPEND, true, true);
+        contentStream.drawImage(pdImageXObject, 0, 0);
+        contentStream.close();
     }
     
 }

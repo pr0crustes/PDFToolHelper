@@ -14,12 +14,12 @@ import me.pr0crustes.backend.classes.pdf.PDFManager;
 import me.pr0crustes.backend.classes.pdf.PDFQualityModifier;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.FileException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * QualityController is the controller of Quality tab.
@@ -54,12 +54,12 @@ public class QualityController extends ActionController {
     /**
      * Method that creates a PDFQualityModifier, changes the pdf dpi and saves.
      * @throws ArgumentException in case of invalid args.
-     * @throws FileException in case of file related error.
+     * @throws IOException in case of file related error.
      * @see ActionController
      * @see PDFQualityModifier
      */
     @Override
-    public void execute() throws ArgumentException, FileException {
+    public void execute() throws ArgumentException, IOException {
         if (this.selectedFile == null) {
             throw new ArgumentException();
         }
@@ -81,13 +81,10 @@ public class QualityController extends ActionController {
     @Override
     public void setupGUI(Pane pane) {
         
-        this.textFieldFile = new TextField();
-        this.textFieldFile.setPrefWidth(300);
+        this.textFieldFile = NodeFactory.textFieldWithWidthAndAlignment(300, Pos.CENTER_LEFT);
         this.textFieldFile.setFont(Font.font(10));
 
-        this.textFieldDpi = new TextField();
-        this.textFieldDpi.setPrefWidth(50);
-        this.textFieldDpi.setAlignment(Pos.CENTER);
+        this.textFieldDpi = NodeFactory.textFieldWithWidthAndAlignment(50, Pos.CENTER);
 
         GridPane gridPaneFile = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 

@@ -18,12 +18,10 @@ class ExtensionFilterFactory {
      * @param fileExtensions the FileExtension Array to be converted.
      * @return a FileChooser.ExtensionFilter.
      */
-    static FileChooser.ExtensionFilter[] combineFilters(FileExtensions[] fileExtensions) {
+    static List<FileChooser.ExtensionFilter> combineFilters(FileExtensions[] fileExtensions) {
         List<FileChooser.ExtensionFilter> filterList = Arrays.stream(fileExtensions).map(FileExtensions::asFilter).collect(Collectors.toList());
         filterList.add(new FileChooser.ExtensionFilter("All Files", "*.*"));
-
-        FileChooser.ExtensionFilter[] filterArray = new FileChooser.ExtensionFilter[filterList.size()];
-        return filterList.toArray(filterArray);
+        return filterList;
     }
 
 }

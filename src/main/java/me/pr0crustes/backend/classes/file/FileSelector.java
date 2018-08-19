@@ -4,10 +4,9 @@ import javafx.application.Platform;
 import javafx.stage.FileChooser;
 import me.pr0crustes.Starter;
 import me.pr0crustes.backend.enums.FileExtensions;
-import me.pr0crustes.backend.exeptions.FileException;
-import me.pr0crustes.backend.exeptions.NoTargetFileException;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
@@ -23,7 +22,7 @@ public class FileSelector {
      * @param filters the FileChooser extension filter.
      * @return a FileChooser as desired.
      */
-    private static FileChooser createFileWindow(String title, FileChooser.ExtensionFilter[] filters) {
+    private static FileChooser createFileWindow(String title, List<FileChooser.ExtensionFilter> filters) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
         fileChooser.getExtensionFilters().addAll(filters);
@@ -36,14 +35,10 @@ public class FileSelector {
      * @return the selected File.
      */
     public static File askForSingleFile(FileExtensions... fileExtensions) {
-        FileChooser.ExtensionFilter[] filters = ExtensionFilterFactory.combineFilters(fileExtensions);
-        try {
-            return FileSelector.runFileQuery(() ->
-                    FileSelector.createFileWindow("Select a file", filters).showOpenDialog(Starter.mainStage)
-            );
-        } catch (FileException e) {
-            return null;
-        }
+        List<FileChooser.ExtensionFilter> filters = ExtensionFilterFactory.combineFilters(fileExtensions);
+        return FileSelector.runFileQuery(() ->
+                FileSelector.createFileWindow("Select a file", filters).showOpenDialog(Starter.mainStage)
+        );
     }
 
     /**
@@ -52,44 +47,32 @@ public class FileSelector {
      * @return list with the selected Files.
      */
     public static List<File> askForMultipleFile(FileExtensions... fileExtensions) {
-        FileChooser.ExtensionFilter[] filters = ExtensionFilterFactory.combineFilters(fileExtensions);
-        try {
-            return FileSelector.runFileQuery(() ->
-                    FileSelector.createFileWindow("Select one or more files", filters).showOpenMultipleDialog(Starter.mainStage)
-            );
-        } catch (FileException e) {
-            return null;
-        }
+        List<FileChooser.ExtensionFilter> filters = ExtensionFilterFactory.combineFilters(fileExtensions);
+        return FileSelector.runFileQuery(() ->
+                FileSelector.createFileWindow("Select one or more files", filters).showOpenMultipleDialog(Starter.mainStage)
+        );
     }
 
     /**
      * Method that shows the savePdf window.
      * @return the saveAs File the user selected.
-     * @throws FileException in case there is a problem reading the file the user selected.
-     * @throws NoTargetFileException in case the user cancels the action.
      */
-    public static File showSavePdfFile() throws FileException, NoTargetFileException {
-        FileChooser.ExtensionFilter[] filters = {
-                FileExtensions.PDF.asFilter()
-        };
+    public static File showSavePdfFile() {
+        List<FileChooser.ExtensionFilter> filters = new ArrayList<>();
+        filters.add(FileExtensions.PDF.asFilter());
 
-        File file = FileSelector.runFileQuery(() ->
+        return FileSelector.runFileQuery(() ->
                 FileSelector.createFileWindow("Save as", filters).showSaveDialog(Starter.mainStage)
         );
-
-        if (file == null) {
-            throw new NoTargetFileException();
-        }
-        return file;
     }
 
     /**
      * Method that is a wrapper, calling in the FXThread.
      * @param callable a callable to be call.
      * @return the callable result.
-     * @throws FileException in case there is a problem reading the file the user selected.
      */
-    private static <T> T runFileQuery(Callable<T> callable) throws FileException {
+    private static <T> T runFileQuery(Callable<T> callable) {
+
         try {
             if (Platform.isFxApplicationThread()) {
                 return callable.call();
@@ -98,8 +81,8 @@ public class FileSelector {
                 Platform.runLater(query);
                 return query.get();
             }
-        } catch (Exception e) {
-            throw new FileException();
+        } catch (Exception e) {  // User canceled the action or there was a problem with the future task.
+            return null;
         }
     }
 
@@ -111,4 +94,5 @@ public class FileSelector {
     public static String getFilePath(File file) {
         return file == null ? "" : file.getPath();
     }
+
 }

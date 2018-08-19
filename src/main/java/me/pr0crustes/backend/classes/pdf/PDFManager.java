@@ -1,7 +1,6 @@
 package me.pr0crustes.backend.classes.pdf;
 
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.FileException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
@@ -20,15 +19,11 @@ public class PDFManager {
      * saveAs is a method that handles the saving of a PDDocument, throwing FileException in case of file related errors..
      * @param document the PDDocument that should be save.
      * @param saveAs the File that the document should be saved as.
-     * @throws FileException in case of a IOException.
+     * @throws IOException in case of a IOException.
      */
-    public static void saveAs(PDDocument document, File saveAs) throws FileException {
-        try {
-            document.save(Objects.requireNonNull(saveAs));
-            document.close();
-        } catch (IOException e) {
-            throw new FileException();
-        }
+    public static void saveAs(PDDocument document, File saveAs) throws IOException {
+        document.save(Objects.requireNonNull(saveAs));
+        document.close();
     }
 
     /**
@@ -36,14 +31,10 @@ public class PDFManager {
      * this is useful because PDDocument.load forces you into handling IOException, leading to repetitive code.
      * @param file the PDDocument File.
      * @return the file as a PDDocument, if possible.
-     * @throws FileException in case of IOException.
+     * @throws IOException in case of IOException.
      */
-    public static PDDocument getFileDocument(File file) throws FileException {
-        try {
-            return PDDocument.load(Objects.requireNonNull(file));
-        } catch (IOException e) {
-            throw new FileException();
-        }
+    public static PDDocument getFileDocument(File file) throws IOException {
+        return PDDocument.load(Objects.requireNonNull(file));
     }
 
     /**

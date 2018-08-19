@@ -1,7 +1,6 @@
 package me.pr0crustes.backend.classes.pdf;
 
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.FileException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
@@ -30,24 +29,20 @@ public class PDFQualityModifier {
      * Method that handles the dpi of the file.
      * @param dpi the target dpi.
      * @return a PDDocument with the new dpi.
-     * @throws FileException in case of file error.
+     * @throws IOException in case of file error.
      * @throws ArgumentException in case of invalid arguments.
      */
-    public PDDocument getDocumentWithDPI(int dpi) throws FileException, ArgumentException {
+    public PDDocument getDocumentWithDPI(int dpi) throws IOException, ArgumentException {
         PDDocument originalDocument = PDFManager.getFileDocument(this.file);
         PDFRenderer renderer = new PDFRenderer(originalDocument);
 
         List<BufferedImage> bufferedImages = new ArrayList<>();
 
-        try {
-            for (int i = 0; i < originalDocument.getNumberOfPages(); i++) {
-                    BufferedImage pageAsImage = renderer.renderImageWithDPI(i, dpi);
-                    bufferedImages.add(pageAsImage);
-            }
-            originalDocument.close();
-        } catch (IOException e) {
-            throw new FileException();
+        for (int i = 0; i < originalDocument.getNumberOfPages(); i++) {
+                BufferedImage pageAsImage = renderer.renderImageWithDPI(i, dpi);
+                bufferedImages.add(pageAsImage);
         }
+        originalDocument.close();
 
         PDFCreator pdfCreator = new PDFCreator();
         pdfCreator.addMultipleImageAsPages(bufferedImages);

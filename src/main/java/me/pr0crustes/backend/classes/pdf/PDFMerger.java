@@ -1,9 +1,9 @@
 package me.pr0crustes.backend.classes.pdf;
 
-import me.pr0crustes.backend.exeptions.FileException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -23,18 +23,16 @@ public class PDFMerger {
 
     /**
      * Method that merges all files.
-     * @return a PDDocument, made of all files from fileArray.
-     * @throws FileException in case of file error.
+     * @return a PDFDocument, made of all files from fileArray.
      */
-    public PDDocument mergeFiles() throws FileException {
+    public PDDocument mergeFiles() throws IOException {
         PDDocument finalDocument = new PDDocument();
 
         for (File currentFile : this.fileArray) {
-            if (currentFile != null) {
-                PDDocument currentDocument = PDFManager.getFileDocument(currentFile);
-                for (int i = 0; i < currentDocument.getNumberOfPages(); i++) {
-                    finalDocument.addPage(currentDocument.getPage(i));
-                }
+            PDDocument currentDocument = PDFManager.getFileDocument(currentFile);
+
+            for (int i = 0; i < currentDocument.getNumberOfPages(); i++) {
+                finalDocument.addPage(currentDocument.getPage(i));
             }
         }
         return finalDocument;

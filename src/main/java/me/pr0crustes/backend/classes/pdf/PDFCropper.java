@@ -1,11 +1,10 @@
 package me.pr0crustes.backend.classes.pdf;
 
 import me.pr0crustes.backend.classes.number.RangeEx;
-import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.FileException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -28,15 +27,14 @@ public class PDFCropper {
      * Creates a subdocument based on the args.
      * @param range range that will be used to create the subdocument.
      * @return a PDDocument with the desired pages.
-     * @throws FileException in case there is a problem with the file.
-     * @throws ArgumentException in case there is a problem with the args.
+     * @throws IOException in case there is a problem with the file.
      * @see RangeEx
      */
-    public PDDocument subDocument(RangeEx range) throws FileException, ArgumentException {
+    public PDDocument subDocument(RangeEx range) throws IOException {
         PDDocument document = PDFManager.getFileDocument(this.file);
 
         for (int i = document.getNumberOfPages(); i > 0; i--) {
-            if (!range.getValues().contains(i)) {
+            if (!range.contains(i)) {
                 document.removePage(i - 1); // -1 because user input starts from 1, not 0
             }
         }

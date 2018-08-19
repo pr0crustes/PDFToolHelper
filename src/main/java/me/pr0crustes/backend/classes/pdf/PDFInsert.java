@@ -1,11 +1,10 @@
 package me.pr0crustes.backend.classes.pdf;
 
 import me.pr0crustes.backend.classes.number.RangeEx;
-import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.FileException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -32,20 +31,14 @@ public class PDFInsert {
      * @param range the range representing the pages that should be inserted.
      * @param insertAfterPage after which page the file should be included.
      * @return a PDDocument with the insert done.
-     * @throws FileException in case of file error.
-     * @throws ArgumentException in case of invalid argument.
+     * @throws IOException in case of file error.
      */
-    public PDDocument insertDocument(boolean entireFile, RangeEx range, int insertAfterPage) throws FileException, ArgumentException {
-        PDDocument documentInsert;
+    public PDDocument insertDocument(RangeEx range, int insertAfterPage) throws IOException {
 
-        if (entireFile) {
-            documentInsert = PDFManager.getFileDocument(this.insertFile);
-        } else {
-            PDFCropper cropper = new PDFCropper(this.insertFile);
-            documentInsert = cropper.subDocument(range);
-        }
-
+        PDFCropper cropper = new PDFCropper(this.insertFile);
+        PDDocument documentInsert = cropper.subDocument(range);
         PDDocument documentInto = PDFManager.getFileDocument(this.intoFile);
+
         PDDocument documentNew = new PDDocument();
 
         for (int i = 0; i < documentInto.getNumberOfPages(); i++) {

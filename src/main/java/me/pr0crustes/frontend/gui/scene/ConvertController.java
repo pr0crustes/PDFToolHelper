@@ -5,13 +5,13 @@ import me.pr0crustes.backend.classes.file.FileSelector;
 import me.pr0crustes.backend.classes.pdf.PDFConverter;
 import me.pr0crustes.backend.classes.pdf.PDFManager;
 import me.pr0crustes.backend.exeptions.ArgumentException;
-import me.pr0crustes.backend.exeptions.FileException;
 import me.pr0crustes.frontend.gui.classes.ListController;
 import me.pr0crustes.frontend.gui.classes.elements.FileListViewManagerFactory;
 import me.pr0crustes.frontend.gui.classes.elements.ListViewManager;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -36,11 +36,11 @@ public class ConvertController extends ListController {
 
     /**
      * Implementation of execute, converts the files and saves.
-     * @throws FileException in case of file error.
+     * @throws IOException in case of file error.
      * @throws ArgumentException in case of invalid arguments.
      * @see me.pr0crustes.frontend.gui.classes.ActionController
      */
-    public void execute() throws FileException, ArgumentException {
+    public void execute() throws IOException, ArgumentException {
         List<File> fileList = this.listViewManager.getList();
 
         if (fileList.size() == 0) {
