@@ -21,7 +21,7 @@ public class SaveFileSelector extends FileSelector<File> {
      */
     @Override
     protected Callable<File> getCallable(Stage stage, List<FileChooser.ExtensionFilter> filters) {
-        // Add PDF extension as first, making it is the default.
+        // Add PDF extension as first, making it the default.
         filters.add(0, FileExtensions.PDF.asFilter());
         return (() -> this.createFileWindow("Save as", filters).showSaveDialog(stage));
     }
