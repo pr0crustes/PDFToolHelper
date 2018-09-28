@@ -6,6 +6,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import me.pr0crustes.frontend.gui.classes.LocalizableStrings;
 import me.pr0crustes.frontend.gui.classes.PassiveController;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 
@@ -61,11 +62,11 @@ public class MenuController extends PassiveController {
     private StackPane createLeftStackPane(StackPane stackPaneRight) {
 
         Button[] buttons = {
-                NodeFactory.buttonWithHandle("Crop", (event -> new CropController(stackPaneRight))),
-                NodeFactory.buttonWithHandle("Merge", (event -> new MergeController(stackPaneRight))),
-                NodeFactory.buttonWithHandle("Insert", (event -> new InsertController(stackPaneRight))),
-                NodeFactory.buttonWithHandle("Convert", (event -> new ConvertController(stackPaneRight))),
-                NodeFactory.buttonWithHandle("Quality", (event -> new QualityController(stackPaneRight)))
+                NodeFactory.buttonWithHandle(LocalizableStrings.CROP.localized(), (event -> new CropController(stackPaneRight))),
+                NodeFactory.buttonWithHandle(LocalizableStrings.MERGE.localized(), (event -> new MergeController(stackPaneRight))),
+                NodeFactory.buttonWithHandle(LocalizableStrings.INSERT.localized(), (event -> new InsertController(stackPaneRight))),
+                NodeFactory.buttonWithHandle(LocalizableStrings.CONVERT.localized(), (event -> new ConvertController(stackPaneRight))),
+                NodeFactory.buttonWithHandle(LocalizableStrings.QUALITY.localized(), (event -> new QualityController(stackPaneRight)))
         };
 
         GridPane gridPane = new GridPane();

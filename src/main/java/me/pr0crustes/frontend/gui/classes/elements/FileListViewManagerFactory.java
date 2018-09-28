@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import me.pr0crustes.frontend.gui.classes.ListController;
+import me.pr0crustes.frontend.gui.classes.LocalizableStrings;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 
 import java.io.File;
@@ -55,7 +56,7 @@ public class FileListViewManagerFactory {
             gridPaneButton.add(buttons[i], i, 0);
         }
 
-        Button buttonSave = NodeFactory.buttonWithHandle("Save", this.controller.eventDo());
+        Button buttonSave = NodeFactory.buttonWithHandle(LocalizableStrings.SAVE.localized(), this.controller.eventDo());
         buttonSave.setDefaultButton(true);
 
         VBox vBox = new VBox();

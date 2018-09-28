@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import me.pr0crustes.frontend.gui.classes.LocalizableStrings;
 import me.pr0crustes.frontend.gui.scene.MenuController;
 
 /**
@@ -34,7 +35,7 @@ public class Starter extends Application {
         Scene scene = new Scene(root, 600, 400);
 
         primaryStage.setScene(scene);
-        primaryStage.setTitle("PDF-Toolkit");
+        primaryStage.setTitle(LocalizableStrings.TITLE.localized());
         primaryStage.setResizable(false);
         primaryStage.show();
 

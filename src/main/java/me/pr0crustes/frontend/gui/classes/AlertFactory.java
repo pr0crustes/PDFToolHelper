@@ -16,21 +16,21 @@ class AlertFactory {
 
         fileError(
                 Alert.AlertType.WARNING,
-                "File Error",
-                "An error occurred with the file.",
-                "Check your input / target file and try again."),
+                LocalizableStrings.FILE_ERROR.localized(),
+                LocalizableStrings.AN_ERROR_OCCURRED_WITH_THE_FILE.localized(),
+                LocalizableStrings.CHECK_YOUR_INPUT.localized()),
 
         invalidArgument(
                 Alert.AlertType.WARNING,
-                "Argument Error",
-                "Invalid Arguments",
-                "At least one argument passed is not valid."),
+                LocalizableStrings.ARGUMENT_ERROR.localized(),
+                LocalizableStrings.INVALID_ARGUMENTS.localized(),
+                LocalizableStrings.AT_LEAST_ONE_ARGUMENT_IS_INVALID.localized()),
 
         unknownError(
                 Alert.AlertType.ERROR,
-                "Unknown Error",
-                "An Unknown Error Occurred",
-                "Report to the devs if you think this is a consistent bug.");
+                LocalizableStrings.UNKNOWN_ERROR.localized(),
+                LocalizableStrings.AN_UNKNOWN_ERROR_OCCURRED.localized(),
+                LocalizableStrings.REPORT_IF_YOU_THINK_THIS_IS_A_BUG.localized());
 
 
 
