@@ -80,6 +80,11 @@ public class RangeEx {
         this.values = this.getValues(rangeString);
     }
 
+    /**
+     * Method that tests if value is in rangex.
+     * @param value the value to test.
+     * @return if the value is contained in this rangex.
+     */
     public boolean contains(int value) {
         if (this.isUniversal) {
             return true;
