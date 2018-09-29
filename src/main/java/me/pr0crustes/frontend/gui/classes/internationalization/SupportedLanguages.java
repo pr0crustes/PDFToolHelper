@@ -7,7 +7,6 @@ import java.util.Locale;
  */
 public enum SupportedLanguages {
 
-    DEFAULT(Locale.ENGLISH),  // The default is english.
     ENGLISH(Locale.ENGLISH),
     PORTUGUESE(new Locale("pt", "BR"));
 

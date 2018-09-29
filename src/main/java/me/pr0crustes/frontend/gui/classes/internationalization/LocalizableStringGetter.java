@@ -11,7 +11,7 @@ public class LocalizableStringGetter {
      * The resource bundle variable.
      * Inits with english as default language.
      */
-    private static ResourceBundle bundle = LocalizableStringGetter.bundleWithLocale(SupportedLanguages.DEFAULT);
+    private static ResourceBundle bundle = LocalizableStringGetter.bundleWithLocale(SupportedLanguages.ENGLISH);
 
     /**
      * Static method that sets the bundle to a bundle with a new SupportedLanguages.
