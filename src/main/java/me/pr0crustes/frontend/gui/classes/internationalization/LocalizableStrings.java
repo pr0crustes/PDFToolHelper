@@ -6,7 +6,6 @@ package me.pr0crustes.frontend.gui.classes.internationalization;
  */
 public enum LocalizableStrings {
 
-    TITLE("Title"),
     FILE("File"),
     SELECT_FILE("Select File"),
     RANGE_EX("RangeEx"),
