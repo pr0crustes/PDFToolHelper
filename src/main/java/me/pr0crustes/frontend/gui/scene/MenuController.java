@@ -27,6 +27,15 @@ public class MenuController extends PassiveController {
     }
 
     /**
+     * Overriding beforeSetupGUI.
+     * @param pane the pane passed on.
+     */
+    @Override
+    public void beforeSetupGUI(Pane pane) {
+        super.beforeSetupGUI(pane);
+    }
+
+    /**
      * Implementation of setupGUI.
      * @param pane the pane the GUI should be made on.
      * @see me.pr0crustes.frontend.gui.classes.Setup

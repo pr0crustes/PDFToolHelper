@@ -15,4 +15,11 @@ public interface Setup {
      */
     void setupGUI(Pane pane);
 
+    /**
+     * BeforeSetupGUI is a method that receives a Pane
+     * but is called right before SetupGUI.
+     * @param pane the pane passed on.
+     */
+    void beforeSetupGUI(Pane pane);
+
 }
