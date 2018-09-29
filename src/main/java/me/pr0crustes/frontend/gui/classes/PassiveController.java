@@ -18,18 +18,7 @@ public abstract class PassiveController implements Setup {
      */
     protected PassiveController(Pane pane) {
         Objects.requireNonNull(pane).getChildren().clear();
-        this.beforeSetupGUI(pane);
         this.setupGUI(pane);
-    }
-
-    /**
-     * Default implementation of beforeSetupGUI, nothing is done.
-     * @param pane the pane passed on.
-     * @see Setup
-     */
-    @Override
-    public void beforeSetupGUI(Pane pane) {
-
     }
 
 }
