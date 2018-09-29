@@ -36,7 +36,7 @@ public enum FileExtensions {
      * Method that returns a string representing it description.
      * @return a description string.
      */
-    public String getFilterDescription() {
+    private String getFilterDescription() {
         return this.toString().toUpperCase() + "s Files";
     }
 

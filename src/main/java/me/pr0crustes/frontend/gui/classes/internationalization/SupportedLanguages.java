@@ -13,7 +13,7 @@ public enum SupportedLanguages {
     /**
      * Property to hold the locale.
      */
-    private Locale locale;
+    private final Locale locale;
 
     /**
      * Constructor to init the locale.

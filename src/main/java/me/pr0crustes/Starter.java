@@ -21,7 +21,7 @@ public class Starter extends Application {
 
     /**
      * JavaFX Application start method.
-     * Launchs the main window.
+     * Launches the main window.
      * Creates a MenuController.
      * @param primaryStage the JavaFX primaryStage.
      * @see Application

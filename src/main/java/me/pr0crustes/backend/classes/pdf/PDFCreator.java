@@ -17,7 +17,7 @@ import java.util.List;
  */
 class PDFCreator {
 
-    private PDDocument document;
+    private final PDDocument document;
 
     /**
      * Just a constructor that init document with a new document.
