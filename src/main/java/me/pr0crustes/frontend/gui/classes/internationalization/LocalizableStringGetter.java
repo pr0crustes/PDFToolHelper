@@ -1,4 +1,4 @@
-package me.pr0crustes.frontend.gui.classes;
+package me.pr0crustes.frontend.gui.classes.internationalization;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

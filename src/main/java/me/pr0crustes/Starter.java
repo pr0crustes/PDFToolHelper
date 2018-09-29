@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import me.pr0crustes.frontend.gui.classes.LocalizableStrings;
+import me.pr0crustes.frontend.gui.classes.internationalization.LocalizableStrings;
 import me.pr0crustes.frontend.gui.scene.MenuController;
 
 /**

@@ -8,7 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import me.pr0crustes.frontend.gui.classes.ListController;
-import me.pr0crustes.frontend.gui.classes.LocalizableStrings;
+import me.pr0crustes.frontend.gui.classes.internationalization.LocalizableStrings;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 
 import java.io.File;

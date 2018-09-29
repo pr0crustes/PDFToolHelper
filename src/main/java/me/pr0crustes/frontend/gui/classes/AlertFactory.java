@@ -2,6 +2,7 @@ package me.pr0crustes.frontend.gui.classes;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import me.pr0crustes.frontend.gui.classes.internationalization.LocalizableStrings;
 
 /**
  * AlertFactory is a class that aggregates Alert related stuff.

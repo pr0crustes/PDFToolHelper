@@ -1,4 +1,4 @@
-package me.pr0crustes.frontend.gui.classes;
+package me.pr0crustes.frontend.gui.classes.internationalization;
 
 /**
  * Enum composed of strings that should be in languages .properties files.

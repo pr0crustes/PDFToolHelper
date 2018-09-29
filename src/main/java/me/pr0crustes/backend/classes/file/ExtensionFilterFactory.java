@@ -2,7 +2,7 @@ package me.pr0crustes.backend.classes.file;
 
 import javafx.stage.FileChooser;
 import me.pr0crustes.backend.enums.FileExtensions;
-import me.pr0crustes.frontend.gui.classes.LocalizableStrings;
+import me.pr0crustes.frontend.gui.classes.internationalization.LocalizableStrings;
 
 import java.util.Arrays;
 import java.util.List;
