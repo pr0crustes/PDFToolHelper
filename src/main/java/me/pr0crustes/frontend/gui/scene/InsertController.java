@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import me.pr0crustes.backend.classes.file.FileSelector;
 import me.pr0crustes.backend.classes.file.SaveFileSelector;
 import me.pr0crustes.backend.classes.file.SingleFileSelector;
@@ -97,14 +96,10 @@ public class InsertController extends ActionController {
     @Override
     public void setupGUI(Pane pane) {
 
-        this.textFieldInsertFile = NodeFactory.textFieldWithWidthAndAlignment(200, Pos.CENTER_LEFT);
-        this.textFieldInsertFile.setFont(Font.font(10));
-
-        this.textFieldInsertRange = NodeFactory.textFieldWithWidthAndAlignment(100, Pos.CENTER);
-
-        this.textFieldIntoFile = NodeFactory.textFieldWithWidthAndAlignment(200, Pos.CENTER_LEFT);
-        this.textFieldIntoFile.setFont(Font.font(10));
-        this.textFieldIntoAfterPage = NodeFactory.textFieldWithWidthAndAlignment(50, Pos.CENTER);
+        this.textFieldInsertFile = NodeFactory.textFieldWithWidthAlignmentFont(200, Pos.CENTER_LEFT, 10);
+        this.textFieldInsertRange = NodeFactory.textFieldWithWidthAlignment(100, Pos.CENTER);
+        this.textFieldIntoFile = NodeFactory.textFieldWithWidthAlignmentFont(200, Pos.CENTER_LEFT, 10);
+        this.textFieldIntoAfterPage = NodeFactory.textFieldWithWidthAlignment(50, Pos.CENTER);
 
 
         GridPane gridPaneInsertFile = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
@@ -150,7 +145,6 @@ public class InsertController extends ActionController {
         );
 
         vBox.setAlignment(Pos.CENTER);
-
         vBox.setSpacing(30);
 
         pane.getChildren().add(vBox);
