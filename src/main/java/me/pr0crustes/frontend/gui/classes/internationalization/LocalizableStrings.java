@@ -27,7 +27,8 @@ public enum LocalizableStrings {
     UNKNOWN_ERROR("Unknown Error"),
     AN_UNKNOWN_ERROR_OCCURRED("An Unknown Error Occurred"),
     REPORT_IF_YOU_THINK_THIS_IS_A_BUG("Report if you think this is a bug."),
-    ALL_FILES("All Files");
+    ALL_FILES("All Files"),
+    CONFIRM("Confirm");
 
 
     /**

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import me.pr0crustes.frontend.gui.scene.LanguageController;
 import me.pr0crustes.frontend.gui.scene.MenuController;
 
 /**
@@ -38,7 +39,7 @@ public class Starter extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
 
-        new MenuController(root);
+        new LanguageController(root);
     }
 
     /**
