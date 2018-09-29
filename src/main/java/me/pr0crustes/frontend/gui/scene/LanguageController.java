@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import me.pr0crustes.frontend.gui.classes.PassiveController;
 import me.pr0crustes.frontend.gui.classes.internationalization.LocalizableStringGetter;
 import me.pr0crustes.frontend.gui.classes.internationalization.LocalizableStrings;
@@ -35,15 +34,11 @@ public class LanguageController extends PassiveController {
     @Override
     public void setupGUI(Pane pane) {
 
-        GridPane gridPane = new GridPane();
-
         ComboBox<SupportedLanguages> comboBox = new ComboBox<>();
 
         SupportedLanguages[] allLanguages = SupportedLanguages.values();
         comboBox.getItems().addAll(allLanguages);
         comboBox.setValue(allLanguages[0]);
-
-        gridPane.add(comboBox, 0, 0);
 
         Button button = NodeFactory.buttonWithHandle(
                 LocalizableStrings.CONFIRM.localized(),
@@ -54,17 +49,17 @@ public class LanguageController extends PassiveController {
         );
 
         NodeFactory.maxButtonSize(button);
+
+        GridPane gridPane = new GridPane();
+
+        gridPane.add(comboBox, 0, 0);
         gridPane.add(button, 0, 2);
 
         gridPane.setVgap(50);
         gridPane.setAlignment(Pos.CENTER);
 
-        VBox vBox = new VBox();
-        vBox.setAlignment(Pos.CENTER);
-        vBox.getChildren().add(gridPane);
-
-        NodeFactory.bindToParent(vBox, pane);
-        pane.getChildren().add(vBox);
+        NodeFactory.bindToParent(gridPane, pane);
+        pane.getChildren().add(gridPane);
 
     }
 
