@@ -81,7 +81,7 @@ public class QualityController extends ActionController {
     @Override
     public void setupGUI(Pane pane) {
         
-        this.textFieldFile = NodeFactory.textFieldWithWidthAndAlignment(300, Pos.CENTER_LEFT);
+        this.textFieldFile = NodeFactory.textFieldWithWidthAndAlignment(200, Pos.CENTER_LEFT);
         this.textFieldFile.setFont(Font.font(10));
 
         this.textFieldDpi = NodeFactory.textFieldWithWidthAndAlignment(50, Pos.CENTER);
