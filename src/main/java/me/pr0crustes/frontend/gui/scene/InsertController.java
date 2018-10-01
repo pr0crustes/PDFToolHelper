@@ -17,6 +17,7 @@ import me.pr0crustes.backend.classes.pdf.PDFInsert;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
+import me.pr0crustes.frontend.gui.classes.LocalizableStrings;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -108,35 +109,35 @@ public class InsertController extends ActionController {
 
         GridPane gridPaneInsertFile = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 
-        gridPaneInsertFile.add(new Label("File:"), 0, 0);
+        gridPaneInsertFile.add(new Label(LocalizableStrings.FILE.localized()), 0, 0);
         gridPaneInsertFile.add(this.textFieldInsertFile, 1, 0);
 
-        Button buttonSelectFile = NodeFactory.buttonWithHandle("Select File", (event -> this.onClickInsertFileSearch()));
+        Button buttonSelectFile = NodeFactory.buttonWithHandle(LocalizableStrings.SELECT_FILE.localized(), (event -> this.onClickInsertFileSearch()));
         gridPaneInsertFile.add(buttonSelectFile, 2, 0);
 
 
         GridPane gridPaneInsertConfig = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 
-        gridPaneInsertConfig.add(new Label("RangeEx:"), 0, 0);
+        gridPaneInsertConfig.add(new Label(LocalizableStrings.RANGE_EX.localized()), 0, 0);
         gridPaneInsertConfig.add(this.textFieldInsertRange, 1, 0);
 
 
         GridPane gridPaneIntoFile = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 
-        gridPaneIntoFile.add(new Label("Into File:"), 0, 0);
+        gridPaneIntoFile.add(new Label(LocalizableStrings.INTO_FILE.localized()), 0, 0);
         gridPaneIntoFile.add(this.textFieldIntoFile, 1, 0);
 
-        Button buttonSelectIntoFile = NodeFactory.buttonWithHandle("Select File", (event -> this.onClickIntoFileSearch()));
+        Button buttonSelectIntoFile = NodeFactory.buttonWithHandle(LocalizableStrings.SELECT_FILE.localized(), (event -> this.onClickIntoFileSearch()));
         gridPaneIntoFile.add(buttonSelectIntoFile, 2, 0);
 
 
         GridPane gridPaneIntoConfig = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 
-        gridPaneIntoConfig.add(new Label("After Page:"), 0, 0);
+        gridPaneIntoConfig.add(new Label(LocalizableStrings.AFTER_PAGE.localized()), 0, 0);
         gridPaneIntoConfig.add(this.textFieldIntoAfterPage, 1, 0);
 
 
-        Button buttonExecute = NodeFactory.buttonWithHandle("Save", super.eventDo());
+        Button buttonExecute = NodeFactory.buttonWithHandle(LocalizableStrings.SAVE.localized(), super.eventDo());
         buttonExecute.setDefaultButton(true);
 
 

@@ -16,14 +16,14 @@ import java.util.Objects;
  */
 public class PDFConverter {
 
-    private final File[] fileArray;
+    private final List<File> fileList;
 
     /**
      * Constructor that fills important stuff.
-     * @param fileArray the array of files that should be converted into a single pdf.
+     * @param fileList the array of files that should be converted into a single pdf.
      */
-    public PDFConverter(File[] fileArray) {
-        this.fileArray = Objects.requireNonNull(fileArray);
+    public PDFConverter(List<File> fileList) {
+        this.fileList = Objects.requireNonNull(fileList);
     }
 
     /**
@@ -36,7 +36,7 @@ public class PDFConverter {
         List<BufferedImage> bufferedImages = new ArrayList<>();
 
         try {
-            for (File file : this.fileArray) {
+            for (File file : this.fileList) {
                 BufferedImage fileAsImage = ImageIO.read(file);
                 bufferedImages.add(fileAsImage);
             }

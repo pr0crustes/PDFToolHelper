@@ -15,6 +15,7 @@ import me.pr0crustes.backend.classes.pdf.PDFCropper;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
+import me.pr0crustes.frontend.gui.classes.LocalizableStrings;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -83,18 +84,18 @@ public class CropController extends ActionController {
 
         GridPane gridPaneFile = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 
-        gridPaneFile.add(new Label("File:"), 0, 0);
+        gridPaneFile.add(new Label(LocalizableStrings.FILE.localized()), 0, 0);
         gridPaneFile.add(this.textFieldFile, 1, 0);
 
-        Button buttonSelectFile = NodeFactory.buttonWithHandle("Select File", (event -> this.onClickSearch()));
+        Button buttonSelectFile = NodeFactory.buttonWithHandle(LocalizableStrings.SELECT_FILE.localized(), (event -> this.onClickSearch()));
         gridPaneFile.add(buttonSelectFile, 2, 0);
 
         GridPane gridPaneCrop = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 
-        gridPaneCrop.add(new Label("RangeEx:"), 0, 0);
+        gridPaneCrop.add(new Label(LocalizableStrings.RANGE_EX.localized()), 0, 0);
         gridPaneCrop.add(this.textFieldRange, 1, 0);
 
-        Button buttonExecute = NodeFactory.buttonWithHandle("Save", super.eventDo());
+        Button buttonExecute = NodeFactory.buttonWithHandle(LocalizableStrings.SAVE.localized(), super.eventDo());
         buttonExecute.setDefaultButton(true);
 
         VBox vBox = new VBox(

@@ -48,12 +48,9 @@ public class MergeController extends ListController {
             throw new ArgumentException();
         }
 
-        File[] filesToMerge = new File[fileList.size()];
-        filesToMerge = fileList.toArray(filesToMerge);
-
         File saveAs = new SaveFileSelector().getSelection();
 
-        PDFMerger merger = new PDFMerger(filesToMerge);
+        PDFMerger merger = new PDFMerger(fileList);
 
         PDDocument document = merger.mergeFiles();
 

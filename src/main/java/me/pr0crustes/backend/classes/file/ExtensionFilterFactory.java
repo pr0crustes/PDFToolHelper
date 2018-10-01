@@ -2,6 +2,7 @@ package me.pr0crustes.backend.classes.file;
 
 import javafx.stage.FileChooser;
 import me.pr0crustes.backend.enums.FileExtensions;
+import me.pr0crustes.frontend.gui.classes.LocalizableStrings;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +21,7 @@ class ExtensionFilterFactory {
      */
     static List<FileChooser.ExtensionFilter> combineFilters(FileExtensions[] fileExtensions) {
         List<FileChooser.ExtensionFilter> filterList = Arrays.stream(fileExtensions).map(FileExtensions::asFilter).collect(Collectors.toList());
-        filterList.add(new FileChooser.ExtensionFilter("All Files", "*.*"));
+        filterList.add(new FileChooser.ExtensionFilter(LocalizableStrings.ALL_FILES.localized(), "*.*"));
         return filterList;
     }
 

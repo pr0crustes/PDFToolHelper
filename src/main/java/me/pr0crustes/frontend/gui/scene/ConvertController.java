@@ -46,12 +46,9 @@ public class ConvertController extends ListController {
             throw new ArgumentException();
         }
 
-        File[] files = new File[fileList.size()];
-        files = fileList.toArray(files);
-
         File saveAs = new SaveFileSelector().getSelection();
 
-        PDFConverter converter = new PDFConverter(files);
+        PDFConverter converter = new PDFConverter(fileList);
 
         PDDocument document = converter.getDocumentFromImages();
         document.save(saveAs);
