@@ -6,7 +6,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import me.pr0crustes.frontend.gui.classes.PassiveController;
-import me.pr0crustes.frontend.gui.classes.internationalization.LocalizableStringGetter;
 import me.pr0crustes.frontend.gui.classes.internationalization.LocalizableStrings;
 import me.pr0crustes.frontend.gui.classes.internationalization.SupportedLanguages;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
@@ -43,7 +42,7 @@ public class LanguageController extends PassiveController {
         Button button = NodeFactory.buttonWithHandle(
                 LocalizableStrings.CONFIRM.localized(),
                 (event -> {
-                    LocalizableStringGetter.setLocale(comboBox.getValue());
+                    comboBox.getValue().setAppLanguage();
                     new MenuController(pane);
                 })
         );
