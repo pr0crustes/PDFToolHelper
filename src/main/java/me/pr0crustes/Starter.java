@@ -32,7 +32,7 @@ public class Starter extends Application {
         Starter.mainStage = primaryStage;
 
         AnchorPane root = new AnchorPane();
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 300, 200);
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("PDF-Toolkit");

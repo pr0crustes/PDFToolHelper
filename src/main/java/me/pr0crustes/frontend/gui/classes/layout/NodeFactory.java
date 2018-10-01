@@ -4,11 +4,15 @@ package me.pr0crustes.frontend.gui.classes.layout;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
+import javafx.stage.Window;
+import me.pr0crustes.Starter;
 
 
 /**
@@ -88,6 +92,32 @@ public class NodeFactory {
         TextField textField = NodeFactory.textFieldWithWidthAlignment(width, alignment);
         textField.setFont(Font.font(fontSize));
         return textField;
+    }
+
+    /**
+     * Static method that centers a Window object on screen.
+     * @param window the window to be centralized.
+     */
+    public static void centerOnScreen(Window window) {
+        Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+        window.setX((bounds.getWidth() - window.getWidth()) / 2);
+        window.setY((bounds.getHeight() - window.getHeight()) / 2);
+    }
+
+    /**
+     * Static method that resize the main app stage.
+     * If centralize is true, after resized, it is centralized.
+     * @param width the new width.
+     * @param height the new height.
+     * @param centralize if the resized window should be centralized.
+     */
+    public static void updateStageSize(double width, double height, boolean centralize) {
+        Starter.mainStage.setWidth(width);
+        Starter.mainStage.setHeight(height);
+
+        if (centralize) {
+            NodeFactory.centerOnScreen(Starter.mainStage);
+        }
     }
 
 }

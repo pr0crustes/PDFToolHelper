@@ -33,6 +33,7 @@ public class MenuController extends PassiveController {
      */
     @Override
     public void setupGUI(Pane pane) {
+        NodeFactory.updateStageSize(600, 400, true);
         SplitPane splitPane = this.createSplitPane();
         NodeFactory.bindToParent(splitPane, pane);
         pane.getChildren().add(splitPane);

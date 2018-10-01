@@ -54,7 +54,7 @@ public class LanguageController extends PassiveController {
         gridPane.add(comboBox, 0, 0);
         gridPane.add(button, 0, 2);
 
-        gridPane.setVgap(50);
+        gridPane.setVgap(30);
         gridPane.setAlignment(Pos.CENTER);
 
         NodeFactory.bindToParent(gridPane, pane);
