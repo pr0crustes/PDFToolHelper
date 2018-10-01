@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import me.pr0crustes.backend.classes.file.FileSelector;
 import me.pr0crustes.backend.classes.file.SaveFileSelector;
 import me.pr0crustes.backend.classes.file.SingleFileSelector;
@@ -15,7 +14,7 @@ import me.pr0crustes.backend.classes.number.Numbers;
 import me.pr0crustes.backend.classes.pdf.PDFQualityModifier;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
-import me.pr0crustes.frontend.gui.classes.LocalizableStrings;
+import me.pr0crustes.frontend.gui.classes.internationalization.LocalizableStrings;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -80,11 +79,9 @@ public class QualityController extends ActionController {
      */
     @Override
     public void setupGUI(Pane pane) {
-        
-        this.textFieldFile = NodeFactory.textFieldWithWidthAndAlignment(300, Pos.CENTER_LEFT);
-        this.textFieldFile.setFont(Font.font(10));
 
-        this.textFieldDpi = NodeFactory.textFieldWithWidthAndAlignment(50, Pos.CENTER);
+        this.textFieldFile = NodeFactory.textFieldWithWidthAlignmentFont(200, Pos.CENTER_LEFT, 10);
+        this.textFieldDpi = NodeFactory.textFieldWithWidthAlignment(50, Pos.CENTER);
 
         GridPane gridPaneFile = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 

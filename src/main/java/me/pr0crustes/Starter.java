@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import me.pr0crustes.frontend.gui.classes.LocalizableStrings;
+import me.pr0crustes.frontend.gui.scene.LanguageController;
 import me.pr0crustes.frontend.gui.scene.MenuController;
 
 /**
@@ -21,7 +21,7 @@ public class Starter extends Application {
 
     /**
      * JavaFX Application start method.
-     * Launchs the main window.
+     * Launches the main window.
      * Creates a MenuController.
      * @param primaryStage the JavaFX primaryStage.
      * @see Application
@@ -35,11 +35,11 @@ public class Starter extends Application {
         Scene scene = new Scene(root, 600, 400);
 
         primaryStage.setScene(scene);
-        primaryStage.setTitle(LocalizableStrings.TITLE.localized());
+        primaryStage.setTitle("PDF-Toolkit");
         primaryStage.setResizable(false);
         primaryStage.show();
 
-        new MenuController(root);
+        new LanguageController(root);
     }
 
     /**

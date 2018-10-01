@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 
 
 /**
@@ -69,10 +70,23 @@ public class NodeFactory {
      * @param alignment the desired alignment.
      * @return a TextField as desired.
      */
-    public static TextField textFieldWithWidthAndAlignment(double width, Pos alignment) {
+    public static TextField textFieldWithWidthAlignment(double width, Pos alignment) {
         TextField textField = new TextField();
         textField.setPrefWidth(width);
         textField.setAlignment(alignment);
+        return textField;
+    }
+
+    /**
+     * Static method that creates a textField with a desired width, alignment and fontsize.
+     * @param width the desired width.
+     * @param alignment the desired alignment.
+     * @param fontSize the desired font size.
+     * @return a TextField as desired.
+     */
+    public static TextField textFieldWithWidthAlignmentFont(double width, Pos alignment, double fontSize) {
+        TextField textField = NodeFactory.textFieldWithWidthAlignment(width, alignment);
+        textField.setFont(Font.font(fontSize));
         return textField;
     }
 

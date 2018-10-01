@@ -1,4 +1,4 @@
-package me.pr0crustes.frontend.gui.classes;
+package me.pr0crustes.frontend.gui.classes.internationalization;
 
 /**
  * Enum composed of strings that should be in languages .properties files.
@@ -6,7 +6,6 @@ package me.pr0crustes.frontend.gui.classes;
  */
 public enum LocalizableStrings {
 
-    TITLE("Title"),
     FILE("File"),
     SELECT_FILE("Select File"),
     RANGE_EX("RangeEx"),
@@ -28,7 +27,8 @@ public enum LocalizableStrings {
     UNKNOWN_ERROR("Unknown Error"),
     AN_UNKNOWN_ERROR_OCCURRED("An Unknown Error Occurred"),
     REPORT_IF_YOU_THINK_THIS_IS_A_BUG("Report if you think this is a bug."),
-    ALL_FILES("All Files");
+    ALL_FILES("All Files"),
+    CONFIRM("Confirm");
 
 
     /**

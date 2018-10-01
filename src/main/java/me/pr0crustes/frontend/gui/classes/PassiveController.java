@@ -12,7 +12,8 @@ import java.util.Objects;
 public abstract class PassiveController implements Setup {
 
     /**
-     * Constructor that receiving a pane, clears it and calls the Setup setupGUI.
+     * Constructor that receiving a pane, clears it and calls
+     * beforeSetupGUI followed by setupGUI.
      * @param pane the Pane that the GUI should be drawn on.
      */
     protected PassiveController(Pane pane) {

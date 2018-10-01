@@ -15,7 +15,7 @@ import me.pr0crustes.backend.classes.pdf.PDFCropper;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
-import me.pr0crustes.frontend.gui.classes.LocalizableStrings;
+import me.pr0crustes.frontend.gui.classes.internationalization.LocalizableStrings;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -79,8 +79,8 @@ public class CropController extends ActionController {
     @Override
     public void setupGUI(Pane pane) {
 
-        this.textFieldFile = NodeFactory.textFieldWithWidthAndAlignment(300, Pos.CENTER_LEFT);
-        this.textFieldRange = NodeFactory.textFieldWithWidthAndAlignment(100, Pos.CENTER);
+        this.textFieldFile = NodeFactory.textFieldWithWidthAlignmentFont(200, Pos.CENTER_LEFT, 10);
+        this.textFieldRange = NodeFactory.textFieldWithWidthAlignment(100, Pos.CENTER);
 
         GridPane gridPaneFile = NodeFactory.gridPaneWithProperties(Pos.CENTER, 10, 20);
 
@@ -105,7 +105,6 @@ public class CropController extends ActionController {
         );
 
         vBox.setAlignment(Pos.CENTER);
-
         vBox.setSpacing(30);
 
         pane.getChildren().add(vBox);

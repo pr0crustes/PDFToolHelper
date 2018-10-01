@@ -80,6 +80,11 @@ public class RangeEx {
         this.values = this.getValues(rangeString);
     }
 
+    /**
+     * Method that tests if value is in rangex.
+     * @param value the value to test.
+     * @return if the value is contained in this rangex.
+     */
     public boolean contains(int value) {
         if (this.isUniversal) {
             return true;
@@ -97,14 +102,14 @@ public class RangeEx {
      * @return a Set of Integer, with all numbers that conforms to the RangeEx.
      * @throws ArgumentException in case the RangeEx is invalid.
      */
-    public Set<Integer> getValues(String rangeString) throws ArgumentException {
+    private Set<Integer> getValues(String rangeString) throws ArgumentException {
+
+        Set<Integer> parsedValues = new HashSet<>();
 
         if (rangeString.contains("*")) {
             this.isUniversal = true;
-            return new HashSet<>();  // Empty set
+            return parsedValues;  // Empty set
         }
-
-        Set<Integer> parsedValues = new HashSet<>();
 
         Set<String> rangesParts = RangeEx.getMatches(rangeString, "\\d+_\\d+");
         for (String str : rangesParts) {
