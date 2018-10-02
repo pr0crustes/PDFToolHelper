@@ -2,6 +2,7 @@ package me.pr0crustes.backend.classes.number;
 
 import me.pr0crustes.backend.exeptions.ArgumentException;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -66,10 +67,12 @@ import java.util.regex.Pattern;
  * '*' can be used to match every number. In this case, all other operations will be ignored.
  *
  * Because of this, RangeEx allows the user to specifically select pages of a file, even not continuous ones.
+ *
+ *
+ * Extends HashSet of generic Integer, overriding a few methods.
  */
-public class RangeEx {
+public class RangeEx extends HashSet<Integer> {
 
-    private final Set<Integer> values;
     private boolean isUniversal = false;
 
     /**
@@ -77,19 +80,7 @@ public class RangeEx {
      * @param rangeString a valid RangeEx string.
      */
     public RangeEx(String rangeString) throws ArgumentException {
-        this.values = this.getValues(rangeString);
-    }
-
-    /**
-     * Method that tests if value is in rangex.
-     * @param value the value to test.
-     * @return if the value is contained in this rangex.
-     */
-    public boolean contains(int value) {
-        if (this.isUniversal) {
-            return true;
-        }
-        return this.values.contains(value);
+        this.addAll(this.getValues(rangeString));
     }
 
     /**
@@ -161,6 +152,37 @@ public class RangeEx {
         }
 
         return matches;
+    }
+
+    /**
+     * Override of `contains`:
+     * If isUniversal, every value should return true.
+     * Else, check if the value is in the hashSet.
+     * @param o the object to check.
+     * @return if contains o.
+     */
+    @Override
+    public boolean contains(Object o) {
+        if (!(o instanceof Integer)) {
+            return false;
+        }
+        return this.isUniversal || super.contains(o);
+    }
+
+    /**
+     * Override of `containsAll`:
+     * Just calls `contains` in every elem.
+     * @param c the Collection to check.
+     * @return if contains all the values of c.
+     */
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        for (Object e : c) {
+            if (!this.contains(e)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
