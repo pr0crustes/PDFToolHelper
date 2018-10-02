@@ -4,6 +4,7 @@ import javafx.scene.layout.Pane;
 import me.pr0crustes.backend.classes.file.SaveFileSelector;
 import me.pr0crustes.backend.classes.pdf.PDFMerger;
 import me.pr0crustes.backend.exeptions.ArgumentException;
+import me.pr0crustes.backend.exeptions.NullFileException;
 import me.pr0crustes.frontend.gui.classes.ListController;
 import me.pr0crustes.frontend.gui.classes.elements.FileListViewManagerFactory;
 import me.pr0crustes.frontend.gui.classes.elements.ListViewManager;
@@ -37,10 +38,11 @@ public class MergeController extends ListController {
      * Implementation of execute, merges the files and saves.
      * @throws IOException in case of file related error.
      * @throws ArgumentException in case of invalid arguments.
+     * @throws NullFileException in case the file selected by the user to saveAs is null.
      * @see me.pr0crustes.frontend.gui.classes.ActionController
      */
     @Override
-    public void execute() throws IOException, ArgumentException {
+    public void execute() throws IOException, ArgumentException, NullFileException {
 
         List<File> fileList = this.listViewManager.getList();
 
@@ -48,13 +50,10 @@ public class MergeController extends ListController {
             throw new ArgumentException();
         }
 
-        File saveAs = new SaveFileSelector().getSelection();
-
         PDFMerger merger = new PDFMerger(fileList);
 
         PDDocument document = merger.mergeFiles();
-
-        document.save(saveAs);
+        new SaveFileSelector().savePDF(document);
 
     }
 
