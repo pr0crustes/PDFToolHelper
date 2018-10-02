@@ -5,22 +5,13 @@ import java.util.ResourceBundle;
 /**
  * Class mostly composed with static methods that handles text internationalization.
  */
-public class LocalizableStringGetter {
+class LocalizableStringGetter {
 
     /**
      * The resource bundle variable.
      * Inits with english as default language.
      */
     private static ResourceBundle bundle = LocalizableStringGetter.bundleWithLocale(SupportedLanguages.ENGLISH);
-
-    /**
-     * Static method that sets the bundle to a bundle with a new SupportedLanguages.
-     * @param language the new locale. Being a SupportedLanguages makes sure that it not a typo.
-     * @see SupportedLanguages
-     */
-    public static void setLocale(SupportedLanguages language) {
-        LocalizableStringGetter.bundle = LocalizableStringGetter.bundleWithLocale(language);
-    }
 
     /**
      * Static method that creates a bundle, given a location.
@@ -30,6 +21,15 @@ public class LocalizableStringGetter {
      */
     private static ResourceBundle bundleWithLocale(SupportedLanguages language) {
         return ResourceBundle.getBundle("Strings", language.getLocale());
+    }
+
+    /**
+     * Static method that sets the bundle to a bundle with a new SupportedLanguages.
+     * @param language the new locale. Being a SupportedLanguages makes sure that it not a typo.
+     * @see SupportedLanguages
+     */
+    static void setLocale(SupportedLanguages language) {
+        LocalizableStringGetter.bundle = LocalizableStringGetter.bundleWithLocale(language);
     }
 
     /**

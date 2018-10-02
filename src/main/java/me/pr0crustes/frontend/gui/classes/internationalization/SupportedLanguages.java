@@ -26,8 +26,15 @@ public enum SupportedLanguages {
      * Method that returns the corresponding locale.
      * @return the local assigned.
      */
-    public Locale getLocale() {
+    Locale getLocale() {
         return locale;
+    }
+
+    /**
+     * Set the current SupportedLanguages (this) as the app language.
+     */
+    public void setAppLanguage() {
+        LocalizableStringGetter.setLocale(this);
     }
 
 }
