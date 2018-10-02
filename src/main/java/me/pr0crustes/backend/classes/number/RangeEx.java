@@ -102,21 +102,18 @@ public class RangeEx extends HashSet<Integer> {
             return parsedValues;  // Empty set
         }
 
-        Set<String> rangesParts = RangeEx.getMatches(rangeString, "\\d+_\\d+");
-        for (String str : rangesParts) {
+        for (String str : RangeEx.getMatches(rangeString, "\\d+_\\d+")) {
             String[] parts = str.split("_");
-            for (int i = Integer.valueOf(parts[0]); i <= Integer.valueOf(parts[1]); i++) {
+            for (int i = RangeEx.stringAsUnsigned(parts[0]); i <= RangeEx.stringAsUnsigned(parts[1]); i++) {
                 parsedValues.add(i);
             }
         }
 
-        Set<String> addParts = RangeEx.getMatches(rangeString, "[+]\\d+");
-        for (String str : addParts) {
+        for (String str : RangeEx.getMatches(rangeString, "[+]\\d+")) {
             parsedValues.add(RangeEx.stringAsUnsigned(str));
         }
 
-        Set<String> subParts = RangeEx.getMatches(rangeString, "[-]\\d+");
-        for (String str : subParts) {
+        for (String str : RangeEx.getMatches(rangeString, "[-]\\d+")) {
             parsedValues.remove(RangeEx.stringAsUnsigned(str));
         }
 
