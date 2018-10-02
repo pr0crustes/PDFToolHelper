@@ -14,6 +14,7 @@ import me.pr0crustes.backend.classes.number.RangeEx;
 import me.pr0crustes.backend.classes.pdf.PDFCropper;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
+import me.pr0crustes.backend.exeptions.NullFileException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
 import me.pr0crustes.frontend.gui.classes.internationalization.LocalizableStrings;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
@@ -55,20 +56,19 @@ public class CropController extends ActionController {
      * Method that creates a PDFCropper, crops the pdf and saves.
      * @throws ArgumentException in case of invalid args.
      * @throws IOException in case of file error.
+     * @throws NullFileException in case the file selected by the user to saveAs is null.
      * @see ActionController
      * @see PDFCropper
      */
-    public void execute() throws ArgumentException, IOException {
+    public void execute() throws ArgumentException, IOException, NullFileException {
         if (this.selectedFile == null) {
             throw new ArgumentException();
         }
 
-        File saveAs = new SaveFileSelector().getSelection();
-
         PDFCropper cropper = new PDFCropper(this.selectedFile);
 
         PDDocument document = cropper.subDocument(new RangeEx(this.textFieldRange.getText()));
-        document.save(saveAs);
+        new SaveFileSelector().savePDF(document);
     }
 
     /**

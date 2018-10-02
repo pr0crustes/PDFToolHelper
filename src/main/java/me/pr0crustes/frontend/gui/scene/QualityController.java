@@ -13,6 +13,7 @@ import me.pr0crustes.backend.classes.file.SingleFileSelector;
 import me.pr0crustes.backend.classes.number.Numbers;
 import me.pr0crustes.backend.classes.pdf.PDFQualityModifier;
 import me.pr0crustes.backend.exeptions.ArgumentException;
+import me.pr0crustes.backend.exeptions.NullFileException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
 import me.pr0crustes.frontend.gui.classes.internationalization.LocalizableStrings;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
@@ -55,21 +56,20 @@ public class QualityController extends ActionController {
      * Method that creates a PDFQualityModifier, changes the pdf dpi and saves.
      * @throws ArgumentException in case of invalid args.
      * @throws IOException in case of file related error.
+     * @throws NullFileException in case the file selected by the user to saveAs is null.
      * @see ActionController
      * @see PDFQualityModifier
      */
     @Override
-    public void execute() throws ArgumentException, IOException {
+    public void execute() throws ArgumentException, IOException, NullFileException {
         if (this.selectedFile == null) {
             throw new ArgumentException();
         }
 
-        File saveAs = new SaveFileSelector().getSelection();
-
         PDFQualityModifier qualityModifier = new PDFQualityModifier(this.selectedFile);
 
         PDDocument document = qualityModifier.getDocumentWithDPI(Numbers.valueFromTextField(this.textFieldDpi));
-        document.save(saveAs);
+        new SaveFileSelector().savePDF(document);
     }
 
     /**

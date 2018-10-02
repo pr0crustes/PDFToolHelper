@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import me.pr0crustes.backend.exeptions.ArgumentException;
+import me.pr0crustes.backend.exeptions.NullFileException;
 
 import java.io.IOException;
 
@@ -61,13 +62,13 @@ public abstract class ActionController extends PassiveController implements Runn
     private void runExecute() {
         try {
             this.execute();
+        } catch (NullFileException e) {
+            e.printStackTrace();
+            // Ignore, user didn't selected a file
+            // TODO: Handle this in some way (?)
         } catch (ArgumentException e) {
             e.printStackTrace();
             AlertFactory.DefinedAlert.invalidArgument.sendAlert();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            // Ignore, user didn't selected a file
-            //TODO: Handle this in some way (?)
         } catch (IOException e) {
             e.printStackTrace();
             AlertFactory.DefinedAlert.fileError.sendAlert();
@@ -82,10 +83,10 @@ public abstract class ActionController extends PassiveController implements Runn
      * This method can throw exceptions and because of this is mainly called from runExecute.
      * @throws ArgumentException in case of invalid arguments.
      * @throws IOException in case a file related error.
-     * @throws NullPointerException in case the user did not selected a file.
+     * @throws NullFileException in case the file selected by the user to saveAs is null.
      * @throws Exception in case of any other error.
      */
     @SuppressWarnings("RedundantThrows")
-    protected abstract void execute() throws ArgumentException, IOException, NullPointerException, Exception;
+    protected abstract void execute() throws ArgumentException, IOException, NullFileException, Exception;
 
 }

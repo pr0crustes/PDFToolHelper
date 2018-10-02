@@ -15,6 +15,7 @@ import me.pr0crustes.backend.classes.number.RangeEx;
 import me.pr0crustes.backend.classes.pdf.PDFInsert;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
+import me.pr0crustes.backend.exeptions.NullFileException;
 import me.pr0crustes.frontend.gui.classes.ActionController;
 import me.pr0crustes.frontend.gui.classes.internationalization.LocalizableStrings;
 import me.pr0crustes.frontend.gui.classes.layout.NodeFactory;
@@ -52,10 +53,11 @@ public class InsertController extends ActionController {
      * Method that creates a PDFInsert, inserts a pdf into other and saves.
      * @throws ArgumentException in case of argument error.
      * @throws IOException in case of file error.
+     * @throws NullFileException in case the file selected by the user to saveAs is null.
      * @see ActionController
      * @see PDFInsert
      */
-    public void execute() throws ArgumentException, IOException {
+    public void execute() throws ArgumentException, IOException, NullFileException {
         if (this.insertFile == null || this.intoFile == null) {
             throw new ArgumentException();
         }
@@ -64,12 +66,10 @@ public class InsertController extends ActionController {
 
         int afterPage = Numbers.valueFromTextField(this.textFieldIntoAfterPage);
 
-        File saveAs = new SaveFileSelector().getSelection();
-
         PDFInsert pdfInsert = new PDFInsert(this.insertFile, this.intoFile);
 
         PDDocument document = pdfInsert.insertDocument(rangeEx, afterPage);
-        document.save(saveAs);
+        new SaveFileSelector().savePDF(document);
     }
 
     /**
