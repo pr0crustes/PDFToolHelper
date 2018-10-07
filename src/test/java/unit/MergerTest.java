@@ -16,7 +16,7 @@ import java.util.List;
 public class MergerTest {
 
     @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
+    public final TemporaryFolder folder = new TemporaryFolder();
 
     @Test
     public void testMerger() throws Exception {

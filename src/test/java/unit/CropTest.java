@@ -12,7 +12,7 @@ import java.io.File;
 public class CropTest {
 
     @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
+    public final TemporaryFolder folder = new TemporaryFolder();
 
 
     @Test
