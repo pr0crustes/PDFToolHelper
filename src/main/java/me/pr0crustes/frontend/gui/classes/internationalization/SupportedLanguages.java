@@ -7,7 +7,7 @@ import java.util.Locale;
  */
 public enum SupportedLanguages {
 
-    ENGLISH(Locale.ENGLISH),
+    ENGLISH(new Locale("en", "US")),
     PORTUGUESE(new Locale("pt", "BR"));
 
     /**
