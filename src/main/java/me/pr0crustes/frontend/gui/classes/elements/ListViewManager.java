@@ -31,9 +31,11 @@ public class ListViewManager <T> {
      * @param objects an List with anything of type T.
      */
     void addObjects(List<T> objects) {
-        for (T object : objects) {
-            if (object != null) {  // Keep this null check! If an object is null it should not be added!
-                this.items.add(object);
+        if (objects != null) {
+            for (T object : objects) {
+                if (object != null) {  // Keep this null check! If an object is null it should not be added!
+                    this.items.add(object);
+                }
             }
         }
     }
