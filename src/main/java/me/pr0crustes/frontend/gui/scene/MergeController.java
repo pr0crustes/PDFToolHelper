@@ -66,4 +66,5 @@ public class MergeController extends ListController {
     public void setupGUI(Pane pane) {
        this.listViewManager = new FileListViewManagerFactory(this).setupListView(pane);
     }
+    
 }
