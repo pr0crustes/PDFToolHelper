@@ -34,10 +34,11 @@ public class PDFInserter {
      */
     public PDDocument insertDocument(RangeEx range, int insertAfterPage) throws IOException {
         PDFCropper cropper = new PDFCropper(this.insertFile);
-        PDDocument documentInsert = cropper.subDocument(range);
-        PDDocument documentInto = PDDocument.load(this.intoFile);
 
-        return this.insertDocumentInto(documentInsert, documentInto, insertAfterPage);
+        try (PDDocument documentInsert = cropper.subDocument(range);
+             PDDocument documentInto = PDDocument.load(this.intoFile)) {
+            return this.insertDocumentInto(documentInsert, documentInto, insertAfterPage);
+        }
     }
 
     /**

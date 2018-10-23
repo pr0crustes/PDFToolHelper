@@ -43,7 +43,6 @@ public class MergeController extends ListController {
      */
     @Override
     public void execute() throws IOException, ArgumentException, NullFileException {
-
         List<File> fileList = this.listViewManager.getList();
 
         if (fileList.size() == 0) {
@@ -52,9 +51,9 @@ public class MergeController extends ListController {
 
         PDFMerger merger = new PDFMerger(fileList);
 
-        PDDocument document = merger.mergeFiles();
-        new SaveFileSelector().savePDF(document);
-
+        try (PDDocument document = merger.mergeFiles()) {
+            new SaveFileSelector().savePDF(document);
+        }
     }
 
     /**

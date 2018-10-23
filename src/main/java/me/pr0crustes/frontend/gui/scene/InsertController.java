@@ -68,8 +68,9 @@ public class InsertController extends ActionController {
 
         PDFInserter pdfInserter = new PDFInserter(this.insertFile, this.intoFile);
 
-        PDDocument document = pdfInserter.insertDocument(rangeEx, afterPage);
-        new SaveFileSelector().savePDF(document);
+        try (PDDocument document = pdfInserter.insertDocument(rangeEx, afterPage)) {
+            new SaveFileSelector().savePDF(document);
+        }
     }
 
     /**
