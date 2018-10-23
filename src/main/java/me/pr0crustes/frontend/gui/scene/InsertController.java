@@ -12,7 +12,7 @@ import me.pr0crustes.backend.classes.file.SaveFileSelector;
 import me.pr0crustes.backend.classes.file.SingleFileSelector;
 import me.pr0crustes.backend.classes.number.Numbers;
 import me.pr0crustes.backend.classes.number.RangeEx;
-import me.pr0crustes.backend.classes.pdf.PDFInsert;
+import me.pr0crustes.backend.classes.pdf.PDFInserter;
 import me.pr0crustes.backend.enums.FileExtensions;
 import me.pr0crustes.backend.exeptions.ArgumentException;
 import me.pr0crustes.backend.exeptions.NullFileException;
@@ -50,12 +50,12 @@ public class InsertController extends ActionController {
     }
 
     /**
-     * Method that creates a PDFInsert, inserts a pdf into other and saves.
+     * Method that creates a PDFInserter, inserts a pdf into other and saves.
      * @throws ArgumentException in case of argument error.
      * @throws IOException in case of file error.
      * @throws NullFileException in case the file selected by the user to saveAs is null.
      * @see ActionController
-     * @see PDFInsert
+     * @see PDFInserter
      */
     public void execute() throws ArgumentException, IOException, NullFileException {
         if (this.insertFile == null || this.intoFile == null) {
@@ -66,9 +66,9 @@ public class InsertController extends ActionController {
 
         int afterPage = Numbers.valueFromTextField(this.textFieldIntoAfterPage);
 
-        PDFInsert pdfInsert = new PDFInsert(this.insertFile, this.intoFile);
+        PDFInserter pdfInserter = new PDFInserter(this.insertFile, this.intoFile);
 
-        PDDocument document = pdfInsert.insertDocument(rangeEx, afterPage);
+        PDDocument document = pdfInserter.insertDocument(rangeEx, afterPage);
         new SaveFileSelector().savePDF(document);
     }
 

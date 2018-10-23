@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * Class that handles inserting a pdf (or a subpart of one) into other pdf.
  */
-public class PDFInsert {
+public class PDFInserter {
 
     private final File insertFile;
     private final File intoFile;
@@ -20,7 +20,7 @@ public class PDFInsert {
      * @param insertFile the file that should be inserted.
      * @param intoFile the file to be inserted into.
      */
-    public PDFInsert(File insertFile, File intoFile) {
+    public PDFInserter(File insertFile, File intoFile) {
         this.insertFile = Objects.requireNonNull(insertFile);
         this.intoFile = Objects.requireNonNull(intoFile);
     }
