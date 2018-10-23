@@ -51,7 +51,6 @@ public abstract class FileSelector <T> {
      * @return the callable result.
      */
     private T runFileQuery(Callable<T> callable) {
-
         try {
             if (Platform.isFxApplicationThread()) {
                 return callable.call();
