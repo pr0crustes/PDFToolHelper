@@ -33,29 +33,34 @@ public class PDFInserter {
      * @throws IOException in case of file error.
      */
     public PDDocument insertDocument(RangeEx range, int insertAfterPage) throws IOException {
-
         PDFCropper cropper = new PDFCropper(this.insertFile);
         PDDocument documentInsert = cropper.subDocument(range);
         PDDocument documentInto = PDDocument.load(this.intoFile);
 
+        return this.insertDocumentInto(documentInsert, documentInto, insertAfterPage);
+    }
+
+    /**
+     * Private method that inserts one document into other.
+     * Does all the test to know where it should be added.
+     * @param documentInsert the document to insert.
+     * @param documentInto the document to insert into.
+     * @param afterPage after what page it should be added.
+     * @return the PDDocument with the insertion done.
+     */
+    private PDDocument insertDocumentInto(PDDocument documentInsert, PDDocument documentInto, int afterPage) {
         PDDocument documentNew = new PDDocument();
 
-        for (int i = 0; i < documentInto.getNumberOfPages(); i++) {
-            if (i == insertAfterPage) {
+        for (int i = 0; i < documentInto.getNumberOfPages() + 1; i++) {
+            if (i == afterPage) {  // Should insert now.
                 for (int j = 0; j < documentInsert.getNumberOfPages(); j++) {
                     documentNew.addPage(documentInsert.getPage(j));
                 }
             }
-            documentNew.addPage(documentInto.getPage(i));
-        }
-
-        // Check if should be added at the end
-        if (insertAfterPage == documentInto.getNumberOfPages()) {
-            for (int j = 0; j < documentInsert.getNumberOfPages(); j++) {
-                documentNew.addPage(documentInsert.getPage(j));
+            if (i < documentInto.getNumberOfPages()) {
+                documentNew.addPage(documentInto.getPage(i));
             }
         }
-
         return documentNew;
     }
 
