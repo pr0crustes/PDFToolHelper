@@ -9,7 +9,6 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 /**
  * Subclass of FileSelector, handles the save as selection.
@@ -17,16 +16,16 @@ import java.util.concurrent.Callable;
 public class SaveFileSelector extends FileSelector<File> {
 
     /**
-     * Implementation of FileSelector getCallable.
+     * Implementation of FileSelector askForSelection.
      * @param stage the stage to show the window.
      * @param filters the filters to be used.
-     * @return a callable that will return the selection.
+     * @return the selection.
      */
     @Override
-    protected Callable<File> getCallable(Stage stage, List<FileChooser.ExtensionFilter> filters) {
+    protected File askForSelection(Stage stage, List<FileChooser.ExtensionFilter> filters) {
         // Add PDF extension as first, making it the default.
         filters.add(0, FileExtensions.PDF.asFilter());
-        return (() -> this.createFileWindow("Save as", filters).showSaveDialog(stage));
+        return this.createFileWindow("Save as", filters).showSaveDialog(stage);
     }
 
     /**
