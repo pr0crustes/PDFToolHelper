@@ -2,8 +2,6 @@ package me.pr0crustes.frontend.gui.classes;
 
 import javafx.scene.layout.Pane;
 
-import java.util.Objects;
-
 /**
  * PassiveController is an abstract class that implements Setup
  * but in it constructor clear the Pane and calls setupGUI in the same.
@@ -17,7 +15,7 @@ public abstract class PassiveController implements Setup {
      * @param pane the Pane that the GUI should be drawn on.
      */
     protected PassiveController(Pane pane) {
-        Objects.requireNonNull(pane).getChildren().clear();
+        pane.getChildren().clear();
         this.setupGUI(pane);
     }
 
