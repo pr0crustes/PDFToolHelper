@@ -44,7 +44,7 @@ public class ListViewManager <T> {
      * Method that removes the selected item at listView from the list.
      */
     void removeSelected() {
-        int selectedIndex = this.listView.getSelectionModel().getSelectedIndex();
+        int selectedIndex = this.getSelectedIndex();
         if (selectedIndex >= 0) {
             this.items.remove(selectedIndex);
             this.listView.getSelectionModel().clearSelection();
@@ -55,7 +55,7 @@ public class ListViewManager <T> {
      * Method that moves the selected item up, if possible.
      */
     void moveSelectedUp() {
-        int selectedIndex = this.listView.getSelectionModel().getSelectedIndex();
+        int selectedIndex = this.getSelectedIndex();
         if (selectedIndex > 0) {
             this.moveListEntry(selectedIndex, selectedIndex - 1);
         }
@@ -65,11 +65,19 @@ public class ListViewManager <T> {
      * Method that moves the selected item down, if possible.
      */
     void moveSelectedDown() {
-        int selectedIndex = this.listView.getSelectionModel().getSelectedIndex();
-
+        int selectedIndex = this.getSelectedIndex();
         if (selectedIndex != this.items.size() - 1) {
             this.moveListEntry(selectedIndex, selectedIndex + 1);
         }
+    }
+
+    /**
+     * Methot that returns the select item index.
+     * Keep in mind it returns -1 if there is no selected item.
+     * @return the selected index.
+     */
+    private int getSelectedIndex() {
+        return this.listView.getSelectionModel().getSelectedIndex();
     }
 
     /**
