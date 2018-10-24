@@ -56,4 +56,5 @@ public enum FileExtensions {
     public FileChooser.ExtensionFilter asFilter() {
         return new FileChooser.ExtensionFilter(this.getFilterDescription(), this.getExtension());
     }
+
 }
