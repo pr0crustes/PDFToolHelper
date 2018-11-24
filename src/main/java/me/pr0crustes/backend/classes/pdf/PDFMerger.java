@@ -25,9 +25,11 @@ public class PDFMerger {
     }
 
     /**
-     * Method that merges all files.
+     * Merge all files in fileArray.
+     * @param saveAs the file to save the merge as.
+     * @throws IOException in case there is any problem with reading / writing to files.
      */
-    public void mergeFiles(File destiny) throws IOException {
+    public void mergeFiles(File saveAs) throws IOException {
         PDFMergerUtility merger = new PDFMergerUtility();
 
         PDDocument finalDocument = new PDDocument();
@@ -35,7 +37,7 @@ public class PDFMerger {
             merger.addSource(currentFile);
         }
 
-        merger.setDestinationFileName(destiny.getAbsolutePath());
+        merger.setDestinationFileName(saveAs.getAbsolutePath());
         merger.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());
     }
 
