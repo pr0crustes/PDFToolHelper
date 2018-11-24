@@ -1,5 +1,7 @@
 package me.pr0crustes.backend.classes.pdf;
 
+import org.apache.pdfbox.io.MemoryUsageSetting;
+import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
@@ -24,19 +26,17 @@ public class PDFMerger {
 
     /**
      * Method that merges all files.
-     * @return a PDFDocument, made of all files from fileArray.
      */
-    public PDDocument mergeFiles() throws IOException {
-        PDDocument finalDocument = new PDDocument();
+    public void mergeFiles(File destiny) throws IOException {
+        PDFMergerUtility merger = new PDFMergerUtility();
 
+        PDDocument finalDocument = new PDDocument();
         for (File currentFile : this.fileArray) {
-            try (PDDocument currentDocument = PDDocument.load(currentFile)) {
-                for (int i = 0; i < currentDocument.getNumberOfPages(); i++) {
-                    finalDocument.addPage(currentDocument.getPage(i));
-                }
-            }
+            merger.addSource(currentFile);
         }
-        return finalDocument;
+
+        merger.setDestinationFileName(destiny.getAbsolutePath());
+        merger.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());
     }
 
 }
