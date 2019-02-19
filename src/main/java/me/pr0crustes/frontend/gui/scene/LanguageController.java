@@ -47,7 +47,7 @@ public class LanguageController extends PassiveController {
                 })
         );
 
-        NodeFactory.maxButtonSize(button);
+        NodeFactory.setMaxSize(button);
 
         GridPane gridPane = new GridPane();
 

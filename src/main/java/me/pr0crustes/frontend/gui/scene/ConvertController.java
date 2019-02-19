@@ -50,8 +50,9 @@ public class ConvertController extends ListController {
 
         PDFConverter converter = new PDFConverter(fileList);
 
-        PDDocument document = converter.getDocumentFromImages();
-        new SaveFileSelector().savePDF(document);
+        try (PDDocument document = converter.getDocumentFromImages()) {
+            new SaveFileSelector().savePDF(document);
+        }
     }
 
     /**

@@ -5,7 +5,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 /**
  * Subclass of FileSelector, handles multiple File Selection.
@@ -13,14 +12,14 @@ import java.util.concurrent.Callable;
 public class MultipleFileSelector extends FileSelector<List<File>> {
 
     /**
-     * Implementation of FileSelector getCallable.
+     * Implementation of FileSelector askForSelection.
      * @param stage the stage to show the window.
      * @param filters the filters to be used.
-     * @return a callable that will return the selection.
+     * @return the selection.
      */
     @Override
-    protected Callable<List<File>> getCallable(Stage stage, List<FileChooser.ExtensionFilter> filters) {
-        return (() -> createFileWindow("Select one or more files", filters).showOpenMultipleDialog(stage));
+    protected List<File> askForSelection(Stage stage, List<FileChooser.ExtensionFilter> filters) {
+        return createFileWindow("Select one or more files", filters).showOpenMultipleDialog(stage);
     }
 
 }

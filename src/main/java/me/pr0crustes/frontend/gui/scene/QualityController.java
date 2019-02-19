@@ -66,10 +66,12 @@ public class QualityController extends ActionController {
             throw new ArgumentException();
         }
 
+        int dpi = Numbers.valueFromTextField(this.textFieldDpi);
         PDFQualityModifier qualityModifier = new PDFQualityModifier(this.selectedFile);
 
-        PDDocument document = qualityModifier.getDocumentWithDPI(Numbers.valueFromTextField(this.textFieldDpi));
-        new SaveFileSelector().savePDF(document);
+        try (PDDocument document = qualityModifier.getDocumentWithDPI(dpi)) {
+            new SaveFileSelector().savePDF(document);
+        }
     }
 
     /**

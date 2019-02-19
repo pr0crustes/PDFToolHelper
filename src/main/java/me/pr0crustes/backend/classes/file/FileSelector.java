@@ -18,9 +18,9 @@ public abstract class FileSelector <T> {
 
     /**
      * Method that subclasses must implement.
-     * @return a callable with return T, to get the selection.
+     * @return a object of type T, the selection.
      */
-    protected abstract Callable<T> getCallable(Stage stage, List<FileChooser.ExtensionFilter> filters);
+    protected abstract T askForSelection(Stage stage, List<FileChooser.ExtensionFilter> filters);
 
     /**
      * Method that returns the selection.
@@ -28,7 +28,8 @@ public abstract class FileSelector <T> {
      */
     public T getSelection(FileExtensions... fileExtensions) {
         List<FileChooser.ExtensionFilter> filters = ExtensionFilterFactory.combineFilters(fileExtensions);
-        return this.runFileQuery(this.getCallable(Starter.mainStage, filters));
+        Callable<T> callable = (() -> this.askForSelection(Starter.mainStage, filters));
+        return this.runFileQuery(callable);
     }
 
     /**
@@ -50,7 +51,6 @@ public abstract class FileSelector <T> {
      * @return the callable result.
      */
     private T runFileQuery(Callable<T> callable) {
-
         try {
             if (Platform.isFxApplicationThread()) {
                 return callable.call();
@@ -72,6 +72,5 @@ public abstract class FileSelector <T> {
     public static String getFilePath(File file) {
         return file == null ? "" : file.getPath();
     }
-
 
 }

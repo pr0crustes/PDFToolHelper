@@ -16,7 +16,7 @@ import java.util.List;
 public class MergerTest {
 
     @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
+    public final TemporaryFolder folder = new TemporaryFolder();
 
     @Test
     public void testMerger() throws Exception {
@@ -40,9 +40,7 @@ public class MergerTest {
         toMerge.add(file2);
 
         PDFMerger merger = new PDFMerger(toMerge);
-        PDDocument document = merger.mergeFiles();
-
-        document.save(new File("src/test/resources/result/merged1.pdf"));
+        merger.mergeFiles(new File("src/test/resources/result/merged1.pdf"));
 
     }
 

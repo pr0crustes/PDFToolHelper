@@ -44,12 +44,12 @@ public class NodeFactory {
     }
 
     /**
-     * Static method that receiving a button, setts it maxSize to the Double.MAX_VALUE,
+     * Static method that, receiving a region, setts it maxSize to Double.MAX_VALUE,
      * making it as bigger as possible.
-     * @param button the button.
+     * @param region the region.
      */
-    public static void maxButtonSize(Button button) {
-        button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+    public static void setMaxSize(Region region) {
+        region.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     }
 
     /**

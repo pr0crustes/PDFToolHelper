@@ -65,10 +65,12 @@ public class CropController extends ActionController {
             throw new ArgumentException();
         }
 
+        RangeEx rangeEx = new RangeEx(this.textFieldRange.getText());
         PDFCropper cropper = new PDFCropper(this.selectedFile);
 
-        PDDocument document = cropper.subDocument(new RangeEx(this.textFieldRange.getText()));
-        new SaveFileSelector().savePDF(document);
+        try (PDDocument document = cropper.subDocument(rangeEx)) {
+            new SaveFileSelector().savePDF(document);
+        }
     }
 
     /**

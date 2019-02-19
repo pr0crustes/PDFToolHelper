@@ -41,7 +41,7 @@ class PDFCreator {
      * @throws ArgumentException in case of a invalid argument.
      */
     void addMultipleImageAsPages(List<BufferedImage> images) throws IOException, ArgumentException {
-        for (BufferedImage currentImage: images) {
+        for (BufferedImage currentImage : images) {
             this.addImageAsPage(currentImage);
         }
     }

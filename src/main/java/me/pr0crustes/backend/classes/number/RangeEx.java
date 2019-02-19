@@ -80,44 +80,63 @@ public class RangeEx extends HashSet<Integer> {
      * @param rangeString a valid RangeEx string.
      */
     public RangeEx(String rangeString) throws ArgumentException {
-        this.addAll(this.getValues(rangeString));
+        this.parseString(rangeString);
     }
 
     /**
      * Method that parses a valid RangeEx string,
-     * converting it into a integer Set (since it should not have repetition).
+     * adding it into a this HashSet (since it should not have repetition).
      * The order is important:
      * Underscore '_' should be handled first,
      * then addition '+',
      * and then subtraction '-'.
-     * @return a Set of Integer, with all numbers that conforms to the RangeEx.
      * @throws ArgumentException in case the RangeEx is invalid.
      */
-    private Set<Integer> getValues(String rangeString) throws ArgumentException {
-
-        Set<Integer> parsedValues = new HashSet<>();
-
-        if (rangeString.contains("*")) {
+    private void parseString(String str) throws ArgumentException {
+        if (str.contains("*")) {
             this.isUniversal = true;
-            return parsedValues;  // Empty set
+            return;
         }
 
-        for (String str : RangeEx.getMatches(rangeString, "\\d+_\\d+")) {
-            String[] parts = str.split("_");
+        parseUnderscore(str);
+        parsePlus(str);
+        parseMinus(str);
+    }
+
+    /**
+     * Method that parses the underscores in the string.
+     * @param str the string tp parse.
+     * @throws ArgumentException in case the RangeEx is invalid.
+     */
+    private void parseUnderscore(String str) throws ArgumentException {
+        for (String subStr : RangeEx.getMatches(str, "\\d+_\\d+")) {
+            String[] parts = subStr.split("_");
             for (int i = RangeEx.stringAsUnsigned(parts[0]); i <= RangeEx.stringAsUnsigned(parts[1]); i++) {
-                parsedValues.add(i);
+                this.add(i);
             }
         }
+    }
 
-        for (String str : RangeEx.getMatches(rangeString, "[+]\\d+")) {
-            parsedValues.add(RangeEx.stringAsUnsigned(str));
+    /**
+     * Method that parses the plus in the string.
+     * @param str the string tp parse.
+     * @throws ArgumentException in case the RangeEx is invalid.
+     */
+    private void parsePlus(String str) throws ArgumentException {
+        for (String subStr : RangeEx.getMatches(str, "[+]\\d+")) {
+            this.add(RangeEx.stringAsUnsigned(subStr));
         }
+    }
 
-        for (String str : RangeEx.getMatches(rangeString, "[-]\\d+")) {
-            parsedValues.remove(RangeEx.stringAsUnsigned(str));
+    /**
+     * Method that parses the minus in the string.
+     * @param str the string tp parse.
+     * @throws ArgumentException in case the RangeEx is invalid.
+     */
+    private void parseMinus(String str) throws ArgumentException {
+        for (String subStr : RangeEx.getMatches(str, "[-]\\d+")) {
+            this.remove(RangeEx.stringAsUnsigned(subStr));
         }
-
-        return parsedValues;
     }
 
     /**

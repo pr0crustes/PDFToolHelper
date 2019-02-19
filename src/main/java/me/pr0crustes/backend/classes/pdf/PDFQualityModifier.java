@@ -33,20 +33,18 @@ public class PDFQualityModifier {
      * @throws ArgumentException in case of invalid arguments.
      */
     public PDDocument getDocumentWithDPI(int dpi) throws IOException, ArgumentException {
-        PDDocument originalDocument = PDDocument.load(this.file);
-        PDFRenderer renderer = new PDFRenderer(originalDocument);
-
         List<BufferedImage> bufferedImages = new ArrayList<>();
 
-        for (int i = 0; i < originalDocument.getNumberOfPages(); i++) {
-                BufferedImage pageAsImage = renderer.renderImageWithDPI(i, dpi);
-                bufferedImages.add(pageAsImage);
+        try (PDDocument originalDocument = PDDocument.load(this.file)) {
+            PDFRenderer renderer = new PDFRenderer(originalDocument);
+            for (int i = 0; i < originalDocument.getNumberOfPages(); i++) {
+                BufferedImage asImage = renderer.renderImageWithDPI(i, dpi);
+                bufferedImages.add(asImage);
+            }
         }
-        originalDocument.close();
 
         PDFCreator pdfCreator = new PDFCreator();
         pdfCreator.addMultipleImageAsPages(bufferedImages);
-
         return pdfCreator.getDocument();
     }
 

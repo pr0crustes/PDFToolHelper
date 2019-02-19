@@ -51,4 +51,5 @@ public class Starter extends Application {
         System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
         launch(args);
     }
+
 }

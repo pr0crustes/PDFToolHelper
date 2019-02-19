@@ -73,7 +73,7 @@ public class MenuController extends PassiveController {
         GridPane gridPane = new GridPane();
 
         for (int i = 0 ; i < buttons.length ; i++) {
-            NodeFactory.maxButtonSize(buttons[i]);
+            NodeFactory.setMaxSize(buttons[i]);
             gridPane.add(buttons[i], 0, i);
         }
 
